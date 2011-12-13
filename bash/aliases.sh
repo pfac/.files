@@ -3,7 +3,12 @@ alias ls="ls -FG"
 # cdls
 #	Change directory and list it
 function cdls {
-	cd "$*"
+	if (( $# == 0 ))
+	then
+		cd ~
+	else
+		cd "$*"
+	fi
 	ls
 }
 

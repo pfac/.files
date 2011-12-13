@@ -1,3 +1,3 @@
-. ~/dev/configs/dotfiles/bash/env.sh
-. ~/dev/configs/dotfiles/bash/config.sh
-. ~/dev/configs/dotfiles/bash/aliases.sh
+. ~/dev/unix/bash/env.sh
+. ~/dev/unix/bash/config.sh
+. ~/dev/unix/bash/aliases.sh
