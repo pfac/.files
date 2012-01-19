@@ -16,6 +16,9 @@ set smartindent
 set tabstop=4
 set shiftwidth=4
 set noexpandtab
+"	line wrapping
+set wrap;
+set linebreak;
 "	auto format comments
 set formatoptions=c,q,r,t
 ""	autocomplete
@@ -28,4 +31,3 @@ imap <silent> <Down> <C-o>gj
 imap <silent> <Up> <C-o>gk
 nmap <silent> <Down> gj
 nmap <silent> <Up> gk
-
