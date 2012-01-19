@@ -1,5 +1,5 @@
 #!/bin/sh
-export PATH=$PATH:~/bin:./
+export PATH=./:~/bin:$PATH
 export LSCOLORS=Dxfxdxcxbxxxxxxxxxxxxx
 
 #	CUDA

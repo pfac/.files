@@ -32,4 +32,4 @@ function topen {
 	open $1
 }
 
-alias yunowork="say -v Zarvox 'ah; ah; ah;'"
+alias make="make --no-print-directory"
