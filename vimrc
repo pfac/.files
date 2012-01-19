@@ -20,3 +20,12 @@ set noexpandtab
 set formatoptions=c,q,r,t
 ""	autocomplete
 "autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+"	Shortcuts
+""	Navigation
+"""	move through wrapped lines too
+imap <silent> <Down> <C-o>gj
+imap <silent> <Up> <C-o>gk
+nmap <silent> <Down> gj
+nmap <silent> <Up> gk
+
