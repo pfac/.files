@@ -17,8 +17,8 @@ set tabstop=4
 set shiftwidth=4
 set noexpandtab
 "	line wrapping
-set wrap;
-set linebreak;
+set wrap
+set linebreak
 "	auto format comments
 set formatoptions=c,q,r,t
 ""	autocomplete
