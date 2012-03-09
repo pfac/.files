@@ -19,6 +19,8 @@ set noexpandtab
 "	line wrapping
 set wrap
 set linebreak
+"	highlight search results
+set hlsearch
 "	auto format comments
 set formatoptions=c,q,r,t
 ""	autocomplete
