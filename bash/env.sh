@@ -2,10 +2,22 @@
 export PATH=.:~/bin:/usr/local/bin:$PATH
 export LSCOLORS=Dxfxdxcxbxxxxxxxxxxxxx
 
-# add the home lib folder to the default search path
-LD_LIBRARY_PATH=$HOME/lib:$LD_LIBRARY_PATH
+# LIBRARY DIRECTORIES
+# 	~/lib:	so I can install stuff in my home
+# 	/usr/local/cuda/lib:	for CUDA stuff
+LIBS="${HOME}/lib:/usr/local/cuda/lib";
 
 #	CUDA
-#export PATH=$PATH:/usr/local/cuda/bin
-#export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/cuda/lib
-
+export PATH=$PATH:/usr/local/cuda/bin
+if [ "$DYLD_LIBRARY_PATH" ];
+then
+	export DYLD_LIBRARY_PATH="${LIBS}:${DYLD_LIBRARY_PATH}";
+else
+	export DYLD_LIBRARY_PATH="${LIBS}";
+fi;
+if [ "$LD_LIBRARY_PATH" ];
+then
+	export LD_LIBRARY_PATH="${LIBS}:${LD_LIBRARY_PATH}";;
+else
+	export LD_LIBRARY_PATH="${LIBS}";
+fi;
