@@ -1,35 +1,36 @@
-alias ls="ls -FG"
+#!/bin/bash
+
+alias ls="ls -FG --color=auto";
 
 # cdls
 #	Change directory and list it
 function cdls {
-	if (( $# == 0 ))
+	if [ "$#" -eq "0" ];
 	then
-		cd ~
+		cd "$HOME";
 	else
-		cd "$*"
+		cd "$*";
 	fi
-	ls
+	ls;
 }
 
-alias cd="cdls"
+alias cd="cdls";
 
-alias .="cd ."
-alias ..="cd .."
-alias mei="cd ~/Documents/UMinho/MEI"
+alias .="ls";
+alias ..="cd ..";
 
 #	mkcd
 #	Make a directory and change the working directory
 function mkcd {
-	mkdir $1
-	cdls $1
+	mkdir "$1";
+	cd "$1";
 }
 
 # topen
 # Touch a file and open it with default app
 function topen {
-	touch $1
-	open $1
+	touch $1;
+	open $1;
 }
 
 alias make="make --no-print-directory"

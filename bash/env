@@ -1,5 +1,6 @@
-#!/bin/sh
-export PATH=.:~/bin:/usr/local/bin:$PATH
+#!/bin/bash
+
+export PATH=".:${HOME}/bin:/usr/local/bin:${PATH}";
 export LSCOLORS=Dxfxdxcxbxxxxxxxxxxxxx
 
 # LIBRARY DIRECTORIES
@@ -17,7 +18,7 @@ else
 fi;
 if [ "$LD_LIBRARY_PATH" ];
 then
-	export LD_LIBRARY_PATH="${LIBS}:${LD_LIBRARY_PATH}";;
+	export LD_LIBRARY_PATH="${LIBS}:${LD_LIBRARY_PATH}";
 else
 	export LD_LIBRARY_PATH="${LIBS}";
 fi;
