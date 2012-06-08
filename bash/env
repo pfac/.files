@@ -13,8 +13,6 @@ export PATH=$PATH:/usr/local/cuda/bin
 if [ "$DYLD_LIBRARY_PATH" ];
 then
 	export DYLD_LIBRARY_PATH="${LIBS}:${DYLD_LIBRARY_PATH}";
-else
-	export DYLD_LIBRARY_PATH="${LIBS}";
 fi;
 if [ "$LD_LIBRARY_PATH" ];
 then
