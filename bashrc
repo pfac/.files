@@ -1,4 +1,4 @@
 #!/bin/bash
-source "${UNIXCONFDIR}/bash/env.sh";
-source "${UNIXCONFDIR}/bash/config.sh";
-source "${UNIXCONFDIR}/bash/aliases.sh";
+source "${UNIXCONFDIR}/bash/env";
+source "${UNIXCONFDIR}/bash/config";
+source "${UNIXCONFDIR}/bash/aliases";
