@@ -1,6 +1,14 @@
 #!/bin/bash
 
-alias ls="ls -FG";
+UNAME=`uname`;
+if [ "$UNAME" == "Darwin" ];
+then
+	alias ls="ls -G";
+else
+	alias ls="ls --color";
+fi;
+
+alias ls="ls -F";
 
 # cdls
 #	Change directory and list it
