@@ -24,6 +24,8 @@ alias cd="cdls";
 alias .="ls";
 alias ..="cd ..";
 
+alias lla="ls -la";
+
 #	mkcd
 #	Make a directory and change the working directory
 function mkcd {
@@ -45,3 +47,5 @@ then
 else
 	alias make="make --no-print-directory";
 fi;
+
+alias proxy="source \"${UNIXCONFDIR}/bash/proxy\""
