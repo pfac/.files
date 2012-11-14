@@ -40,12 +40,13 @@ function topen {
 	open $1;
 }
 
-if [ `uname` == "Darwin" ];
-then
-	CORES=`/usr/sbin/system_profiler SPHardwareDataType | grep "Cores" | egrep -oe "[[:digit:]]+"`;
-	alias make="make --no-print-directory -j $CORES";
-else
+#
+#if [ `uname` == "Darwin" ];
+#then
+#	CORES=`/usr/sbin/system_profiler SPHardwareDataType | grep "Cores" | #egrep -oe "[[:digit:]]+"`;
+#	alias make="make --no-print-directory -j $CORES";
+#else
 	alias make="make --no-print-directory";
-fi;
+#fi;
 
 alias proxy="source \"${UNIXCONFDIR}/bash/proxy\""

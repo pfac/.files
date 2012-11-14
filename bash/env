@@ -6,14 +6,20 @@ export LSCOLORS=Dxfxdxcxbxxxxxxxxxxxxx
 # LIBRARY DIRECTORIES
 # 	~/lib:	so I can install stuff in my home
 # 	/usr/local/cuda/lib:	for CUDA stuff
-LIBS="${HOME}/lib:/usr/local/cuda/lib";
+LIBS="${HOME}/local/lib:/usr/local/cuda/lib";
 
 #	CUDA
 export PATH=$PATH:/usr/local/cuda/bin
-if [ "$DYLD_LIBRARY_PATH" ];
+if [ `uname` == "Darwin" ];
 then
-	export DYLD_LIBRARY_PATH="${LIBS}:${DYLD_LIBRARY_PATH}";
+	if [ "$DYLD_LIBRARY_PATH" ];
+	then
+		export DYLD_LIBRARY_PATH="${LIBS}:${DYLD_LIBRARY_PATH}";
+	else
+		export DYLD_LIBRARY_PATH="${LIBS}";
+	fi;
 fi;
+
 if [ "$LD_LIBRARY_PATH" ];
 then
 	export LD_LIBRARY_PATH="${LIBS}:${LD_LIBRARY_PATH}";
