@@ -51,4 +51,19 @@ function topen {
 
 alias proxy="source \"${UNIXCONFDIR}/bash/proxy\""
 
-source "aliases_git";
+source "${UNIXCONFDIR}/bash/aliases_git";
+
+# PROMPTING
+setup_ps1 () {
+	if [ "$?" == "0" ];
+	then
+		DELIM_COLOR="\[\e[32;1m\]";
+	else
+		DELIM_COLOR="\[\e[31;1m\]";
+	fi;
+	DELIM="${DELIM_COLOR}-"
+	export PS1="\n\u\[\e[0;1m\]@\[\e[0m\]\H:\w  [$(git-prompt)]\n ${DELIM} \[\e[0m\]"
+
+	# cleanup
+	unset DELIM_COLOR;
+}

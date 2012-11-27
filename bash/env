@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export SYSTEM=`uname`;
 export PATH=".:${HOME}/local/bin:${UNIXCONFDIR}/bin:/usr/local/bin:${PATH}";
 export LSCOLORS=Dxfxdxcxbxxxxxxxxxxxxx
 
@@ -25,4 +26,11 @@ then
 	export LD_LIBRARY_PATH="${LIBS}:${LD_LIBRARY_PATH}";
 else
 	export LD_LIBRARY_PATH="${LIBS}";
+fi;
+
+if [ "$SYSTEM" == "Darwin" ];
+then
+	PROMPT_COMMAND=setup_ps1;
+else
+	setup_ps1;
 fi;
