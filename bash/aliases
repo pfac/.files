@@ -50,3 +50,5 @@ function topen {
 #fi;
 
 alias proxy="source \"${UNIXCONFDIR}/bash/proxy\""
+
+source "aliases_git";

@@ -1,0 +1,17 @@
+[user]
+	name = Pedro Costa
+	email = dev@pfac.info
+[github]
+	user = pfac
+[core]
+	excludesfile = /Users/pfac/.gitignore_global
+[push]
+	default = current
+[alias]
+	p  = push
+	pl = pull
+	a  = add
+	c  = commit
+	co = checkout
+	b  = branch
+

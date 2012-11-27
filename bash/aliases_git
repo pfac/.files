@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Returns a string to be included in the shell prompt.
+# Contains the name of the current branch.
+# Sets the color of the text to:
+# * red    :: There are conflicts to be solved (not tested)
+# * yellow :: The working directory has been changed. Reset or commit
+# * green  :: The working directory is clean
+#
+git-prompt () {
+	# either a git branch exists or no repo at all, so go home
+	git branch &>/dev/null || return 1;
+	# set the HEAD reference
+	GIT_PROMPT_HEAD="$(git symbolic-ref HEAD 2>/dev/null)";
+	# extract the name of the branch from the reference
+	GIT_PROMPT_BRANCH="${GIT_PROMPT_HEAD##*/}";
+
+	if [ `git diff --name-only --diff-filter=U` ];
+	then
+		# that condition should return the list of conflicts
+		GIT_PROMPT_STATUS="\[\e31;1m\]";
+	else
+		GIT_PROMPT_DIR_CLEAN=`git status | grep -F 'working directory clean'`;
+		if [ "$GIT_PROMPT_DIR_CLEAN" ];
+		then
+			GIT_PROMPT_STATUS="\[\e[32m\]";
+		else
+			GIT_PROMPT_STATUS="\[\e[33m\]";
+		fi;
+	fi;
+	echo "${GIT_PROMPT_STATUS}${GIT_PROMPT_BRANCH:-unknown}\[\e[0m\]";
+
+	# cleanup
+	unset GIT_PROMPT_HEAD;
+	unset GIT_PROMPT_BRANCH;
+	unset GIT_PROMPT_STATUS;
+	unset GIT_PROMPT_DIR_CLEAN;
+}
+
+# git aliases
+alias g="git";
+alias grh="git reset --hard HEAD";
+alias ga="git add .";
+gc () {
+	if [ "$1" ];
+	then
+		git commit -a -m "$1";
+	else
+		git commit -a;
+	fi;
+}
+alias gac="ga && gc";
+alias gp="git push";
+gacp () {
+	if [ "$1" ];
+	then
+		gac "$1" && gp;
+	else 
+		gac && gp;
+	fi;
+}
