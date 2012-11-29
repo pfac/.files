@@ -28,9 +28,4 @@ else
 	export LD_LIBRARY_PATH="${LIBS}";
 fi;
 
-if [ "$SYSTEM" == "Darwin" ];
-then
-	PROMPT_COMMAND=setup_ps1;
-else
-	setup_ps1;
-fi;
+PROMPT_COMMAND=setup_ps1;
