@@ -9,18 +9,6 @@ export LSCOLORS=Dxfxdxcxbxxxxxxxxxxxxx
 # 	/usr/local/cuda/lib:	for CUDA stuff
 LIBS="${HOME}/local/lib:/usr/local/cuda/lib";
 
-#	CUDA
-export PATH=$PATH:/usr/local/cuda/bin
-if [ `uname` == "Darwin" ];
-then
-	if [ "$DYLD_LIBRARY_PATH" ];
-	then
-		export DYLD_LIBRARY_PATH="${LIBS}:${DYLD_LIBRARY_PATH}";
-	else
-		export DYLD_LIBRARY_PATH="${LIBS}";
-	fi;
-fi;
-
 if [ "$LD_LIBRARY_PATH" ];
 then
 	export LD_LIBRARY_PATH="${LIBS}:${LD_LIBRARY_PATH}";

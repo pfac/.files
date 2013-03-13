@@ -1,6 +1,6 @@
 [user]
 	name = Pedro Costa
-	email = dev@pfac.info
+	email = dev@iampfac.com
 [github]
 	user = pfac
 [core]
@@ -15,3 +15,5 @@
 	co = checkout
 	b  = branch
 
+[color]
+	ui = true
