@@ -1,13 +1,11 @@
 #!/bin/bash
 
-export SYSTEM=`uname`;
 export PATH=".:${HOME}/local/bin:${UNIXCONFDIR}/bin:/usr/local/bin:${PATH}";
-export LSCOLORS=Dxfxdxcxbxxxxxxxxxxxxx
+export LSCOLORS="Dxfxdxcxbxxxxxxxxxxxxx"
 
 # LIBRARY DIRECTORIES
-# 	~/lib:	so I can install stuff in my home
-# 	/usr/local/cuda/lib:	for CUDA stuff
-LIBS="${HOME}/local/lib:/usr/local/cuda/lib";
+# 	~/lib:	libraries I do or need and don't have a module for
+LIBS="${HOME}/local/lib";
 
 if [ "$LD_LIBRARY_PATH" ];
 then
@@ -16,4 +14,6 @@ else
 	export LD_LIBRARY_PATH="${LIBS}";
 fi;
 
+# PROMPT
+source "${UNIXCONFDIR}/bash/ps1";
 PROMPT_COMMAND=setup_ps1;

@@ -23,6 +23,8 @@ set linebreak
 set hlsearch
 "	auto format comments
 set formatoptions=c,q,r,t
+"	auto wrap commit messages (Git)
+au FileType gitcommit set tw=72
 ""	autocomplete
 "autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 

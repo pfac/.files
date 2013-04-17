@@ -12,9 +12,9 @@ fi;
 function cdls {
 	if [ "$#" -eq "0" ];
 	then
-		cd "$HOME";
+		builtin cd "$HOME";
 	else
-		cd "$*";
+		builtin cd "$*";
 	fi
 	ls;
 }
@@ -29,41 +29,29 @@ alias lla="ls -la";
 #	mkcd
 #	Make a directory and change the working directory
 function mkcd {
-	mkdir "$1";
+	mkdir -p "$1";
 	cd "$1";
 }
 
 # topen
 # Touch a file and open it with default app
 function topen {
-	touch $1;
-	open $1;
+	touch "$1";
+	open "$1";
 }
 
-#
-#if [ `uname` == "Darwin" ];
-#then
-#	CORES=`/usr/sbin/system_profiler SPHardwareDataType | grep "Cores" | #egrep -oe "[[:digit:]]+"`;
-#	alias make="make --no-print-directory -j $CORES";
-#else
-	alias make="make --no-print-directory";
-#fi;
+# By default, don't let make print the directory (it's really annoying)
+alias make="make --no-print-directory";
 
+# Load proxies into the environment
 alias proxy="source \"${UNIXCONFDIR}/bash/proxy\""
 
-source "${UNIXCONFDIR}/bash/aliases_git";
+# One-Letters
+#############
+if which git > /dev/null; then alias g='git'; fi;
+if which rails > /dev/null; then alias r='rails'; fi;
+if which zeus > /dev/null; then alias z='zeus'; fi;
 
-# PROMPTING
-setup_ps1 () {
-	if [ "$?" == "0" ];
-	then
-		DELIM_COLOR="\[\e[32;1m\]";
-	else
-		DELIM_COLOR="\[\e[31;1m\]";
-	fi;
-	DELIM="${DELIM_COLOR}-"
-	export PS1="\n\u\[\e[0;1m\]@\[\e[0m\]\H:\w  [$(git-prompt)]\n ${DELIM} \[\e[0m\]"
-
-	# cleanup
-	unset DELIM_COLOR;
-}
+# Extras
+########
+source "${UNIXCONFDIR}/bash/radio";

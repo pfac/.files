@@ -17,3 +17,5 @@
 
 [color]
 	ui = true
+[branch]
+	autosetuprebase = always
