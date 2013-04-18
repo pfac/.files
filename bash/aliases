@@ -48,9 +48,9 @@ alias proxy="source \"${UNIXCONFDIR}/bash/proxy\""
 
 # One-Letters
 #############
-if which git > /dev/null; then alias g='git'; fi;
-if which rails > /dev/null; then alias r='rails'; fi;
-if which zeus > /dev/null; then alias z='zeus'; fi;
+if which git 2> /dev/null > /dev/null; then alias g='git'; fi;
+if which rails 2> /dev/null > /dev/null; then alias r='rails'; fi;
+if which zeus 2> /dev/null > /dev/null; then alias z='zeus'; fi;
 
 # Extras
 ########
