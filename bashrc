@@ -5,7 +5,11 @@ reload () {
 	# source "${UNIXCONFDIR}/bash/setup";
 	# source "${UNIXCONFDIR}/bash/config";
 	source "${UNIXCONFDIR}/bash/env";
-	source "${UNIXCONFDIR}/bash/aliases";
+	if [ -n "$PS1" ];
+	then
+		source "${UNIXCONFDIR}/bash/i_env"
+		source "${UNIXCONFDIR}/bash/aliases";
+	fi;
 }
 
 reload;

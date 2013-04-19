@@ -1,8 +1,17 @@
 #!/bin/bash
+#
+# Git Prompt: prints the name of the current branch
+#             ! if a coloring script like MyShellPaint is available, uses it to color the output:
+#               * red: there conflicts which need to be solved
+#               * yellow: uncommited changes
+#               * green: nothing to commit
+
+PAINT=mspaint
 
 COLOR_OK=green;
 COLOR_CHANGES=yellow;
 COLOR_CONFLICTS=red;
+COLOR_COMMIT=BLACK
 
 USE_COLOR=`which mspaint`;
 
@@ -14,6 +23,7 @@ HEAD="$(git symbolic-ref HEAD 2>/dev/null)";
 
 # extract the name of the branch from the reference
 BRANCH="${HEAD##*/}";
+COMMIT=`git rev-parse --short HEAD`;
 
 if [ "$USE_COLOR" ];
 then
@@ -30,7 +40,7 @@ then
 		fi;
 	fi;
 
-	mspaint -f $COLOR "${BRANCH:-unknown}";
+	echo "$($PAINT -f $COLOR "${BRANCH:-unknown}") $($PAINT -f $COLOR_COMMIT -B "${COMMIT:-none}")";
 else
-	echo "${BRANCH:-unknown}";
+	echo "${BRANCH:-unknown} ${COMMIT:-none}";
 fi;

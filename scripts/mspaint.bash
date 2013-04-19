@@ -2,31 +2,6 @@
 
 source "${UNIXCONFDIR}/bash/text-colors";
 
-# usage () {
-# 	echo "My Shell Paint";
-# }
-
-
-
-# FOREGROUND=
-
-# while [ "$#" -gt "0" ];
-# do
-# 	case "$1" in
-# 		-h|--help)
-# 			usage;
-# 			exit;
-# 			;;
-# 		-f|--foreground)
-# 			shift;
-# 			FOREGROUND="$1";
-# 			;;
-# 	esac
-# 	shift;
-# done;
-
-# echo "foreground color: ${FOREGROUND}"
-
 COLORS="BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE"
 
 usage () {
