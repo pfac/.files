@@ -8,7 +8,7 @@ set ruler
 syntax enable
 "	set color scheme
 "		see /usr/share/vim/vim73/colors
-color blood
+color slate
 "	automatic indentation
 set autoindent
 set smartindent
