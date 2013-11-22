@@ -35,3 +35,6 @@ imap <silent> <Down> <C-o>gj
 imap <silent> <Up> <C-o>gk
 nmap <silent> <Down> gj
 nmap <silent> <Up> gk
+
+" Enable mouse (let's face it, it's faster when moving to the middle of nowhere)
+set mouse=a
