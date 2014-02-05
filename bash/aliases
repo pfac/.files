@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ `uname` == "Darwin" ];
+if [ `uname` == 'Darwin' ];
 then
 	alias ls="/bin/ls -FG";
 else
@@ -9,49 +9,47 @@ fi;
 
 # cdls
 #	Change directory and list it
-function cdls {
-	if [ "$#" -eq "0" ];
-	then
-		builtin cd "$HOME";
-	else
-		builtin cd "$*";
-	fi
-	ls;
+cdls () {
+	cd "$@" && ls;
 }
 
 alias cd="cdls";
 
-alias .="ls";
-alias ..="cd ..";
 
-alias lla="ls -la";
+alias .='ls';
+alias ..='cdls ..';
+
+alias lla='ls -la';
 
 #	mkcd
 #	Make a directory and change the working directory
 function mkcd {
-	mkdir -p "$1";
-	cd "$1";
+	/bin/mkdir -p "$@" && cdls "$@";
 }
 
 # topen
 # Touch a file and open it with default app
 function topen {
 	touch "$1";
-	open "$1";
+	if [ `uname` == 'Darwin' ]; then
+		open "$1";
+	else
+		xdg-open "$1";
+	fi
 }
 
 # By default, don't let make print the directory (it's really annoying)
-alias make="make --no-print-directory";
+alias make='make --no-print-directory';
 
 # Load proxies into the environment
 alias proxy="source \"${UNIXCONFDIR}/bash/proxy\""
 
 # One-Letters
 #############
-if which git 2> /dev/null > /dev/null; then alias g='git'; fi;
-if which rails 2> /dev/null > /dev/null; then alias r='rails'; fi;
-if which zeus 2> /dev/null > /dev/null; then alias z='zeus'; fi;
+if which git &> /dev/null; then alias g='git'; fi;
+if which rails &> /dev/null; then alias r='rails'; fi;
 
 # Extras
 ########
 source "${UNIXCONFDIR}/bash/radio";
+source "${UNIXCONFDIR}/bash/stats";

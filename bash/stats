@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+stats () {
+	history | awk -f "${UNIXCONFDIR}/awk/stats.awk" | grep -v './' | column -c3 -s " " -t | sort -nr | head -n20
+}
