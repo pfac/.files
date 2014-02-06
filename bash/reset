@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# clears all aliases
+unalias -a;
