@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PATH=".:${HOME}/local/bin:${UNIXCONFDIR}/bin:/usr/local/bin:${PATH}";
+export PATH=".:./bin:${HOME}/local/bin:${UNIXCONFDIR}/bin:/usr/local/bin:${PATH}";
 
 # LIBRARY DIRECTORIES
 # 	~/lib:	libraries I do or need and don't have a module for
