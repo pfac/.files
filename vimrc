@@ -23,7 +23,14 @@ set linebreak
 set hlsearch
 "	auto format comments
 set formatoptions=c,q,r,t
+" enable modelines
+set modelines=5
+" filetype detection
+filetype on
+filetype indent on
+filetype plugin on
 "	auto wrap commit messages (Git)
+au FileType ruby source ~/.vim/ftplugin/ruby.vim
 au FileType gitcommit set tw=72
 ""	autocomplete
 "autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -38,3 +45,7 @@ nmap <silent> <Up> gk
 
 " Enable mouse (let's face it, it's faster when moving to the middle of nowhere)
 set mouse=a
+
+if filereadable($UNIXCONFDIR."/vimrc-vundle")
+	so $UNIXCONFDIR/vimrc-vundle
+endif
