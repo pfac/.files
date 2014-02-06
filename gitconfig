@@ -14,6 +14,8 @@
 	c  = commit
 	co = checkout
 	b  = branch
+	conflicts = diff --name-only --diff-filter=U
+	rb = rebase
 
 [color]
 	ui = true
