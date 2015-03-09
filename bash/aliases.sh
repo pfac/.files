@@ -3,7 +3,6 @@
 if [ `uname` == 'Darwin' ];
 then
 	alias ls="/bin/ls -FG";
-	alias pg='pg_ctl -D /usr/local/var/postgres'
 else
 	alias ls="/bin/ls -F --color";
 fi;
@@ -52,5 +51,6 @@ if which rails &> /dev/null; then alias r='rails'; fi;
 
 # Extras
 ########
+source "${UNIXCONFDIR}/bash/pg";
 source "${UNIXCONFDIR}/bash/radio";
 source "${UNIXCONFDIR}/bash/stats";
