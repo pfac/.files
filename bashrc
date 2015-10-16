@@ -1,15 +1,16 @@
 #!/bin/bash
 
 reload () {
-	source "${UNIXCONFDIR}/bash/reset";
-	# source "${UNIXCONFDIR}/bash/setup";
-	# source "${UNIXCONFDIR}/bash/config";
-	source "${UNIXCONFDIR}/bash/env";
+	source "${DOTFILES}/bash/reset";
+	# source "${DOTFILES}/bash/setup";
+	# source "${DOTFILES}/bash/config";
+	source "${DOTFILES}/bash/env";
 	if [ -n "$PS1" ];
 	then
-		source "${UNIXCONFDIR}/bash/i_env"
-		source "${UNIXCONFDIR}/bash/aliases";
-		source "${UNIXCONFDIR}/bash/completions";
+		source "${DOTFILES}/bash/i_env"
+		source "${DOTFILES}/bash/completions";
+		source "${DOTFILES}/bash/git.bash";
+		source "${DOTFILES}/bash/aliases.sh";
 	fi;
 }
 
