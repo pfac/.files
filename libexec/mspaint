@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+#
+
+mspaint () {
+	mspaint_usage () {
+		echo "$0: My Shell PAINT. Get it?";
+	}
+
+	mspaint_list () {
+		echo $color_names;
+	}
+
+	mspaint_is_color () {
+		local color_names=(black red green yellow blue magenta cyan white);
+		if [ -n "$1" ]; then
+			for color in "${color_names[@]}"; do
+				if [ "$1" == "$color" ]; then
+					true && return $?;
+				fi;
+			done;
+		fi;
+		false || return $?;
+	}
+
+	mspaint_error_unknown_color () {
+		echo "Unknown color name \"$1\" for \"$2\". Use -l to get a list of the known colors." >&2;
+		exit false;
+	}
+
+	string_downcase () {
+		echo "$1" | tr '[A-Z]' '[a-z]';
+	}
+
+	mspaint_colorize () {
+		local color_bold='\033[1m';
+		local color_reset='\033[0m';
+
+		local -A fg;
+		fg_black='\033[30m';
+		fg_red='\033[31m';
+		fg_green='\033[32m';
+		fg_yellow='\033[33m';
+		fg_blue='\033[34m';
+		fg_magenta='\033[35m';
+		fg_cyan='\033[36m';
+		fg_white='\033[37m';
+
+		local -A bg;
+		bg_black='\033[40m';
+		bg_red='\033[41m';
+		bg_green='\033[42m';
+		bg_yellow='\033[43m';
+		bg_blue='\033[44m';
+		bg_magenta='\033[45m';
+		bg_cyan='\033[46m';
+		bg_white='\033[47m';
+
+		local fg_name;
+		local bg_name;
+		local bold;
+		local begin;
+		local end;
+
+		if [ -n "$2" ]; then fg_name="fg_${2}"; fi;
+		if [ -n "$3" ]; then bg_name="bg_${3}"; fi;
+		if [ -n "$4" ]; then bold="$color_bold"; fi;
+		if [ -n "$5" ]; then begin="\["; end="\]"; fi;
+
+		echo -e "${begin}${!fg_name}${!bg_name}${bold}${end}${1}${begin}${color_reset}${end}"
+	}
+
+	mspaint_run () {
+		local foreground;
+		local background;
+		local bold;
+		local wrap;
+
+		while getopts "hf:b:Blw" option; do
+			case "$option" in
+				h)
+					usage;
+					exit;
+					;;
+				f)
+					name=`string_downcase "$OPTARG"`;
+					if mspaint_is_color "$name"; then
+						foreground="$name";
+					else
+						mspaint_error_unknown_color "$name" foreground;
+					fi;
+					;;
+				b)
+					name=`string_downcase "$OPTARG"`;
+					if mspaint_is_color "$name"; then
+						background="$name";
+					else
+						mspaint_error_unknown_color "$name" background;
+					fi;
+					;;
+				B)
+					bold=true;
+					;;
+				l)
+					mspaint_list;
+					exit;
+					;;
+				w)
+					wrap=true;
+					;;
+				\?)
+					exit 1;
+					;;
+			esac;
+		done;
+
+		i=1;
+		for arg; do
+			if [ $i -ge $OPTIND ]; then
+				mspaint_colorize "$arg" "$foreground" "$background" "$bold" "$wrap";
+			else
+				i=$((i+1));
+			fi;
+		done
+	}
+
+	mspaint_run "$@";
+}
+
+mspaint "$@";
