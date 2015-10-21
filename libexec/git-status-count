@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#
+
+__git_status_count () {
+	local verbose='0'
+
+	while getopts "hv" option; do
+		case "$option" in
+			h)
+				usage;
+				exit;
+				;;
+			v)
+				verbose='1';
+				;;
+			\?)
+				exit 1;
+				;;
+		esac;
+	done;
+
+	git status --porcelain | awk "
+		BEGIN {
+			added = 0
+			modified = 0
+			deleted = 0
+			verbose = $verbose
+		}
+		\"??\" == \$1 {
+			if (verbose) { print \"ADDED\t\t\" \$2 }
+			added++
+		}
+		\"M\" == \$1 {
+			if (verbose) { print \"MODIFIED\t\" \$2 }
+			++modified
+		}
+		\"D\" == \$1 {
+			if (verbose) { print \"DELETED\t\t\" \$2 }
+			++deleted
+		}
+		END {
+			if (verbose) {
+				print "\n"
+				print added \" added\"
+				print modified \" modified\"
+				print deleted \" deleted\"
+			} else {
+				print added \"\t\" modified \"\t\" deleted
+			}
+		}
+	"
+}
+
+__git_status_count "$@"
