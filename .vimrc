@@ -46,6 +46,10 @@ nmap <silent> <Up> gk
 " Enable mouse (let's face it, it's faster when moving to the middle of nowhere)
 set mouse=a
 
-if filereadable($UNIXCONFDIR."/vimrc-vundle")
-	so $UNIXCONFDIR/vimrc-vundle
+if filereadable($HOME.'/.vim/autoload/plug.vim')
+	so $DOTFILES/vim/plug.vim
+endif
+
+if filereadable($HOME.'/.vim/plugged/sidepanel.vim/plugin/sidepanel.vim')
+	so $DOTFILES/vim/sidepanel.vim
 endif
