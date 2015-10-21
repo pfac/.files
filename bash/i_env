@@ -1,8 +1,0 @@
-#!/use/bin/env bash
-
-# Colors
-export LSCOLORS="Dxfxdxcxbxxxxxxxxxxxxx"
-
-# Prompt
-source "${UNIXCONFDIR}/bash/ps1";
-PROMPT_COMMAND=setup_ps1;

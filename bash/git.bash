@@ -3,10 +3,4 @@
 # Load bash configuration for Git
 #
 
-load_git() {
-  source "${DOTFILES}/bash/git/completions.bash"
-
-  load_git_completion
-}
-
-load_git
+alias g='git'
