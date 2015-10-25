@@ -18,11 +18,21 @@ dotfiles_setup_prompt () {
 		console_token_color='red';
 	fi;
 
+	local user=`mspaint -b black -f white -w '\u'`
+	local user_host_separator=`mspaint -B -b black -f white -w @`
+	local host=`mspaint -b black -f white '\H'`
+	local host_dir_separator="$(mspaint -b black -f white ':')$(mspaint -f black '') "
+	local dir=`mspaint -f blue -w '\w'`
+	local dir_git_separator=' '
+	prefix="\n$user$user_host_separator$host$host_dir_separator$dir$dir_git_separator";
 
-	prefix="\n$(mspaint -b black -f white -w "\\u")$(mspaint -B -b black -f white -w @)$(mspaint -b black -f white "\\H:")$(mspaint -f black '') $(mspaint -f blue -w "\\w")  ";
+	local history=`mspaint -f $console_token_color -w '\!'`
+	local history_shell_separator=' '
+	local shell=`mspaint -f $console_token_color -w '\$'`
+	suffix="\n $history$history_shell_separator$shell "
 
 	export GIT_PS1_SHOWCOLORHINTS=true;
-	__git_ps1 "$prefix" "\n $(mspaint -f $console_token_color -w "\\$") " "[%s]"
+	__git_ps1 "$prefix" "$suffix" "[%s]"
 }
 
 PROMPT_COMMAND=dotfiles_setup_prompt
