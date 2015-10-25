@@ -11,7 +11,7 @@ mspaint () {
 	}
 
 	mspaint_is_color () {
-		local color_names=(black red green yellow blue magenta cyan white);
+		local color_names=(default black red green yellow blue magenta cyan white);
 		if [ -n "$1" ]; then
 			for color in "${color_names[@]}"; do
 				if [ "$1" == "$color" ]; then
@@ -61,10 +61,11 @@ mspaint () {
 		local begin;
 		local end;
 
-		if [ -n "$2" ]; then fg_name="fg_${2}"; fi;
-		if [ -n "$3" ]; then bg_name="bg_${3}"; fi;
+		if [ -n "$2" -a "$2" != 'default' ]; then fg_name="fg_${2}"; fi;
+		if [ -n "$3" -a "$3" != 'default' ]; then bg_name="bg_${3}"; fi;
 		if [ -n "$4" ]; then bold="$color_bold"; fi;
 		if [ -n "$5" ]; then begin="\["; end="\]"; fi;
+		if [ -n "$6" ]; then color_reset=''; fi;
 
 		echo -e "${begin}${!fg_name}${!bg_name}${bold}${end}${1}${begin}${color_reset}${end}"
 	}
@@ -75,8 +76,11 @@ mspaint () {
 		local bold;
 		local wrap;
 
-		while getopts "hf:b:Blw" option; do
+		while getopts "dhf:b:Blw" option; do
 			case "$option" in
+				d)
+					dirty=true;
+					;;
 				h)
 					usage;
 					exit;
@@ -116,7 +120,7 @@ mspaint () {
 		i=1;
 		for arg; do
 			if [ $i -ge $OPTIND ]; then
-				mspaint_colorize "$arg" "$foreground" "$background" "$bold" "$wrap";
+				mspaint_colorize "$arg" "$foreground" "$background" "$bold" "$wrap" "$dirty";
 			else
 				i=$((i+1));
 			fi;
