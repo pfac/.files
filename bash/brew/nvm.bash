@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 #
 
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+nvm () {
+  echo "Initializing NVM..." 1>&2;
+  unset -f nvm;
+  export NVM_DIR=~/.nvm
+  source $(brew --prefix nvm)/nvm.sh
+  nvm "$@"
+}
