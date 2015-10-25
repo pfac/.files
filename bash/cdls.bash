@@ -5,5 +5,5 @@
 require 'ls'
 
 cdls () {
-	cd "$@" && ls;
+	builtin cd "$@" && ls;
 }

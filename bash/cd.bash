@@ -5,4 +5,5 @@
 
 require 'cdls'
 
-alias cd=cdls
+alias cd='cdls'
+alias ..='cd ..'

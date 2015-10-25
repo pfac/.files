@@ -2,6 +2,7 @@
 
 source "${HOME}/.bashrc";
 
+require 'cd'
 require 'editor'
 require 'git'
 require 'ls/colors'
