@@ -83,18 +83,18 @@ __dotfiles_setup_prompt () {
 	local user=`mspaint -b $user_bg -f $user_fg -w '\u'`
 	local user_host_separator=`mspaint -B -b $user_host_separator_bg -f $user_host_separator_fg -w @`
 	local host=`mspaint -b $host_bg -f $host_fg '\H'`
-	local host_dir_separator="$(mspaint -b $host_dir_separator_bg -f $host_dir_separator_fg ':')$(mspaint -b $dir_bg -f $host_dir_separator_bg '') "
+	local host_dir_separator="$(mspaint -b $host_dir_separator_bg -f $host_dir_separator_fg -w ':')$(mspaint -b $dir_bg -f $host_dir_separator_bg -w '') "
 	local dir=`mspaint -b $dir_bg -f $dir_fg -w '\w'`
-	local dir_git_separator=`mspaint -b $dir_bg ' '`
+	local dir_git_separator=`mspaint -b $dir_bg -w ' '`
 	prefix="\n$user$user_host_separator$host$host_dir_separator$dir$dir_git_separator";
 
 	local history=`mspaint -b $history_bg -f $history_fg -w '\!'`
-	local history_shell_separator=`mspaint -b $history_shell_separator_bg ' '`
+	local history_shell_separator=`mspaint -b $history_shell_separator_bg -w ' '`
 	local shell=`mspaint -b $shell_bg -f $shell_fg -w '\$'`
 	suffix="\n $history$history_shell_separator$shell "
 
-	export GIT_PS1_SHOWCOLORHINTS=true;
 	__git_ps1 "$prefix" "$suffix" "[%s]"
 }
 
+export GIT_PS1_SHOWCOLORHINTS=true;
 PROMPT_COMMAND=__dotfiles_setup_prompt
