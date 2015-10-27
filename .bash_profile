@@ -5,6 +5,7 @@ source "${HOME}/.bashrc";
 require 'cd'
 require 'editor'
 require 'git'
+require 'history'
 require 'ls/colors'
 require 'mkcd'
 require 'pg'
