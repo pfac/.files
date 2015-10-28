@@ -24,13 +24,13 @@ __ruby_init () {
 }
 
 b () {
-	__ruby_init bundle
+	__ruby_init bundle "$@"
 }
 
 be () {
-	__ruby_init bundle exec
+	__ruby_init bundle exec "$@"
 }
 
 r () {
-	__ruby_init rails
+	__ruby_init rails "$@"
 }
