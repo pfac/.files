@@ -98,4 +98,8 @@ __dotfiles_setup_prompt () {
 
 export GIT_PS1_SHOWCOLORHINTS=true;
 export GIT_PS1_SHOWDIRTYSTATE=true;
+export GIT_PS1_SHOWSTASHSTATE=true;
+export GIT_PS1_SHOWUNTRACKEDFILES=true;
+export GIT_PS1_SHOWUPSTREAM=true;
+export GIT_PS1_STATESEPARATOR=' | '
 PROMPT_COMMAND=__dotfiles_setup_prompt
