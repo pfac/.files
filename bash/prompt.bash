@@ -97,4 +97,5 @@ __dotfiles_setup_prompt () {
 }
 
 export GIT_PS1_SHOWCOLORHINTS=true;
+export GIT_PS1_SHOWDIRTYSTATE=true;
 PROMPT_COMMAND=__dotfiles_setup_prompt
