@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-source "${HOME}/.bashrc";
-
 require 'cd'
 require 'editor'
 require 'git'

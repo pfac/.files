@@ -2,10 +2,7 @@
 #
 
 if which rbenv > /dev/null; then
-  rbenv () {
-    echo "Initializing rbenv..." 1>&2;
-    unset -f rbenv;
-    eval "$(rbenv init -)";
-    rbenv "$@";
-  }
+  eval "$(rbenv init --no-rehash -)";
+  disown rbenv rehash &> /dev/null
+  [ -n "$DOTFILES_VERBOSE" ] && echo "✓ Initialized rbenv" 1>&2;
 fi
