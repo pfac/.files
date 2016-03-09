@@ -5,6 +5,7 @@
 	user = pfac
 [core]
 	excludesfile = /Users/pfac/.gitignore_global
+	autocrlf = input
 [push]
 	default = current
 [alias]
@@ -13,15 +14,25 @@
 	c  = commit
 	conflicts = diff --name-only --diff-filter=U
 	co = checkout
-	f  = fetch
+	f  = fetch -p
 	l  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	la = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	p  = push
 	pl = pull
 	rb = rebase
-	s  = status
+	s  = status -s
 
 [color]
 	ui = true
 [branch]
 	autosetuprebase = always
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
