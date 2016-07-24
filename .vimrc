@@ -1,55 +1,59 @@
-"	remove Vi compatibility mode
-set nocompatible 
-"	show line numbers
-set number
-"	show cursor position
-set ruler
-"	activate syntax highlight
-syntax enable
-"	set color scheme
-"		see /usr/share/vim/vim73/colors
-color slate
-"	automatic indentation
-set autoindent
-set smartindent
-"	indentation based on width four tabs
-set tabstop=4
-set shiftwidth=4
-set noexpandtab
-"	line wrapping
-set wrap
-set linebreak
-"	highlight search results
-set hlsearch
-"	auto format comments
-set formatoptions=c,q,r,t
-" enable modelines
-set modelines=5
-" filetype detection
-filetype on
-filetype indent on
-filetype plugin on
-"	auto wrap commit messages (Git)
-au FileType ruby source ~/.vim/ftplugin/ruby.vim
-au FileType gitcommit set tw=72
-""	autocomplete
-"autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+" Leader
+let mapleader = " "
 
-"	Shortcuts
-""	Navigation
-"""	move through wrapped lines too
-imap <silent> <Down> <C-o>gj
-imap <silent> <Up> <C-o>gk
-nmap <silent> <Down> gj
-nmap <silent> <Up> gk
+" Global
+set autoindent      " enable automatic indentation
+set backspace=2     " make backspace work like in modern editors
+set backupcopy=yes  " make sure the file is overwritten on save
+set background=dark " use dark background for color schemes
+set colorcolumn=80  " show the 80 column mark with a different color
+set expandtab       " expand tabs into spaces
+set hlsearch        " highlight search results
+set linebreak       " break line if a wrapping column is set
+set listchars=eol:¬,tab:⊢-,trail:·,extends:>,precedes:<,trail:·
+set list            " make white-space characters visible
+set modeline        " enable modelines (file specific editor settings)
+set modelines=5     " set the number of lines to search for modelines (from the
+                    " top)
+set mouse=a         " enable mouse
+set nocompatible    " remove Vi compatibility mode
+set number          " show line numbers
+set ruler           " show cursor position
+set shiftwidth=2    " set indentation width (in spaces)
+set smartindent     " smarter automatic indentation
+set splitbelow      " when opening horizontal splits, place the cursor below
+set splitright      " when opening vertical splits, place the cursor on the
+                    " right
+set tabstop=2       " set tab width (in spaces)
+set wrap            " enable line wrapping
 
-" Enable mouse (let's face it, it's faster when moving to the middle of nowhere)
-set mouse=a
+" Color
+syntax enable       " enable syntax highlight
+color desert        " set color default scheme
+                    " see /usr/share/vim/vim*/colors for available schemes
 
-if filereadable($HOME.'/.vim/autoload/plug.vim')
-	so $DOTFILES/vim/plug.vim
-endif
+" Key bindings
+"   LeftArrow: go left, considering wrapping
+nnoremap <Left> gh
+"   DownArrow: go down, considering wrapping
+nnoremap <Down> gj
+"   UpArrow: go up, considering wrapping
+nnoremap <Up> gk
+"   RightArrow: go right, considering wrapping
+nnoremap <Right> gl
+"   Ctrl-H: go to window on the left
+nnoremap <C-h> <C-w><C-h>
+"   Ctrl-J: go to window below
+nnoremap <C-j> <C-w><C-j>
+"   Ctrl-K: go to window above
+nnoremap <C-k> <C-w><C-k>
+"   Ctrl-L: go to window on the right
+nnoremap <C-l> <C-w><C-l>
 
-if filereadable($HOME.'/.vim/plugged/sidepanel.vim/plugin/sidepanel.vim')
-	so $DOTFILES/vim/sidepanel.vim
-endif
+" Syntax specific
+filetype plugin indent on " enable syntax specific preferences
+autocmd FileType gitcommit source ~/.vim/ftplugin/git.vim
+autocmd BufRead,BufNewFile *.md source ~/.vim/ftplugin/markdown.vim
+
+" Plugin manager
+source ~/.vim/plugins.vim

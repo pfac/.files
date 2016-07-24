@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/pfac/Developer/pfac/local/hub/git'
+let g:netrw_dirhist_2='/home/pfac/.vim'
+let g:netrw_dirhist_3='/usr/lib/modprobe.d'
+let g:netrw_dirhist_4='/home/pfac'
+let g:netrw_dirhist_5='/home/pfac/.vim'
+let g:netrw_dirhist_6='/home/pfac'
+let g:netrw_dirhist_7='/home/pfac/.vim'
