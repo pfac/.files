@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+# Add Linuxbrew to PATH
+PATH="${HOME}/.linuxbrew/bin:${PATH}"
+
+# Add Heroku Toolbelt to PATH
+PATH="/usr/local/heroku/bin:$PATH"
+
+# Set NVM home
+NVM_DIR="${HOME}/.nvm"
+
+# Export changed variables
+export NVM_DIR
+export PATH
+
+# Initialize NVM
+source "$(brew --prefix nvm)/nvm.sh"
+
+# Initialize RVM
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
