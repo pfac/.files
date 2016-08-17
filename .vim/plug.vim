@@ -17,6 +17,9 @@ Plug 'w0ng/vim-hybrid'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 
+" Rust
+Plug 'rust-lang/rust.vim'
+
 call plug#end()
 
 source ~/.vim/ag.vim
