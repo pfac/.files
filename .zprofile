@@ -25,7 +25,7 @@ if [[ -z "${ZPROFILE+true}" ]]; then
   precmd () {
     local left=`print -P "%{$fg_bold[white]%}%n@%M:%{$reset_color%}%F{blue}%~%f %{$fg_bold[black]%}(%l)%{$reset_color%}"`
     local leftplain=`sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" <<< "$left"`
-    local right=`~/local/bin/git-prompt`
+    local right=`git-prompt`
     local rightwidth=$(($COLUMNS - ${#leftplain}))
 
     print -l '' "${left}${(l:$rightwidth:)right}"

@@ -2,6 +2,12 @@
 if [[ -z "${SHRC+true}" ]]; then
   export SHRC;
 
+  if [[ -d "${HOME}/local/bin" ]]; then
+    echo -n "* Setting up local user packages..."
+    export PATH="${HOME}/local/bin:$PATH"
+    echo "DONE"
+  fi
+
   if type brew &> /dev/null; then
     # Initialize NVM (if installed through Homebrew)
     if brew list | grep nvm &> /dev/null; then
