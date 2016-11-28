@@ -41,15 +41,16 @@ if [[ -z "${PROFILE+true}" ]]; then
   alias tmux="$(which tmux) -2"
 
   # single letter shortcuts
-  alias b=bundle
-  alias g=git
-  alias r=rails
-  alias rk=rake
-  alias t=tmux
+  alias b='bundle'
+  alias be='bundle exec'
+  alias g='git'
+  alias r='bundle exec rails'
+  alias rk='bundle exec rake'
+  alias t='tmux'
   if which nvim &> /dev/null; then
-    alias v=nvim
+    alias v='nvim'
   else
-    alias v=vim
+    alias v='vim'
   fi
 
   ! type pbcopy &> /dev/null &&
