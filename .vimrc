@@ -50,6 +50,10 @@ nnoremap <C-k> <C-w><C-k>
 "   Ctrl-L: go to window on the right
 nnoremap <C-l> <C-w><C-l>
 
+" Hooks
+" -> Automatically remove all trailing whitespace on save
+autocmd BufWritePre <buffer> :%s/\s\+$//e
+
 " Syntax specific
 filetype plugin indent on " enable syntax specific preferences
 autocmd FileType gitcommit source ~/.vim/ftplugin/git.vim
