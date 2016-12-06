@@ -7,6 +7,7 @@ if [[ -z "${PROFILE+true}" ]]; then
   case `uname` in
     Darwin)
       alias ls='/bin/ls -G'
+      export TERM='xterm-256color'
       ;;
     Linux)
       alias ls='/bin/ls --color'
