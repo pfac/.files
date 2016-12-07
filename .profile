@@ -49,10 +49,13 @@ if [[ -z "${PROFILE+true}" ]]; then
   alias rk='bundle exec rake'
   alias t='tmux'
   if which nvim &> /dev/null; then
-    alias v='nvim'
+    export EDITOR='nvim'
+  elif which vim &> /dev/null; then
+    export EDITOR='vim'
   else
-    alias v='vim'
+    export EDITOR='vi'
   fi
+  alias v="$EDITOR"
 
   ! type pbcopy &> /dev/null &&
     type xclip &> /dev/null &&
