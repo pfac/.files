@@ -16,6 +16,11 @@ if [[ -z "${ZPROFILE+true}" ]]; then
   autoload -U colors && colors
   autoload -U promptinit && promptinit
 
+  # Shortcuts
+  bindkey "^P" up-line-or-search
+  bindkey "^N" down-line-or-search
+  bindkey "^R" history-incremental-search-backward
+
   # Print the first lines of the prompt.
   #
   # Sources:
