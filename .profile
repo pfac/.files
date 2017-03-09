@@ -65,5 +65,12 @@ if [[ -z "${PROFILE+true}" ]]; then
     type xclip &> /dev/null &&
   alias pbpaste='xclip -selection clipboard -o'
 
+  # FZF
+  # --files: List files that would be searched but do not search
+  # --hidden: Include hidden files and folders
+  # --follow: Follow symlinks
+  # --glob: Additional conditions for search
+  export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+
   echo "DONE"
 fi

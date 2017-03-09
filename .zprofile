@@ -38,6 +38,8 @@ if [[ -z "${ZPROFILE+true}" ]]; then
   export PROMPT="%(?,%F{green}✓ %#%f,%F{red}✗ %#%f) "
 
   echo "DONE"
+else
+  echo "  Warning: Trying to load ZPROFILE again"
 fi
 
 clear

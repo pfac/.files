@@ -3,7 +3,7 @@ if [[ -z "${SHRC+true}" ]]; then
   export SHRC;
 
   if [[ -d "${HOME}/local/bin" ]]; then
-    echo -n "* Setting up local user packages..."
+    echo -n "* Setting up local user packages... "
     export PATH="${HOME}/local/bin:$PATH"
     echo "DONE"
   fi
@@ -23,6 +23,12 @@ if [[ -z "${SHRC+true}" ]]; then
   if [[ -d "${HOME}/.linuxbrew/bin" ]]; then
     echo -n "* Setting up Linuxbrew... "
     export PATH="${HOME}/.linuxbrew/bin:${PATH}"
+    echo "DONE"
+  fi
+
+  if [[ -f "${HOME}/.cargo/env" ]]; then
+    echo -n "* Setting up Rust toolchain... "
+    source "${HOME}/.cargo/env"
     echo "DONE"
   fi
 
