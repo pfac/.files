@@ -15,14 +15,6 @@ if [[ -z "${PROFILE+true}" ]]; then
       ;;
   esac
 
-  # alias_exists
-  alias_exists () {
-    local alias_name="$1"
-    local description=`whence -w "$alias_name" | grep "${alias_name}: alias"`
-
-    [ -n "$description" ]
-  }
-
   # cdls
   cdls () {
     builtin cd "$@" && ls;
@@ -38,7 +30,7 @@ if [[ -z "${PROFILE+true}" ]]; then
   }
 
   # tmux
-  if alias_exists tmux; then unalias tmux; fi
+  unalias tmux &> /dev/null
   alias tmux="$(which tmux) -2"
 
   # single letter shortcuts
