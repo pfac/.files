@@ -2,9 +2,9 @@
 if [[ -z "${SHRC+true}" ]]; then
   export SHRC;
 
-  if [[ -d "${HOME}/local/bin" ]]; then
+  if [[ -d "${HOME}/.local/bin" ]]; then
     echo -n "* Setting up local user packages... "
-    export PATH="${HOME}/local/bin:$PATH"
+    export PATH="${HOME}/.local/bin:$PATH"
     echo "DONE"
   fi
 
