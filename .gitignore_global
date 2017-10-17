@@ -30,6 +30,7 @@
 *.rdb
 *.sql
 *.sqlite
+*.rdb
 
 # OS generated files #
 ######################
