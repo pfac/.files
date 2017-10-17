@@ -9,13 +9,12 @@ if [[ -z "${SHRC+true}" ]]; then
   fi
 
   if type brew &> /dev/null; then
-    # Initialize NVM (if installed through Homebrew)
-    if brew list | grep nvm &> /dev/null; then
-      echo -n "* Setting up Node Version Manager... "
-      export NVM_DIR="${HOME}/.nvm"
-      [[ -s "$(brew --prefix nvm)/nvm.sh" ]] &&
-        source "$(brew --prefix nvm)/nvm.sh"
-      echo "DONE"
+    # Initialize ASDF VM (if installed through Homebrew)
+    if brew list | grep asdf &> /dev/null; then
+      echo -n '* Setting up asdf... '
+      [[ -f /usr/local/opt/asdf/asdf.sh ]] &&
+        source /usr/local/opt/asdf/asdf.sh
+      echo 'DONE'
     fi
   fi
 
@@ -37,22 +36,5 @@ if [[ -z "${SHRC+true}" ]]; then
     echo -n "* Setting up Heroku Toolbelt... "
     export PATH="/usr/local/heroku/bin:$PATH"
     echo "DONE"
-  fi
-
-  # Initialize RBEnv (if present)
-  if [ -d "${HOME}/.rbenv" ]; then
-    echo -n "* Setting up RBEnv... "
-    if ! type rbenv &> /dev/null; then
-      export PATH="${HOME}/.rbenv/bin:$PATH"
-    fi
-    eval "$(rbenv init -)"
-    echo "DONE"
-  fi
-
-  # Initialize RVM (if present)
-  if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
-    echo -n "* Setting up RVM... ";
-    source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-    echo "DONE";
   fi
 fi
