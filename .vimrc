@@ -8,6 +8,7 @@ set backupcopy=yes  " make sure the file is overwritten on save
 set background=dark " use dark background for color schemes
 set colorcolumn=80  " show the 80 column mark with a different color
 set expandtab       " expand tabs into spaces
+set foldmethod=syntax " enable folding, to be able to collapse blocks of code
 set hlsearch        " highlight search results
 set linebreak       " break line if a wrapping column is set
 set listchars=eol:¬,tab:⊢-,trail:·,extends:>,precedes:<,trail:·
