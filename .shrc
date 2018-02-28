@@ -16,6 +16,13 @@ if [[ -z "${SHRC+true}" ]]; then
         source /usr/local/opt/asdf/asdf.sh
       echo 'DONE'
     fi
+  else
+    # Initialize ASDF VM (if installed in the home directory)
+    if [ -d "${HOME}/.asdf" ]; then
+      echo -n "* Setting up asdf... "
+      . $HOME/.asdf/asdf.sh
+      echo "DONE"
+    fi
   fi
 
   # Add Linuxbrew to PATH
