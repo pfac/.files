@@ -27,6 +27,7 @@
 # Logs and databases #
 ######################
 *.log
+*.rdb
 *.sql
 *.sqlite
 
@@ -44,3 +45,7 @@ Thumbs.db
 # temporary files #
 ###################
 *.swp
+
+# debugging files #
+###################
+npm-debug.log.*
