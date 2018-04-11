@@ -64,5 +64,8 @@ if [[ -z "${PROFILE+true}" ]]; then
   # --glob: Additional conditions for search
   export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
+  # Enalbe history in Erlang VM console (for IEx)
+  export ERL_AFLAGS="-kernel shell_history enabled"
+
   echo "DONE"
 fi
