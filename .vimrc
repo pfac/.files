@@ -18,7 +18,6 @@ set modelines=5     " set the number of lines to search for modelines (from the
                     " top)
 set mouse=a         " enable mouse
 set nocompatible    " remove Vi compatibility mode
-set number          " show line numbers
 set ruler           " show cursor position
 set shiftwidth=2    " set indentation width (in spaces)
 set smartindent     " smarter automatic indentation
@@ -27,6 +26,28 @@ set splitright      " when opening vertical splits, place the cursor on the
                     " right
 set tabstop=2       " set tab width (in spaces)
 set wrap            " enable line wrapping
+
+" Line numbering
+" --------------
+
+" Enable line numbering
+set number
+
+" Toggle hybrid numbering depending on context.
+"
+" On the current buffer, in normal mode, use hybrid numbering.
+"
+" On other buffers, or insert mode, use absolute numbering.
+"
+" Source:
+" - https://jeffkreeftmeijer.com/vim-number/
+" - Adapted for WinEnter/WinLeave
+"
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,WinEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,WinLeave,FocusLost,InsertEnter * set norelativenumber
+augroup END
 
 " Color
 syntax enable       " enable syntax highlight
