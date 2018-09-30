@@ -21,6 +21,12 @@ if [[ -z "${ZPROFILE+true}" ]]; then
   bindkey "^N" down-line-or-search
   bindkey "^R" history-incremental-search-backward
 
+  precmd_git_prompt () {
+    if type git-prompt &>/dev/null; then
+      git-prompt
+    fi
+  }
+
   # Print the first lines of the prompt.
   #
   # Sources:
@@ -29,8 +35,8 @@ if [[ -z "${ZPROFILE+true}" ]]; then
   #
   precmd () {
     local left=`print -P "%{$fg_bold[white]%}%n@%M:%{$reset_color%}%F{blue}%~%f %{$fg_bold[black]%}(%l)%{$reset_color%}"`
-    local leftplain=`sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" <<< "$left"`
-    local right=`git-prompt`
+    local leftplain=`sed -E "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" <<< "$left"`
+    local right=`precmd_git_prompt`
     local rightwidth=$(($COLUMNS - ${#leftplain}))
 
     print -l '' "${left}${(l:$rightwidth:)right}"
