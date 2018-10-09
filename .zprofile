@@ -37,6 +37,11 @@ if [[ -z "${ZPROFILE+true}" ]]; then
   }
   export PROMPT="%(?,%F{green}✓ %#%f,%F{red}✗ %#%f) "
 
+  # Enable direnv, if present
+  if type -f direnv &>/dev/null; then
+    eval "$(direnv hook zsh)"
+  fi
+
   echo "DONE"
 else
   echo "  Warning: Trying to load ZPROFILE again"
