@@ -29,9 +29,13 @@ if [[ -z "${PROFILE+true}" ]]; then
     mkdir -p "$@" && cd "$@";
   }
 
-  # tmux
+  # TMUX
   unalias tmux &> /dev/null
   alias tmux="$(which tmux) -2"
+  if [ "$TMUX" ]; then
+    export TERM='screen-256color'
+  fi
+
 
   # single letter shortcuts
   alias b='bundle'
@@ -64,7 +68,7 @@ if [[ -z "${PROFILE+true}" ]]; then
   # --glob: Additional conditions for search
   export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
-  # Enalbe history in Erlang VM console (for IEx)
+  # Enable history in Erlang VM console (for IEx)
   export ERL_AFLAGS="-kernel shell_history enabled"
 
   echo "DONE"
