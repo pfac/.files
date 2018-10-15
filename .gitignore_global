@@ -30,6 +30,7 @@
 *.rdb
 *.sql
 *.sqlite
+*.rdb
 
 # OS generated files #
 ######################
@@ -42,8 +43,9 @@ Icon\?
 ehthumbs.db
 Thumbs.db
 
-# temporary files #
-###################
+# Editor/IDE files #
+####################
+.idea/
 *.swp
 
 # debugging files #
