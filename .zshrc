@@ -16,8 +16,3 @@ if [[ -z "${ZSHRC+true}" ]]; then
   export HISTSIZE=10000000;
   export SAVEHIST=$HISTSIZE;
 fi
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f $HOME/.asdf/completions/asdf.bash ] &&
-  . $HOME/.asdf/completions/asdf.bash

@@ -48,6 +48,16 @@ if [[ -z "${ZPROFILE+true}" ]]; then
     eval "$(direnv hook zsh)"
   fi
 
+  # Enable FZF for fuzzy file searching, if available
+  if [ -f ~/.fzf.zsh ]; then
+    source ~/.fzf.zsh
+  fi
+
+  # Enable ASDF VM completions, if available and ASDF enabled
+  if which asdf &>/dev/null && [ -f "$HOME/.asdf/completions/asdf.bash" ]; then
+    source "$HOME/.asdf/completions/asdf.bash"
+  fi
+
   echo "DONE"
 else
   echo "  Warning: Trying to load ZPROFILE again"
