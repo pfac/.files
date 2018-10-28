@@ -25,13 +25,6 @@ if [[ -z "${SHRC+true}" ]]; then
     fi
   fi
 
-  # Add Linuxbrew to PATH
-  if [[ -d "${HOME}/.linuxbrew/bin" ]]; then
-    echo -n "* Setting up Linuxbrew... "
-    export PATH="${HOME}/.linuxbrew/bin:${PATH}"
-    echo "DONE"
-  fi
-
   if [[ -f "${HOME}/.cargo/env" ]]; then
     echo -n "* Setting up Rust toolchain... "
     source "${HOME}/.cargo/env"
