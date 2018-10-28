@@ -8,14 +8,12 @@ if [[ -z "${SHRC+true}" ]]; then
     echo "DONE"
   fi
 
-  if type brew &> /dev/null; then
+  if type brew &> /dev/null && (brew list | grep asdf &> /dev/null); then
     # Initialize ASDF VM (if installed through Homebrew)
-    if brew list | grep asdf &> /dev/null; then
-      echo -n '* Setting up asdf... '
-      [[ -f /usr/local/opt/asdf/asdf.sh ]] &&
-        source /usr/local/opt/asdf/asdf.sh
-      echo 'DONE'
-    fi
+    echo -n '* Setting up asdf... '
+    [[ -f /usr/local/opt/asdf/asdf.sh ]] &&
+      source /usr/local/opt/asdf/asdf.sh
+    echo 'DONE'
   else
     # Initialize ASDF VM (if installed in the home directory)
     if [ -d "${HOME}/.asdf" ]; then
