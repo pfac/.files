@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# Configure the system with pfac's preferences.
+#
+
+cat <<HELLO
+Hello world!
+
+This script is still a placeholder, sorry for the inconvenience.
+HELLO
