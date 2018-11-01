@@ -2,10 +2,16 @@
 if [[ -z "${SHRC}" ]]; then
   export SHRC='loaded'
 
+  # Add executables in user scope
   if [[ -d "${HOME}/.local/bin" ]]; then
     echo -n "* Setting up local user packages... "
     export PATH="${HOME}/.local/bin:$PATH"
     echo "DONE"
+  fi
+
+  # Add libraries in user scope
+  if [[ -d "${HOME}/.local/lib" ]]; then
+    export LD_LIBRARY_PATH="${HOME}/.local/lib:$LD_LIBRARY_PATH";
   fi
 
   if type brew &> /dev/null && (brew list | grep asdf &> /dev/null); then

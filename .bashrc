@@ -11,5 +11,4 @@ if [[ -z "${BASHRC}" ]]; then
   require 'brew/nvm'
   require 'brew/rbenv'
   require 'make'
-  require 'paths'
 fi
