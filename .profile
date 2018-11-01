@@ -38,11 +38,7 @@ if [[ -z "${PROFILE+true}" ]]; then
 
 
   # single letter shortcuts
-  alias b='bundle'
-  alias be='bundle exec'
   alias g='git'
-  alias r='bundle exec rails'
-  alias rk='bundle exec rake'
   alias t='tmux'
   if which nvim &> /dev/null; then
     export EDITOR='nvim'
@@ -70,6 +66,15 @@ if [[ -z "${PROFILE+true}" ]]; then
 
   # Enable history in Erlang VM console (for IEx)
   export ERL_AFLAGS="-kernel shell_history enabled"
+
+
+  if which ruby >/dev/null 2>&1; then
+    # single letter shortcuts
+    alias b='bundle'
+    alias be='bundle exec'
+    alias r='bundle exec rails'
+    alias rk='bundle exec rake'
+  fi
 
   echo "DONE"
 fi
