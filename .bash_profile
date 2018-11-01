@@ -18,5 +18,4 @@ if [[ -z "${BASH_PROFILE+'true'}" ]]; then
   require 'radio'
   require 'ruby'
   require 'stats'
-  require 'topen'
 fi

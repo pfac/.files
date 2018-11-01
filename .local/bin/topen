@@ -1,0 +1,5 @@
+#!/bin/sh
+# Touch and open a file with the default application.
+for file in "$@"; do
+  /usr/bin/touch "$file" && open "$file"
+done

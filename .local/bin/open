@@ -1,0 +1,10 @@
+#!/bin/sh
+# Cross-platform open utility for Unix-based operating systems.
+case `uname` in
+  # macOS
+  Darwin)
+    /usr/bin/open "$@"
+    ;;
+  *)
+    xdg-open "$@"
+esac
