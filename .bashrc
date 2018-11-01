@@ -7,7 +7,4 @@ if [[ -z "${BASHRC}" ]]; then
 
   # Import require to handle bash modules
   source "${DOTFILES}/bash/require.bash";
-
-  require 'brew/nvm'
-  require 'brew/rbenv'
 fi
