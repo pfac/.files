@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
-if [[ -z "${SHRC+true}" ]]; then
-  export SHRC;
+if [[ -z "${SHRC}" ]]; then
+  export SHRC='loaded'
 
   if [[ -d "${HOME}/.local/bin" ]]; then
     echo -n "* Setting up local user packages... "

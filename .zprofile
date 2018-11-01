@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-if [[ -z "${ZPROFILE+true}" ]]; then
-  export ZPROFILE;
+if [[ -z "${ZPROFILE}" ]]; then
+  export ZPROFILE='loaded'
 
   source "${HOME}/.zshrc"
   source "${HOME}/.profile"

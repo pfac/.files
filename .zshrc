@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-if [[ -z "${ZSHRC+true}" ]]; then
-  export ZSHRC;
+if [[ -z "${ZSHRC}" ]]; then
+  export ZSHRC='loaded'
 
   source "${HOME}/.shrc"
 
