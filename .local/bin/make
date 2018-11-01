@@ -1,0 +1,6 @@
+#!/bin/sh
+# Customisations for make
+#
+# Disables printing the directory by default.
+#
+/usr/bin/make --no-print-directory "$@"
