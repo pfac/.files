@@ -16,5 +16,4 @@ if [[ -z "${BASH_PROFILE+'true'}" ]]; then
   require 'prompt'
   require 'proxy'
   require 'radio'
-  require 'stats'
 fi

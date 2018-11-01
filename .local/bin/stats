@@ -1,0 +1,15 @@
+#!/bin/sh
+case "$SHELL" in
+  */zsh)
+    cat "$HOME/.zsh_history" | cut -d';' -f2
+    ;;
+  */bash)
+    cat "$HOME/.bash_history" | grep -v '^#'
+    ;;
+  *)
+    echo "Unsupported shell $SHELL" >&2
+    exit 1
+esac \
+  | awk '{h[$1]++;t++}END{for(c in h)printf "%d %.2f%% %s\n",h[c],(h[c]/t*100),c}' \
+  | sort -nr \
+  | head -n20
