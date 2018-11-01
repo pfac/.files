@@ -14,5 +14,4 @@ if [[ -z "${BASH_PROFILE+'true'}" ]]; then
   require 'pg'
   require 'prompt'
   require 'proxy'
-  require 'radio'
 fi

@@ -1,0 +1,10 @@
+#!/bin/sh
+# Play an online radio through the command line.
+case "$1" in
+  comercial)
+    mplayer http://mcrscast.mcr.iol.pt/comercial.mp3
+    ;;
+  *)
+    echo "Unknown station \"$1\"" 1>&2;
+    ;;
+esac;
