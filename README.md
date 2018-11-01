@@ -60,6 +60,7 @@ their knowledge.
 [awk]: https://github.com/onetrueawk/awk
 [bash]: https://www.gnu.org/software/bash/
 [git]: https://git-scm.com/
+[license]: /LICENSE.txt
 [neovim]: https://neovim.io/
 [sublime-text]: https://www.sublimetext.com/
 [tmux]: https://github.com/tmux/tmux
