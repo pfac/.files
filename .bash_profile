@@ -1,15 +1,22 @@
 #!/usr/bin/env bash
 
-require 'cd'
-require 'editor'
-require 'git'
-require 'history'
-require 'ls/colors'
-require 'mkcd'
-require 'pg'
-require 'prompt'
-require 'proxy'
-require 'radio'
-require 'ruby'
-require 'stats'
-require 'topen'
+if [[ -z "${BASH_PROFILE+'true'}" ]]; then
+  export BASH_PROFILE='true'
+
+  source "${HOME}/.bashrc"
+  source "${HOME}/.profile"
+
+  require 'cd'
+  require 'editor'
+  require 'git'
+  require 'history'
+  require 'ls/colors'
+  require 'mkcd'
+  require 'pg'
+  require 'prompt'
+  require 'proxy'
+  require 'radio'
+  require 'ruby'
+  require 'stats'
+  require 'topen'
+fi
