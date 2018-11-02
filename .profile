@@ -87,7 +87,9 @@ if [[ -z "${PROFILE+true}" ]]; then
     alias g='git'
 
     # completion
-    __git_complete g _git
+    if which __git_complete >/dev/null 2>&1; then
+      __git_complete g _git
+    fi
   fi
 
   #
