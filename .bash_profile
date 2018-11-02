@@ -8,7 +8,6 @@ if [[ -z "${BASH_PROFILE+'true'}" ]]; then
 
   require 'cd'
   require 'git'
-  require 'ls/colors'
   require 'mkcd'
   require 'pg'
   require 'prompt'
