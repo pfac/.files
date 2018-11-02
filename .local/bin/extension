@@ -1,0 +1,3 @@
+#!/bin/sh
+# Extract the extension of a file.
+echo "$@" | awk -F. '{print $NF}'
