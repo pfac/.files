@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-if [[ -z "${BASH_PROFILE+'true'}" ]]; then
-  export BASH_PROFILE='true'
+if [[ -z "${BASH_PROFILE+'loaded'}" ]]; then
+  export BASH_PROFILE='loaded'
 
   source "${HOME}/.bashrc"
   source "${HOME}/.profile"
+
+  echo -n "* Configuring Bash profile... "
 
   #
   # Git completions through Homebrew
@@ -43,4 +45,6 @@ if [[ -z "${BASH_PROFILE+'true'}" ]]; then
   PROMPT_COMMAND=__bash_prompt
 
   require 'proxy'
+
+  echo "DONE"
 fi
