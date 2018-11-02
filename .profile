@@ -27,7 +27,6 @@ if [[ -z "${PROFILE+true}" ]]; then
 
 
   # single letter shortcuts
-  alias g='git'
   alias t='tmux'
 
   ! type pbcopy &> /dev/null &&
@@ -83,6 +82,17 @@ if [[ -z "${PROFILE+true}" ]]; then
 
     # single letter shortcuts
     alias v='nvim'
+  fi
+
+  #
+  # Git
+  #
+  if which git >/dev/null 2>&1; then
+    # single letter shortcuts
+    alias g='git'
+
+    # completion
+    __git_complete g _git
   fi
 
   #

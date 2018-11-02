@@ -6,7 +6,14 @@ if [[ -z "${BASH_PROFILE+'true'}" ]]; then
   source "${HOME}/.bashrc"
   source "${HOME}/.profile"
 
-  require 'git'
+  #
+  # Git completions through Homebrew
+  #
+  if [ -f "$(brew --cellar)/git/$(git --version | cut -d\  -f3)/etc/bash_completion.d/git-completion.bash" ]; then
+    # Load completions from bash_completion
+    source "$(brew --cellar)/git/$(git --version | cut -d\  -f3)/etc/bash_completion.d/git-completion.bash"
+  fi
+
   require 'mkcd'
   require 'pg'
   require 'prompt'
