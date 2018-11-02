@@ -7,7 +7,6 @@ if [[ -z "${BASH_PROFILE+'true'}" ]]; then
   source "${HOME}/.profile"
 
   require 'cd'
-  require 'editor'
   require 'git'
   require 'ls/colors'
   require 'mkcd'

@@ -40,14 +40,6 @@ if [[ -z "${PROFILE+true}" ]]; then
   # single letter shortcuts
   alias g='git'
   alias t='tmux'
-  if which nvim &> /dev/null; then
-    export EDITOR='nvim'
-  elif which vim &> /dev/null; then
-    export EDITOR='vim'
-  else
-    export EDITOR='vi'
-  fi
-  alias v="$EDITOR"
 
   ! type pbcopy &> /dev/null &&
     type xclip &> /dev/null &&
@@ -67,7 +59,40 @@ if [[ -z "${PROFILE+true}" ]]; then
   # Enable history in Erlang VM console (for IEx)
   export ERL_AFLAGS="-kernel shell_history enabled"
 
+  #
+  # Vi
+  #
+  if which vi >/dev/null 2>&1; then
+    export EDITOR='vi'
 
+    # single letter shortcuts
+    alias v='vi'
+  fi
+
+  #
+  # Vim
+  #
+  if which vim >/dev/null 2>&1; then
+    export EDITOR='vim'
+
+    # single letter shortcuts
+    alias v='vim'
+  fi
+
+
+  #
+  # NeoVim
+  #
+  if which nvim >/dev/null 2>&1; then
+    export EDITOR='nvim'
+
+    # single letter shortcuts
+    alias v='nvim'
+  fi
+
+  #
+  # Ruby
+  #
   if which ruby >/dev/null 2>&1; then
     # single letter shortcuts
     alias b='bundle'
