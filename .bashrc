@@ -5,9 +5,6 @@ if [[ -z "${BASHRC}" ]]; then
 
   source "${HOME}/.shrc"
 
-  # Import require to handle bash modules
-  source "${DOTFILES}/bash/require.bash";
-
   #
   # History
   #
