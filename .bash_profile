@@ -44,7 +44,5 @@ if [[ -z "${BASH_PROFILE+'loaded'}" ]]; then
   }
   PROMPT_COMMAND=__bash_prompt
 
-  require 'proxy'
-
   echo "DONE"
 fi
