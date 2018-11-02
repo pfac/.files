@@ -1,0 +1,25 @@
+#!/bin/sh
+# Cross-platform tool for managing the PostgreSQL server.
+COMMAND="$1"
+SYSTEM="$(uname)"
+
+pg_cmd () {
+  case "$SYSTEM" in
+    Darwin)
+      pg_ctl -D /usr/local/var/postgres $1
+      ;;
+    Linux)
+      systemctl $1 postgresql
+      ;;
+    *)
+      echo "Unsupported system: $SYSTEM" >&2
+  esac
+}
+
+case "$COMMAND" in
+  start|status|stop)
+    pg_cmd "$COMMAND"
+    ;;
+  *)
+    echo "Unsupported command: $COMMAND" >&2
+esac
