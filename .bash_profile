@@ -11,7 +11,9 @@ if [[ -z "${BASH_PROFILE+'loaded'}" ]]; then
   #
   # Git completions through Homebrew
   #
-  if [ -f "$(brew --cellar)/git/$(git --version | cut -d\  -f3)/etc/bash_completion.d/git-completion.bash" ]; then
+  if which brew >/dev/null 2>&1 \
+    && which git >/dev/null 2>&1 \
+    && [ -f "$(brew --cellar)/git/$(git --version | cut -d\  -f3)/etc/bash_completion.d/git-completion.bash" ]; then
     # Load completions from bash_completion
     source "$(brew --cellar)/git/$(git --version | cut -d\  -f3)/etc/bash_completion.d/git-completion.bash"
   fi
