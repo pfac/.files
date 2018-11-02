@@ -1,0 +1,7 @@
+#!/bin/sh
+# Make a directory and change to it.
+set -e
+
+for dir in "$@"; do
+  mkdir -p "$dir" && cd "$dir"
+done

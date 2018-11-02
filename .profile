@@ -13,11 +13,6 @@ if [[ -z "${PROFILE+true}" ]]; then
       ;;
   esac
 
-  # mkcd
-  mkcd () {
-    mkdir -p "$@" && cd "$@";
-  }
-
   # TMUX
   unalias tmux &> /dev/null
   alias tmux="$(which tmux) -2"
