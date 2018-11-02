@@ -1,0 +1,21 @@
+#!/bin/sh
+# Customisations for ls
+#
+# Displays a symbol after special files names.
+#
+# Enables colors by default when outputting to interactive shells.
+#
+if [ -t 1 ]; then
+  case `uname` in
+    Darwin)
+      /bin/ls -FG "$@"
+      ;;
+    Linux)
+      /bin/ls -F --color "$@"
+      ;;
+    *)
+      /bin/ls -F "$@"
+  esac
+else
+  /bin/ls "$@"
+fi

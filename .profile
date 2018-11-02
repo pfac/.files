@@ -6,23 +6,12 @@ if [[ -z "${PROFILE+true}" ]]; then
 
   case `uname` in
     Darwin)
-      alias ls='/bin/ls -G'
       export TERM='xterm-256color'
       ;;
     Linux)
-      alias ls='/bin/ls --color'
       alias open='xdg-open'
       ;;
   esac
-
-  # cdls
-  cdls () {
-    builtin cd "$@" && ls;
-  }
-
-  # cd
-  alias cd='cdls'
-  alias ..='cd ..'
 
   # mkcd
   mkcd () {
@@ -58,6 +47,12 @@ if [[ -z "${PROFILE+true}" ]]; then
 
   # Enable history in Erlang VM console (for IEx)
   export ERL_AFLAGS="-kernel shell_history enabled"
+
+
+  #
+  # cd
+  #
+  alias ..='cd ..'
 
   #
   # Vi

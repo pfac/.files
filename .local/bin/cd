@@ -1,0 +1,10 @@
+#!/bin/sh
+# Customisations for cd
+#
+# Lists content after changing directory.
+#
+if [ -x /usr/bin/cd ]; then
+  /usr/bin/cd "$@" && ls
+else
+  builtin cd "$@" && ls
+fi

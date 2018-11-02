@@ -6,7 +6,6 @@ if [[ -z "${BASH_PROFILE+'true'}" ]]; then
   source "${HOME}/.bashrc"
   source "${HOME}/.profile"
 
-  require 'cd'
   require 'git'
   require 'mkcd'
   require 'pg'
