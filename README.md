@@ -17,7 +17,12 @@ Simply paste this in a terminal prompt and let the magic :sparkles: happen:
 
     curl -fsSL https://raw.githubusercontent.com/pfac/.files/master/bin/install | /bin/sh
 
-It is only a placeholder yet, so you should only see an hello world message.
+Here's what this idempotent script will do:
+
+1. Checks the system for a package manager, and installs one if not found;
+2. Checks the system for installations of [Ansible][ansible] and [Git][git], and uses the package manager to install them if not found;
+3. Clones the repository into `~/Developer/pfac/.files`;
+4. Runs `bin/provision`, which will use Ansible to provision the system (not implemented yet).
 
 
 ### How do I know that script is safe?
@@ -34,7 +39,6 @@ Here's a quick gist of what you should find in this repository:
 - Generic shell, [Bash][bash] and [Zsh][zsh] configurations (I tend to prefer the latter);
 - Terminal emulators configurations and color schemes;
 - [Git][git] configurations;
-- [Sublime Text 3][sublime-text] preferences (deprecated in favor of Vim);
 - [Tmux][tmux] configurations;
 - [Vim][vim] and [NeoVim][neovim] configurations;
 - And probably some more stuff lying around.
@@ -55,12 +59,11 @@ I hope using such a license serves the purpose of encouraging others to share
 their knowledge.
 
 
-[awk]: https://github.com/onetrueawk/awk
+[ansible]: https://www.ansible.com/
 [bash]: https://www.gnu.org/software/bash/
 [git]: https://git-scm.com/
 [license]: /LICENSE.txt
 [neovim]: https://neovim.io/
-[sublime-text]: https://www.sublimetext.com/
 [tmux]: https://github.com/tmux/tmux
 [vim]: https://www.vim.org/
 [zsh]: http://www.zsh.org/
