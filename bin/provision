@@ -1,0 +1,25 @@
+#!/bin/sh
+SYSTEM=`uname`
+
+while getopts 'd:' option; do
+  case "$option" in
+    d)
+      cd "$OPTARG"
+      ;;
+    *)
+      echo "Unknown option '$option'" >&2
+      exit 2
+  esac
+done
+
+case "$SYSTEM" in
+  Darwin)
+    echo '==> Provisioning macOS system with Ansible'
+    echo '/!\ Not implemented yet'
+    ;;
+  *)
+    echo "Current system '$SYSTEM' is not supported. Aborting" >&2
+    exit 1
+esac
+
+echo '\o/ System provision complete'

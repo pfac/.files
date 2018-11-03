@@ -2,9 +2,75 @@
 #
 # Configure the system with pfac's preferences.
 #
+set -e
 
-cat <<HELLO
-Hello world!
+CLONE_TO="$HOME/Developer/pfac/.files"
+SYSTEM=`uname`
 
-This script is still a placeholder, sorry for the inconvenience.
-HELLO
+# Ensuring a package manager is available to install dependencies
+case "$SYSTEM" in
+  Darwin)
+    if ! which brew >/dev/null 2>&1; then
+      echo '==> Installing HomeBrew'
+      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      echo '\o/ HomeBrew installed'
+    fi
+    ;;
+  *)
+    echo "Current system '$SYSTEM' is not supported. Aborting" >&2
+    exit 1
+esac
+
+# Ensure Ansible is installed in the system.
+if ! which ansible >/dev/null 2>&1; then
+  case "$SYSTEM" in
+    Darwin)
+      echo '==> Installing Ansible through HomeBrew'
+      brew install ansible
+      echo '\o/ Ansible installed'
+      ;;
+    *)
+      echo "Current system '$SYSTEM' is not supported. Aborting" >&2
+      exit 1
+  esac
+else
+  echo "--- Ansible found: $(which ansible)"
+fi
+
+# Ensure Git is installed in the system.
+if ! which git >/dev/null 2>&1; then
+  case "$SYSTEM" in
+    Darwin)
+      echo '==> Installing Git through HomeBrew'
+      brew install git
+      echo '\o/ Git installed'
+      ;;
+    *)
+      echo "Current system '$SYSTEM' is not supported. Aborting" >&2
+      exit 1
+  esac
+else
+  echo "--- Git found: $(which git)"
+fi
+
+# Clone repository into the system.
+if ! [ -d "$CLONE_TO/.git" ]; then
+  echo "==> Cloning repository to $CLONE_TO"
+  git clone https://github.com/pfac/.files "$CLONE_TO"
+  echo '\o/ Repository cloned'
+else
+  echo "--- Repository present in $CLONE_TO"
+fi
+
+# Hand-over installation to Ansible
+bin/provision -d "$CLONE_TO"
+
+# Success
+cat <<EOS
+================================================================================
+
+pfac's home installed successfully \o/
+
+To change something, simply edit the Ansible playbook for the current system and
+run $CLONE_TO/bin/provision again.
+EOS
