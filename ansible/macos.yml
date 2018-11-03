@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Ensure Homebrew is up-to-date
+      homebrew:
+        update_homebrew: yes
+        upgrade_all: yes
+
+    - name: Ensure Homebrew packages are installed
+      homebrew:
+        name:
+          - asdf
+          - bash
+          - git
+          - neovim
+          - node
+          - python
+          - ruby
+          - tmux
+          - vim
+          - zsh

@@ -1,1 +1,5 @@
+# vi: set syntax=config
 .vim/plugged/
+
+# Ansible generated files
+*.retry

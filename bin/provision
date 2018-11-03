@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 SYSTEM=`uname`
 
 while getopts 'd:' option; do
@@ -15,7 +17,8 @@ done
 case "$SYSTEM" in
   Darwin)
     echo '==> Provisioning macOS system with Ansible'
-    echo '/!\ Not implemented yet'
+    #ansible-galaxy install -r ansible/requirements.yml
+    ansible-playbook ansible/macos.yml
     ;;
   *)
     echo "Current system '$SYSTEM' is not supported. Aborting" >&2
