@@ -30,16 +30,14 @@ which means you can actually see what it does. It should be fairly readable.
 
 Here's a quick gist of what you should find in this repository:
 
-- [Awk][awk] tools;
-- [Bash][bash] configurations and tools (deprecated in favor of Zsh);
+- A couple of (probably) useful tools to be placed in `~/.local`;
+- Generic shell, [Bash][bash] and [Zsh][zsh] configurations (I tend to prefer the latter);
 - Terminal emulators configurations and color schemes;
-- Generic shell configurations (base for Bash, Zsh, etc);
 - [Git][git] configurations;
 - [Sublime Text 3][sublime-text] preferences (deprecated in favor of Vim);
 - [Tmux][tmux] configurations;
 - [Vim][vim] and [NeoVim][neovim] configurations;
-- [Zsh][zsh] configurations;
-- ...and a couple of (probably) useful tools.
+- And probably some more stuff lying around.
 
 
 ## License
