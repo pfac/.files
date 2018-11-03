@@ -4,8 +4,19 @@
 #
 set -e
 
+BRANCH=master
 CLONE_TO="$HOME/Developer/pfac/.files"
 SYSTEM=`uname`
+
+while getopts 'b:' option; do
+  case "$option" in
+    b)
+      BRANCH="$OPTARG"
+      ;;
+    ?)
+      echo "Unknown option $option" >&2
+  esac
+done
 
 # Ensuring a package manager is available to install dependencies
 case "$SYSTEM" in
@@ -18,7 +29,7 @@ case "$SYSTEM" in
     ;;
   *)
     echo "Current system '$SYSTEM' is not supported. Aborting" >&2
-    exit 1
+    exit 2
 esac
 
 # Ensure Ansible is installed in the system.
@@ -31,7 +42,7 @@ if ! which ansible >/dev/null 2>&1; then
       ;;
     *)
       echo "Current system '$SYSTEM' is not supported. Aborting" >&2
-      exit 1
+      exit 2
   esac
 else
   echo "--- Ansible found: $(which ansible)"
@@ -47,7 +58,7 @@ if ! which git >/dev/null 2>&1; then
       ;;
     *)
       echo "Current system '$SYSTEM' is not supported. Aborting" >&2
-      exit 1
+      exit 2
   esac
 else
   echo "--- Git found: $(which git)"
@@ -55,11 +66,19 @@ fi
 
 # Clone repository into the system.
 if ! [ -d "$CLONE_TO/.git" ]; then
-  echo "==> Cloning repository to $CLONE_TO"
-  git clone https://github.com/pfac/.files "$CLONE_TO"
+  echo "==> Cloning $BRANCH branch to $CLONE_TO"
+  git clone -b "$BRANCH" https://github.com/pfac/.files "$CLONE_TO"
   echo '\o/ Repository cloned'
 else
   echo "--- Repository present in $CLONE_TO"
+  cd "$CLONE_TO"
+  if [ "$(git rev-parse --abbrev-ref HEAD)" == "$BRANCH" ]; then
+    echo "==> Checking out $BRANCH branch"
+    git checkout "$BRANCH"
+    echo '\o/ Branch checked out'
+  else
+    echo "--- Branch $BRANCH already checked out"
+  fi
 fi
 
 # Hand-over installation to Ansible

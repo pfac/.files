@@ -5,6 +5,7 @@
       homebrew:
         update_homebrew: yes
         upgrade_all: yes
+      when: not lookup("env", "CI")
 
     - name: Ensure Homebrew packages are installed
       homebrew:

@@ -1,0 +1,21 @@
+language: generic
+
+script:
+  - bin/install -b "$TRAVIS_BRANCH"
+
+matrix:
+  allow_failures:
+    - os: linux
+  include:
+    - os: osx
+      osx_image: xcode9.2
+    - os: osx
+      osx_image: xcode9.3
+    - os: osx
+      osx_image: xcode9.4.1
+    - os: osx
+      osx_image: xcode10.0
+    - os: osx
+      osx_image: xcode10.1
+    - os: linux
+      dist: trusty

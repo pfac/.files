@@ -1,5 +1,7 @@
 # pfac's home
 
+[![Build Status](https://travis-ci.org/pfac/.files.svg?branch=master)](https://travis-ci.org/pfac/.files)
+
 Home is where I have all my toys, configurations and shortcuts ready for me to
 play with. And that's what this repository is, it makes a home in the systems I
 use.
