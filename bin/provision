@@ -1,7 +1,13 @@
 #!/bin/sh
 set -e
 
-SYSTEM=`uname`
+
+# Detect system
+SYSTEM="$(uname)"
+case "$SYSTEM" in
+  Linux)
+    SYSTEM="$SYSTEM:$(lsb_release -is)"
+esac
 
 while getopts 'd:' option; do
   case "$option" in
@@ -19,6 +25,10 @@ case "$SYSTEM" in
     echo '==> Provisioning macOS system with Ansible'
     #ansible-galaxy install -r ansible/requirements.yml
     ansible-playbook ansible/macos.yml
+    ;;
+  Linux:Ubuntu)
+    echo '==> Provisioning Ubuntu system with Ansible (sudo required)'
+    ansible-playbook -K ansible/ubuntu.yml
     ;;
   *)
     echo "Current system '$SYSTEM' is not supported. Aborting" >&2

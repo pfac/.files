@@ -6,8 +6,15 @@ set -e
 
 BRANCH=master
 CLONE_TO="$HOME/Developer/pfac/.files"
-SYSTEM=`uname`
 
+# Detect system
+SYSTEM="$(uname)"
+case "$SYSTEM" in
+  Linux)
+    SYSTEM="$SYSTEM:$(lsb_release -is)"
+esac
+
+# Process options
 while getopts 'b:' option; do
   case "$option" in
     b)
@@ -25,6 +32,17 @@ case "$SYSTEM" in
       echo '==> Installing HomeBrew'
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       echo '\o/ HomeBrew installed'
+    else
+      echo '--- Homebrew already installed'
+    fi
+    ;;
+  Linux:Ubuntu)
+    if which apt-get >/dev/null 2>&1; then
+      echo '==> Updating APT cache (sudo required)'
+      sudo apt-get update -y
+    else
+      echo "System '$SYSTEM' is expected to have the APT package manager. Aborting" >&2
+      exit 3
     fi
     ;;
   *)
@@ -39,6 +57,10 @@ if ! which ansible >/dev/null 2>&1; then
       echo '==> Installing Ansible through HomeBrew'
       brew install ansible
       echo '\o/ Ansible installed'
+      ;;
+    Linux:Ubuntu)
+      echo '==> Installing Ansible through APT (sudo required)'
+      sudo apt-get install -y ansible
       ;;
     *)
       echo "Current system '$SYSTEM' is not supported. Aborting" >&2
@@ -56,6 +78,10 @@ if ! which git >/dev/null 2>&1; then
       brew install git
       echo '\o/ Git installed'
       ;;
+    Linux:Ubuntu)
+      echo '==> Installing Git through APT (sudo required)'
+      sudo apt-get install -y git
+      ;;
     *)
       echo "Current system '$SYSTEM' is not supported. Aborting" >&2
       exit 2
@@ -72,7 +98,7 @@ if ! [ -d "$CLONE_TO/.git" ]; then
 else
   echo "--- Repository present in $CLONE_TO"
   cd "$CLONE_TO"
-  if [ "$(git rev-parse --abbrev-ref HEAD)" == "$BRANCH" ]; then
+  if ! [ "$(git rev-parse --abbrev-ref HEAD)" = "$BRANCH" ]; then
     echo "==> Checking out $BRANCH branch"
     git checkout "$BRANCH"
     echo '\o/ Branch checked out'

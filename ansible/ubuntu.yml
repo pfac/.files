@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Ensure APT is up-to-date
+      apt:
+        name: "*"
+        state: latest
+        autoclean: yes
+        autoremove: yes
+        force_apt_get: yes
+        update_cache: yes
+
+    - name: Ensure APT packages are installed
+      apt:
+        name:
+          #- asdf
+          - bash
+          - git
+          - neovim
+          - nodejs
+          - python
+          - ruby
+          - tmux
+          - vim
+          - zsh
+        force_apt_get: yes

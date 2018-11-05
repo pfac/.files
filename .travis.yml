@@ -4,8 +4,6 @@ script:
   - bin/install -b "$TRAVIS_BRANCH"
 
 matrix:
-  allow_failures:
-    - os: linux
   include:
     - os: osx
       osx_image: xcode9.2
