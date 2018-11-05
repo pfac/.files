@@ -7,7 +7,20 @@ play with. And that's what this repository is, it makes a home in the systems I
 use.
 
 
-## Install these configurations
+## Batteries included
+
+Here's a quick gist of what you should find in this repository:
+
+- A couple of (probably) useful tools to be placed in `~/.local`;
+- Generic shell, [Bash][bash] and [Zsh][zsh] configurations (I tend to prefer the latter);
+- Terminal emulators configurations and color schemes;
+- [Git][git] configurations;
+- [Tmux][tmux] configurations;
+- [Vim][vim] and [NeoVim][neovim] configurations;
+- And probably some more stuff lying around.
+
+
+## Installation
 
 Simply clone this repository into your computer and copy/link whatever files
 you want to use to the locations each tool expects.
@@ -19,12 +32,16 @@ Simply paste this in a terminal prompt and let the magic :sparkles: happen:
 
     curl -fsSL https://raw.githubusercontent.com/pfac/.files/master/bin/install | /bin/sh
 
+Or, if you already cloned the repository, just run:
+
+    bin/install
+
 Here's what this idempotent script will do:
 
 1. Checks the system for a package manager, and installs one if not found;
 2. Checks the system for installations of [Ansible][ansible] and [Git][git], and uses the package manager to install them if not found;
 3. Clones the repository into `~/Developer/pfac/.files`;
-4. Runs `bin/provision`, which will use Ansible to provision the system (not implemented yet).
+4. Runs `bin/provision`, which will use Ansible to provision the system.
 
 
 ### How do I know that script is safe?
@@ -33,17 +50,25 @@ It is [open-source](https://github.com/pfac/.files/blob/master/bin/install),
 which means you can actually see what it does. It should be fairly readable.
 
 
-## Included configurations
+## Provisioning
 
-Here's a quick gist of what you should find in this repository:
+For now, most of the provisioning process is manual. You're in charge of copying
+the relevant files to their expected locations.
 
-- A couple of (probably) useful tools to be placed in `~/.local`;
-- Generic shell, [Bash][bash] and [Zsh][zsh] configurations (I tend to prefer the latter);
-- Terminal emulators configurations and color schemes;
-- [Git][git] configurations;
-- [Tmux][tmux] configurations;
-- [Vim][vim] and [NeoVim][neovim] configurations;
-- And probably some more stuff lying around.
+
+### With a script (work-in-progress)
+
+    bin/provision
+
+This script will use [Ansible][ansible] to provision the current system with
+these preferences.
+
+**NOTE:** Only macOS is supported currently. Linux support coming soon.
+
+Here's what Ansible will do to the system:
+
+1. Update the package manager cache, and upgrade all installed packages;
+2. That's it! :tada: More coming soon.
 
 
 ## License
