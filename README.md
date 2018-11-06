@@ -1,7 +1,7 @@
 # pfac's home
 
-[![Build Status](https://travis-ci.org/pfac/.files.svg?branch=master)](https://travis-ci.org/pfac/.files)
-[![Build Status](https://semaphoreci.com/api/v1/pfac/files/branches/master/shields_badge.svg)](https://semaphoreci.com/pfac/files)
+[![Build Status](https://travis-ci.org/pfac/.files.svg?branch=master)][travis-build]
+[![Build Status](https://semaphoreci.com/api/v1/pfac/files/branches/master/shields_badge.svg)][semaphore-build]
 
 Home is where I have all my toys, configurations and shortcuts ready for me to
 play with. And that's what this repository is, it makes a home in the systems I
@@ -62,9 +62,9 @@ the relevant files to their expected locations.
     bin/provision
 
 This script will use [Ansible][ansible] to provision the current system with
-these preferences.
-
-**NOTE:** Only macOS is supported currently. Linux support coming soon.
+these preferences. Check the builds on [Travis CI][travis-build] and
+[Semaphore CI][semaphore-build] for the supported macOS and Linux systems
+(respectively).
 
 Here's what Ansible will do to the system:
 
@@ -95,3 +95,6 @@ their knowledge.
 [tmux]: https://github.com/tmux/tmux
 [vim]: https://www.vim.org/
 [zsh]: http://www.zsh.org/
+
+[semaphore-build]: https://semaphoreci.com/pfac/files
+[travis-build]: https://travis-ci.org/pfac/.files
