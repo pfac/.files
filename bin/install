@@ -1,7 +1,5 @@
 #!/bin/sh
-#
 # Configure the system with pfac's preferences.
-#
 set -e
 
 BRANCH=master
@@ -11,7 +9,7 @@ CLONE_TO="$HOME/Developer/pfac/.files"
 SYSTEM="$(uname)"
 case "$SYSTEM" in
   Linux)
-    SYSTEM="$SYSTEM:$(lsb_release -is)"
+    SYSTEM="$SYSTEM:$(cat /etc/lsb-release | grep DISTRIB_ID | cut -d= -f2)"
 esac
 
 # Process options
@@ -39,7 +37,11 @@ case "$SYSTEM" in
   Linux:Ubuntu)
     if which apt-get >/dev/null 2>&1; then
       echo '==> Updating APT cache (sudo required)'
-      sudo apt-get update -y
+      if which sudo >/dev/null 2>&1; then
+        sudo apt-get update -y
+      else
+        apt-get update -y
+      fi
     else
       echo "System '$SYSTEM' is expected to have the APT package manager. Aborting" >&2
       exit 3
@@ -60,7 +62,11 @@ if ! which ansible >/dev/null 2>&1; then
       ;;
     Linux:Ubuntu)
       echo '==> Installing Ansible through APT (sudo required)'
-      sudo apt-get install -y ansible
+      if which sudo >/dev/null 2>&1; then
+        sudo apt-get install -y ansible
+      else
+        apt-get install -y ansible
+      fi
       ;;
     *)
       echo "Current system '$SYSTEM' is not supported. Aborting" >&2
@@ -80,7 +86,11 @@ if ! which git >/dev/null 2>&1; then
       ;;
     Linux:Ubuntu)
       echo '==> Installing Git through APT (sudo required)'
-      sudo apt-get install -y git
+      if which sudo >/dev/null 2>&1; then
+        sudo apt-get install -y git
+      else
+        apt-get install -y git
+      fi
       ;;
     *)
       echo "Current system '$SYSTEM' is not supported. Aborting" >&2
@@ -108,7 +118,7 @@ else
 fi
 
 # Hand-over installation to Ansible
-bin/provision -d "$CLONE_TO"
+"$CLONE_TO/bin/provision" -d "$CLONE_TO"
 
 # Success
 cat <<EOS

@@ -1,12 +1,12 @@
 #!/bin/sh
+# Provision the current system using Ansible.
 set -e
-
 
 # Detect system
 SYSTEM="$(uname)"
 case "$SYSTEM" in
   Linux)
-    SYSTEM="$SYSTEM:$(lsb_release -is)"
+    SYSTEM="$SYSTEM:$(cat /etc/lsb-release | grep DISTRIB_ID | cut -d= -f2)"
 esac
 
 while getopts 'd:' option; do
@@ -28,7 +28,11 @@ case "$SYSTEM" in
     ;;
   Linux:Ubuntu)
     echo '==> Provisioning Ubuntu system with Ansible (sudo required)'
-    ansible-playbook -K ansible/ubuntu.yml
+    if test -t 0; then
+      ansible-playbook -K ansible/ubuntu.yml
+    else
+      ansible-playbook ansible/ubuntu.yml
+    fi
     ;;
   *)
     echo "Current system '$SYSTEM' is not supported. Aborting" >&2

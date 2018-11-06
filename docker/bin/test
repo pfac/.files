@@ -1,0 +1,52 @@
+#!/bin/sh
+# Run installation test in a docker image.
+
+# Parse options
+while getopts 'b:p:t:v:' option; do
+  case "$option" in
+    b)
+      BRANCH="$OPTARG"
+      ;;
+    p)
+      PLATFORM="$OPTARG"
+      ;;
+    t)
+      TAG="$OPTARG"
+      ;;
+    v)
+      VERSION="$OPTARG"
+      ;;
+    ?)
+      echo "Unknown option $option" >&2
+      exit 1
+  esac
+done
+
+# Check required options
+if ! test "$PLATFORM"; then
+  echo '/!\ Error: no platform specified' >&2
+fi
+if ! test "$VERSION"; then
+  echo '/!\ Error: no platform version specified' >&2
+fi
+if ! test "$PLATFORM" -a "$VERSION"; then
+  exit 2
+fi
+
+# Default options
+if ! test "$BRANCH"; then
+  BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+fi
+if ! test "$TAG"; then
+  TAG='latest'
+fi
+
+IMAGE_REF="pfac/dotfiles:$PLATFORM-$VERSION-$TAG"
+docker build \
+  -f "docker/$PLATFORM/Dockerfile" \
+  --build-arg "version=$VERSION" \
+  -t "$IMAGE_REF" \
+  .
+docker run "$IMAGE_REF" \
+  /bin/sh -c \
+    "curl -fsSL 'https://raw.githubusercontent.com/pfac/.files/$BRANCH/bin/install' | /bin/sh -s -- -b '$BRANCH'"

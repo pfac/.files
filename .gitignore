@@ -1,4 +1,4 @@
-# vi: set syntax=config
+# vi: syntax=conf
 .vim/plugged/
 
 # Ansible generated files

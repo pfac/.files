@@ -1,0 +1,23 @@
+# vi: syntax=conf
+
+# Git files
+.git/
+.gitignore
+
+# Ansible generated files
+*.retry
+
+# Non-relevant content (some are temporary)
+.local/
+.tmux/
+.vim/
+colors/
+config/
+docker/
+
+# Docs
+LICENSE.txt
+README.md
+
+# CI config files
+.travis.yml
