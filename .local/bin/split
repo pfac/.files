@@ -1,0 +1,20 @@
+#!/bin/sh
+# Split stdin content by replacing a delimiter with newlines.
+
+while getopts 'd:' option; do
+  case "$option" in
+    d)
+      DELIMITER="$OPTARG"
+      ;;
+    \?)
+      echo "Unknown option $option" >&2
+      exit 1
+  esac
+done
+shift $((OPTIND - 1))
+
+if [ "$@" ]; then
+  echo "$@" | awk -F "$DELIMITER" '{for(i=0;++i<=NF;)print $i}'
+else
+  awk -F "$DELIMITER" '{for(i=0;++i<=NF;)print $i}'
+fi
