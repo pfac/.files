@@ -14,7 +14,6 @@
     - name: Ensure APT packages are installed
       apt:
         name:
-          #- asdf
           - bash
           - git
           - neovim
@@ -25,3 +24,12 @@
           - vim
           - zsh
         force_apt_get: yes
+
+
+- hosts: localhost
+  tasks:
+    - name: Ensure ASDF is installed
+      git:
+        repo: https://github.com/asdf-vm/asdf.git
+        dest: "{{ lookup('env', 'HOME') }}/.asdf"
+        version: v0.6.0
