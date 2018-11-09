@@ -1,66 +1,82 @@
 #!/usr/bin/env zsh
+# ZSH specific profile (interactive) configurations.
+#
+# Relevant documentation:
+# - [ZSH functions](http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Other-Functions)
+#
+# Inspired by:
+# - [StackOverflow answer with color stripping command](http://stackoverflow.com/a/10564843)
 
-if [[ -z "${ZPROFILE}" ]]; then
-  export ZPROFILE='loaded'
+# Load the ZSH specific shell configurations
+[ -f "$HOME/Developer/pfac/.files/.zshrc" ] && . "$HOME/Developer/pfac/.files/.zshrc"
 
-  source "${HOME}/.zshrc"
-  source "${HOME}/.profile"
+# Load the generic profile configurations
+[ -f "$HOME/Developer/pfac/.files/.profile" ] && . "$HOME/Developer/pfac/.files/.profile"
 
-  echo -n "* Configuring ZSH profile... "
+#
+# Completion
+#
 
-  # Tab completion
-  autoload -U compinit
-  compinit
+# Initialize the auto-completion system.
+autoload -U compinit && compinit
 
-  # Prompt
-  autoload -U colors && colors
-  autoload -U promptinit && promptinit
+#
+# Prompt
+#
 
-  # Shortcuts
-  bindkey "^P" up-line-or-search
-  bindkey "^N" down-line-or-search
-  bindkey "^R" history-incremental-search-backward
+# Initialize colors arrays.
+#
+# See the documentation: http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Other-Functions
+autoload -U colors && colors
 
-  precmd_git_prompt () {
-    if type git-prompt &>/dev/null; then
-      git-prompt
-    fi
-  }
+# Initialize the prompt themes modules.
+#
+# See the documentation: http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Other-Functions
+autoload -U promptinit && promptinit
 
-  # Print the first lines of the prompt.
-  #
-  # Sources:
-  #
-  # - color stripping command from http://stackoverflow.com/a/10564843
-  #
-  precmd () {
-    local left=`print -P "%{$fg_bold[white]%}%n@%M:%{$reset_color%}%F{blue}%~%f %{$fg_bold[black]%}(%l)%{$reset_color%}"`
-    local leftplain=`sed -E "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" <<< "$left"`
-    local right=`precmd_git_prompt`
-    local rightwidth=$(($COLUMNS - ${#leftplain}))
+# Dynamically print the context before the prompt
+precmd () {
+  local left=`print -P "%{$fg_bold[white]%}%n@%M:%{$reset_color%}%F{blue}%~%f %{$fg_bold[black]%}(%l)%{$reset_color%}"`
+  local leftplain=`sed -E "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" <<< "$left"`
+  local right="$(command -v git-prompt >/dev/null && git-prompt)"
+  local rightwidth=$(($COLUMNS - ${#leftplain}))
 
-    print -l '' "${left}${(l:$rightwidth:)right}"
-  }
-  export PROMPT="%(?,%F{green}✓ %#%f,%F{red}✗ %#%f) "
+  print -l '' "${left}${(l:$rightwidth:)right}"
+}
 
-  # Enable direnv, if present
-  if type -f direnv &>/dev/null; then
-    eval "$(direnv hook zsh)"
-  fi
+# Set the prompt itself
+export PROMPT="%(?,%F{green}✓ %#%f,%F{red}✗ %#%f) "
 
-  # Enable FZF for fuzzy file searching, if available
-  if [ -f ~/.fzf.zsh ]; then
-    source ~/.fzf.zsh
-  fi
+#
+# Key bindings
+#
 
-  # Enable ASDF VM completions, if available and ASDF enabled
-  if which asdf &>/dev/null && [ -f "$HOME/.asdf/completions/asdf.bash" ]; then
-    source "$HOME/.asdf/completions/asdf.bash"
-  fi
+# Use Ctrl+P to change to the [p]revious command
+bindkey "^P" up-line-or-search
 
-  echo "DONE"
-else
-  echo "  Warning: Trying to load ZPROFILE again"
-fi
+# Use Ctrl+N to change to the [n]ext command
+bindkey "^N" down-line-or-search
 
-clear
+# Use Ctrl+R to fuzzy search history (last commands first)
+bindkey "^R" history-incremental-search-backward
+
+#
+# asdf-vm
+#
+
+# Enable asdf-vm completions
+[ -f "$HOME/.asdf/completions/asdf.bash" ] && . "$HOME/.asdf/completions/asdf.bash"
+
+#
+# direnv
+#
+
+# Hook direnv on ZSH
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+
+#
+# FZF
+#
+
+# Enable FZF for fuzzy file searching
+[ -f "$HOME/.fzf.zsh" ] && . "$HOME/.fzf.zsh"
