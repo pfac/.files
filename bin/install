@@ -2,8 +2,10 @@
 # Configure the system with pfac's preferences.
 set -e
 
+# Set default values
 BRANCH=master
 CLONE_TO="$HOME/Developer/pfac/.files"
+SUDO=''
 
 # Detect system
 SYSTEM="$(uname)"
@@ -11,6 +13,9 @@ case "$SYSTEM" in
   Linux)
     SYSTEM="$SYSTEM:$(cat /etc/lsb-release | grep DISTRIB_ID | cut -d= -f2)"
 esac
+
+# Detect privileges
+[ "$(whoami)" != 'root' ] && SUDO='sudo'
 
 # Process options
 while getopts 'b:' option; do
@@ -26,7 +31,7 @@ done
 # Ensuring a package manager is available to install dependencies
 case "$SYSTEM" in
   Darwin)
-    if ! which brew >/dev/null 2>&1; then
+    if ! command -v brew >/dev/null; then
       echo '==> Installing HomeBrew'
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       echo '\o/ HomeBrew installed'
@@ -35,15 +40,11 @@ case "$SYSTEM" in
     fi
     ;;
   Linux:Ubuntu)
-    if which apt-get >/dev/null 2>&1; then
+    if command -v apt-get >/dev/null; then
       echo '==> Updating APT cache (sudo required)'
-      if which sudo >/dev/null 2>&1; then
-        sudo apt-get update -y
-      else
-        apt-get update -y
-      fi
+      $SUDO apt-get update
     else
-      echo "System '$SYSTEM' is expected to have the APT package manager. Aborting" >&2
+      echo 'Ubuntu system is expected to have the APT package manager. Aborting' >&2
       exit 3
     fi
     ;;
@@ -53,51 +54,39 @@ case "$SYSTEM" in
 esac
 
 # Ensure Ansible is installed in the system.
-if ! which ansible >/dev/null 2>&1; then
-  case "$SYSTEM" in
-    Darwin)
-      echo '==> Installing Ansible through HomeBrew'
-      brew install ansible
-      echo '\o/ Ansible installed'
-      ;;
-    Linux:Ubuntu)
-      echo '==> Installing Ansible through APT (sudo required)'
-      if which sudo >/dev/null 2>&1; then
-        sudo apt-get install -y ansible
-      else
-        apt-get install -y ansible
-      fi
-      ;;
-    *)
-      echo "Current system '$SYSTEM' is not supported. Aborting" >&2
-      exit 2
-  esac
+if ! command -v ansible >/dev/null; then
+  echo '==> Dependency missing: ansible'
+  MISSING_DEPS="$MISSING_DEPS ansible"
 else
-  echo "--- Ansible found: $(which ansible)"
+  echo "--- Ansible found: $(command -v ansible)"
 fi
 
 # Ensure Git is installed in the system.
-if ! which git >/dev/null 2>&1; then
+if ! command -v git >/dev/null; then
+  echo '==> Dependency missing: git'
+  MISSING_DEPS="$MISSING_DEPS git"
+else
+  echo "--- Git found: $(command -v git)"
+fi
+
+# Ensure missing dependencies are installed in the system
+if [ "$MISSING_DEPS" ]; then
   case "$SYSTEM" in
     Darwin)
-      echo '==> Installing Git through HomeBrew'
-      brew install git
-      echo '\o/ Git installed'
+      echo '==> Installing missing dependencies through HomeBrew'
+      brew install $MISSING_DEPS
+      echo "\o/ $MISSING_DEPS installed"
       ;;
     Linux:Ubuntu)
-      echo '==> Installing Git through APT (sudo required)'
-      if which sudo >/dev/null 2>&1; then
-        sudo apt-get install -y git
-      else
-        apt-get install -y git
-      fi
+      echo '==> Installing missing dependencies through APT (sudo required)'
+      $SUDO apt-get install -y $MISSING_DEPS
       ;;
     *)
       echo "Current system '$SYSTEM' is not supported. Aborting" >&2
       exit 2
   esac
 else
-  echo "--- Git found: $(which git)"
+  echo '--- No dependencies missing'
 fi
 
 # Clone repository into the system.

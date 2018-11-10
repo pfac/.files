@@ -2,6 +2,9 @@
 # Provision the current system using Ansible.
 set -e
 
+# Set default values
+BECOME_ASK_PASS=''
+
 # Detect system
 SYSTEM="$(uname)"
 case "$SYSTEM" in
@@ -9,6 +12,10 @@ case "$SYSTEM" in
     SYSTEM="$SYSTEM:$(cat /etc/lsb-release | grep DISTRIB_ID | cut -d= -f2)"
 esac
 
+# Detect privileges
+[ -t 0 ] && [ "$(whoami)" != 'root' ] && BECOME_ASK_PASS='-K'
+
+# Process options
 while getopts 'd:' option; do
   case "$option" in
     d)
@@ -20,19 +27,15 @@ while getopts 'd:' option; do
   esac
 done
 
+# Run Ansible playbooks
 case "$SYSTEM" in
   Darwin)
     echo '==> Provisioning macOS system with Ansible'
-    #ansible-galaxy install -r ansible/requirements.yml
     ansible-playbook ansible/macos.yml
     ;;
   Linux:Ubuntu)
     echo '==> Provisioning Ubuntu system with Ansible (sudo required)'
-    if test -t 0; then
-      ansible-playbook -K ansible/ubuntu.yml
-    else
-      ansible-playbook ansible/ubuntu.yml
-    fi
+    ansible-playbook $BECOME_ASK_PASS ansible/ubuntu.yml
     ;;
   *)
     echo "Current system '$SYSTEM' is not supported. Aborting" >&2
