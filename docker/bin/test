@@ -49,4 +49,4 @@ docker build \
   .
 docker run "$IMAGE_REF" \
   /bin/sh -c \
-    "curl -fsSL 'https://raw.githubusercontent.com/pfac/.files/$BRANCH/bin/install' | /bin/sh -s -- -b '$BRANCH'"
+    "curl -fsSL 'https://raw.githubusercontent.com/pfac/.files/$BRANCH/bin/install' | /bin/sh -s -- -b '$BRANCH' && ~/Developer/pfac/.files/bin/check"
