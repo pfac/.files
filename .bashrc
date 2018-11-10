@@ -1,21 +1,26 @@
 #!/usr/bin/env bash
+# Bash specific shell configurations
+#
+# Relevant documentation:
+# - [Bash options](https://www.gnu.org/software/bash/manual/html_node/Variable-Index.html)
 
-if [[ -z "${BASHRC}" ]]; then
-  export BASHRC='loaded'
+# Load the generic configurations
+source "${HOME}/Developer/pfac/.files/.shrc"
 
-  source "${HOME}/.shrc"
+#
+# History
+#
 
-  #
-  # History
-  #
+# Do not add to history if command is duplicate of the previous line
+# or if command begins with a space
+export HISTCONTROL='ignoreboth'
 
-  # Add timestamp to command on output
-  # (useful to match with logs)
-  export HISTTIMEFORMAT="%h %d %H:%M:%S> "
+# Set the size of the history in memory (in number of lines)
+export HISTSIZE=10000000
 
-  # Ignore duplicate commands in a row
-  export HISTCONTROL=ignoredups
+# Set the size of the history saved to file (in number of lines)
+export HISTFILESIZE=$HISTSIZE
 
-  # Increase number of lines in history
-  export HISTSIZE=10000000
-fi
+# Enable timestamps to be added to each command in the history file,
+# and set their output format for the `history` command
+export HISTTIMEFORMAT='%F %H:%M:%S'
