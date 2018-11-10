@@ -20,3 +20,5 @@
           - tmux
           - vim
           - zsh
+
+    - import_tasks: common_tasks.yml

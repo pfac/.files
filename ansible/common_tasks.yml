@@ -1,0 +1,68 @@
+---
+- name: Check whether .bashrc exists
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.bashrc"
+  register: bashrc
+
+- name: Check whether .bash_profile exists
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.bash_profile"
+  register: bash_profile
+
+- name: Check whether .zshrc exists
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.zshrc"
+  register: zshrc
+
+- name: Check whether .zprofile exists
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/.zprofile"
+  register: zprofile
+
+- name: Create .bashrc from template
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Developer/pfac/.files/templates/.bashrc"
+    dest: "{{ lookup('env', 'HOME') }}/.bashrc"
+  when: not bashrc.stat.exists
+
+- name: Create .bash_profile from template
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Developer/pfac/.files/templates/.bash_profile"
+    dest: "{{ lookup('env', 'HOME') }}/.bash_profile"
+  when: not bash_profile.stat.exists
+
+- name: Create .zshrc from template
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Developer/pfac/.files/templates/.zshrc"
+    dest: "{{ lookup('env', 'HOME') }}/.zshrc"
+  when: not zshrc.stat.exists
+
+- name: Create .zprofile from template
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Developer/pfac/.files/templates/.zprofile"
+    dest: "{{ lookup('env', 'HOME') }}/.zprofile"
+  when: not zprofile.stat.exists
+
+- name: Ensure .bashrc is set up
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.bashrc"
+    regexp: '(.|source) "$HOME/Developer/pfac/.files/.bashrc"'
+    line: '[ -f "$HOME/Developer/pfac/.files/.bashrc" ] && . "$HOME/Developer/pfac/.files/.bashrc"'
+
+- name: Ensure .bash_profile is set up
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.bash_profile"
+    regexp: '(.|source) "$HOME/Developer/pfac/.files/.bash_profile"'
+    line: '[ -f "$HOME/Developer/pfac/.files/.bash_profile" ] && . "$HOME/Developer/pfac/.files/.bash_profile"'
+
+- name: Ensure .zshrc is set up
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.zshrc"
+    regexp: '(.|source) "$HOME/Developer/pfac/.files/.zshrc"'
+    line: '[ -f "$HOME/Developer/pfac/.files/.zshrc" ] && . "$HOME/Developer/pfac/.files/.zshrc"'
+
+- name: Ensure .zprofile is set up
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.zprofile"
+    regexp: '(.|source) "$HOME/Developer/pfac/.files/.zprofile"'
+    line: '[ -f "$HOME/Developer/pfac/.files/.zprofile" ] && . "$HOME/Developer/pfac/.files/.zprofile"'
