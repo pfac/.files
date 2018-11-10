@@ -5,14 +5,13 @@ set -e
 # Set default values
 BRANCH=master
 CLONE_TO="$HOME/Developer/pfac/.files"
-MISSING_DEPS=''
 SUDO=''
 
 # Detect system
 SYSTEM="$(uname)"
 case "$SYSTEM" in
   Linux)
-    SYSTEM="$SYSTEM:$(cat /etc/lsb-release | grep DISTRIB_ID | cut -d= -f2)"
+    SYSTEM="$SYSTEM:$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)"
 esac
 
 # Detect privileges
@@ -54,41 +53,22 @@ case "$SYSTEM" in
     exit 2
 esac
 
-# Ensure Ansible is installed in the system.
-if ! command -v ansible >/dev/null; then
-  echo '==> Dependency missing: ansible'
-  MISSING_DEPS="$MISSING_DEPS ansible"
-else
-  echo "--- Ansible found: $(command -v ansible)"
-fi
-
-# Ensure Git is installed in the system.
-if ! command -v git >/dev/null; then
-  echo '==> Dependency missing: git'
-  MISSING_DEPS="$MISSING_DEPS git"
-else
-  echo "--- Git found: $(command -v git)"
-fi
-
 # Ensure missing dependencies are installed in the system
-if [ "$MISSING_DEPS" ]; then
-  case "$SYSTEM" in
-    Darwin)
-      echo '==> Installing missing dependencies through HomeBrew'
-      brew install $MISSING_DEPS
-      echo "\o/ $MISSING_DEPS installed"
-      ;;
-    Linux:Ubuntu)
-      echo '==> Installing missing dependencies through APT (sudo required)'
-      $SUDO apt-get install -y $MISSING_DEPS
-      ;;
-    *)
-      echo "Current system '$SYSTEM' is not supported. Aborting" >&2
-      exit 2
-  esac
-else
-  echo '--- No dependencies missing'
-fi
+case "$SYSTEM" in
+  Darwin)
+    echo '==> Installing missing dependencies through HomeBrew'
+    brew install ansible git
+    echo "\\o/ dependencies installed"
+    ;;
+  Linux:Ubuntu)
+    echo '==> Installing missing dependencies through APT (sudo required)'
+    $SUDO apt-get install -y ansible git
+    echo "\\o/ dependencies installed"
+    ;;
+  *)
+    echo "Current system '$SYSTEM' is not supported. Aborting" >&2
+    exit 2
+esac
 
 # Clone repository into the system.
 if ! [ -d "$CLONE_TO/.git" ]; then
@@ -114,7 +94,7 @@ fi
 cat <<EOS
 ================================================================================
 
-pfac's home installed successfully \o/
+pfac's home installed successfully \\o/
 
 To change something, simply edit the Ansible playbook for the current system and
 run $CLONE_TO/bin/provision again.
