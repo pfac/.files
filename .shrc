@@ -59,20 +59,20 @@ proxy () {
   export LD_LIBRARY_PATH="${HOME}/.local/lib:$LD_LIBRARY_PATH";
 
 # Initialize ASDF (through Homebrew or installation in HOME)
-if type brew >/dev/null 2>&1 && (brew list | grep asdf >/dev/null 2>&1); then
+if command -v brew >/dev/null && (brew --prefix asdf >/dev/null 2>&1); then
   # Initialize ASDF VM (if installed through Homebrew)
-  [ -f /usr/local/opt/asdf/asdf.sh ] && . /usr/local/opt/asdf/asdf.sh
+  [ -f "$(brew --prefix asdf)/asdf.sh" ] && . "$(brew --prefix asdf)/asdf.sh"
 else
   # Initialize ASDF VM (if installed in the home directory)
   [ -f "${HOME}/.asdf/asdf.sh" ] && . $HOME/.asdf/asdf.sh
 fi
 
-# Load Rust environment
+# Add Rust tools
 [ -d "$HOME/.cargo/bin" ] &&
   ! in_path "$PATH" "$HOME/.cargo/bin"
   export PATH="$HOME/.cargo/bin:$PATH"
 
-# Add Heroku Toolbelt to PATH
+# Add Heroku Toolbelt
 [ -d "/usr/local/heroku/bin" ] &&
   ! in_path "$PATH" '/usr/local/heroku/bin' &&
   export PATH="/usr/local/heroku/bin:$PATH"
