@@ -3,6 +3,7 @@ os: osx
 
 script:
   - bin/install -b "$TRAVIS_BRANCH"
+  - bin/check
 
 matrix:
   include:
