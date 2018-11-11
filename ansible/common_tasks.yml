@@ -46,23 +46,23 @@
 - name: Ensure .bashrc is set up
   lineinfile:
     path: "{{ lookup('env', 'HOME') }}/.bashrc"
-    regexp: '(.|source) "$HOME/Developer/pfac/.files/.bashrc"'
+    regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.bashrc"'
     line: '[ -f "$HOME/Developer/pfac/.files/.bashrc" ] && . "$HOME/Developer/pfac/.files/.bashrc"'
 
 - name: Ensure .bash_profile is set up
   lineinfile:
     path: "{{ lookup('env', 'HOME') }}/.bash_profile"
-    regexp: '(.|source) "$HOME/Developer/pfac/.files/.bash_profile"'
+    regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.bash_profile"'
     line: '[ -f "$HOME/Developer/pfac/.files/.bash_profile" ] && . "$HOME/Developer/pfac/.files/.bash_profile"'
 
 - name: Ensure .zshrc is set up
   lineinfile:
     path: "{{ lookup('env', 'HOME') }}/.zshrc"
-    regexp: '(.|source) "$HOME/Developer/pfac/.files/.zshrc"'
+    regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.zshrc"'
     line: '[ -f "$HOME/Developer/pfac/.files/.zshrc" ] && . "$HOME/Developer/pfac/.files/.zshrc"'
 
 - name: Ensure .zprofile is set up
   lineinfile:
     path: "{{ lookup('env', 'HOME') }}/.zprofile"
-    regexp: '(.|source) "$HOME/Developer/pfac/.files/.zprofile"'
+    regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.zprofile"'
     line: '[ -f "$HOME/Developer/pfac/.files/.zprofile" ] && . "$HOME/Developer/pfac/.files/.zprofile"'
