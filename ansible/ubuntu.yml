@@ -31,4 +31,4 @@
         dest: "{{ lookup('env', 'HOME') }}/.asdf"
         version: v0.6.0
 
-    - import_tasks: common_tasks.yml
+- import_playbook: common.yml

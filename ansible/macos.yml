@@ -21,4 +21,4 @@
           - vim
           - zsh
 
-    - import_tasks: common_tasks.yml
+- import_playbook: common.yml
