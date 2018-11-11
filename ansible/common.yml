@@ -1,6 +1,10 @@
 ---
 - hosts: localhost
   tasks:
+    #
+    # Check configuration files exist
+    #
+
     - name: Check whether .bashrc exists
       stat:
         path: "{{ lookup('env', 'HOME') }}/.bashrc"
@@ -25,6 +29,10 @@
       stat:
         path: "{{ lookup('env', 'HOME') }}/.vimrc"
       register: vimrc
+
+    #
+    # Create missing configuration files
+    #
 
     - name: Create .bashrc from template
       copy:
@@ -56,6 +64,42 @@
         dest: "{{ lookup('env', 'HOME') }}/.vimrc"
       when: not vimrc.stat.exists
 
+    #
+    # Check whether configuration files are set up to load configurations from this project
+    #
+
+    - name: Check whether .bashrc is set up
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.bashrc"
+        regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.bashrc"'
+        line: '[ -f "$HOME/Developer/pfac/.files/.bashrc" ] && . "$HOME/Developer/pfac/.files/.bashrc"'
+      check_mode: yes
+      register: bashrc
+
+    - name: Check whether .bash_profile is set up
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.bash_profile"
+        regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.bash_profile"'
+        line: '[ -f "$HOME/Developer/pfac/.files/.bash_profile" ] && . "$HOME/Developer/pfac/.files/.bash_profile"'
+      check_mode: yes
+      register: bash_profile
+
+    - name: Check whether .zshrc is set up
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.zshrc"
+        regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.zshrc"'
+        line: '[ -f "$HOME/Developer/pfac/.files/.zshrc" ] && . "$HOME/Developer/pfac/.files/.zshrc"'
+      check_mode: yes
+      register: zshrc
+
+    - name: Check whether .zprofile is set up
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.zprofile"
+        regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.zprofile"'
+        line: '[ -f "$HOME/Developer/pfac/.files/.zprofile" ] && . "$HOME/Developer/pfac/.files/.zprofile"'
+      check_mode: yes
+      register: zprofile
+
     - name: Check whether .vimrc is set up
       lineinfile:
         path: "{{ lookup('env', 'HOME') }}/.vimrc"
@@ -64,29 +108,45 @@
       check_mode: yes
       register: vimrc
 
-    - name: Ensure .bashrc is set up
-      lineinfile:
+    #
+    # Set up configuration files to load configurations from this project
+    #
+
+    - name: Set up .bashrc
+      blockinfile:
         path: "{{ lookup('env', 'HOME') }}/.bashrc"
-        regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.bashrc"'
-        line: '[ -f "$HOME/Developer/pfac/.files/.bashrc" ] && . "$HOME/Developer/pfac/.files/.bashrc"'
+        marker: '# {mark} pfac/.files managed block'
+        block: |
+          # Load base configurations
+          [ -f "$HOME/Developer/pfac/.files/.bashrc" ] && . "$HOME/Developer/pfac/.files/.bashrc"
+      when: bashrc is changed
 
-    - name: Ensure .bash_profile is set up
-      lineinfile:
+    - name: Set up .bash_profile
+      blockinfile:
         path: "{{ lookup('env', 'HOME') }}/.bash_profile"
-        regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.bash_profile"'
-        line: '[ -f "$HOME/Developer/pfac/.files/.bash_profile" ] && . "$HOME/Developer/pfac/.files/.bash_profile"'
+        marker: '# {mark} pfac/.files managed block'
+        block: |
+          # Load base configurations
+          [ -f "$HOME/Developer/pfac/.files/.bash_profile" ] && . "$HOME/Developer/pfac/.files/.bash_profile"
+      when: bash_profile is changed
 
-    - name: Ensure .zshrc is set up
-      lineinfile:
+    - name: Set up .zshrc
+      blockinfile:
         path: "{{ lookup('env', 'HOME') }}/.zshrc"
-        regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.zshrc"'
-        line: '[ -f "$HOME/Developer/pfac/.files/.zshrc" ] && . "$HOME/Developer/pfac/.files/.zshrc"'
+        marker: '# {mark} pfac/.files managed block'
+        block: |
+          # Load base configurations
+          [ -f "$HOME/Developer/pfac/.files/.zshrc" ] && . "$HOME/Developer/pfac/.files/.zshrc"
+      when: zshrc is changed
 
-    - name: Ensure .zprofile is set up
-      lineinfile:
+    - name: Set up .zprofile
+      blockinfile:
         path: "{{ lookup('env', 'HOME') }}/.zprofile"
-        regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.zprofile"'
-        line: '[ -f "$HOME/Developer/pfac/.files/.zprofile" ] && . "$HOME/Developer/pfac/.files/.zprofile"'
+        marker: '# {mark} pfac/.files managed block'
+        block: |
+          # Load base configurations
+          [ -f "$HOME/Developer/pfac/.files/.zprofile" ] && . "$HOME/Developer/pfac/.files/.zprofile"
+      when: zprofile is changed
 
     - name: Set up .vimrc
       blockinfile:
