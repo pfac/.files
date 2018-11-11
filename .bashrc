@@ -5,7 +5,7 @@
 # - [Bash options](https://www.gnu.org/software/bash/manual/html_node/Variable-Index.html)
 
 # Load the generic configurations
-source "${HOME}/Developer/pfac/.files/.shrc"
+source "$HOME/Developer/pfac/.files/.shrc"
 
 #
 # History
@@ -19,7 +19,7 @@ export HISTCONTROL='ignoreboth'
 export HISTSIZE=10000000
 
 # Set the size of the history saved to file (in number of lines)
-export HISTFILESIZE=$HISTSIZE
+export HISTFILESIZE="$HISTSIZE"
 
 # Enable timestamps to be added to each command in the history file,
 # and set their output format for the `history` command

@@ -49,10 +49,10 @@ setopt HIST_IGNORE_SPACE
 setopt INC_APPEND_HISTORY_TIME
 
 # Set the file to use for history
-export HISTFILE="${HOME}/.zsh_history";
+export HISTFILE="$HOME/.zsh_history"
 
 # Set the size of the history in memory (in number of lines)
-export HISTSIZE=10000000;
+export HISTSIZE=10000000
 
 # Set the size of the history saved to file (in number of lines)
-export SAVEHIST=$HISTSIZE;
+export SAVEHIST="$HISTSIZE"
