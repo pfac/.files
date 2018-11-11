@@ -21,6 +21,11 @@
         path: "{{ lookup('env', 'HOME') }}/.zprofile"
       register: zprofile
 
+    - name: Check whether .vimrc exists
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.vimrc"
+      register: vimrc
+
     - name: Create .bashrc from template
       copy:
         src: "{{ lookup('env', 'HOME') }}/Developer/pfac/.files/templates/.bashrc"
@@ -45,6 +50,20 @@
         dest: "{{ lookup('env', 'HOME') }}/.zprofile"
       when: not zprofile.stat.exists
 
+    - name: Create .vimrc from template
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/Developer/pfac/.files/templates/.vimrc"
+        dest: "{{ lookup('env', 'HOME') }}/.vimrc"
+      when: not vimrc.stat.exists
+
+    - name: Check whether .vimrc is set up
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.vimrc"
+        regexp: 'so "\$HOME/Developer/pfac/\.files/\.vimrc"'
+        line: '  so "$HOME/Developer/pfac/.files/.vimrc"'
+      check_mode: yes
+      register: vimrc
+
     - name: Ensure .bashrc is set up
       lineinfile:
         path: "{{ lookup('env', 'HOME') }}/.bashrc"
@@ -68,3 +87,14 @@
         path: "{{ lookup('env', 'HOME') }}/.zprofile"
         regexp: '(\.|source) "\$HOME/Developer/pfac/\.files/\.zprofile"'
         line: '[ -f "$HOME/Developer/pfac/.files/.zprofile" ] && . "$HOME/Developer/pfac/.files/.zprofile"'
+
+    - name: Set up .vimrc
+      blockinfile:
+        path: "{{ lookup('env', 'HOME') }}/.vimrc"
+        marker: '" {mark} pfac/.files managed block "'
+        block: |
+          " Load base configurations "
+          if filereadable("$HOME/Developer/pfac/.files/.vimrc")
+            so "$HOME/Developer/pfac/.files/.vimrc"
+          endif
+      when: vimrc is changed
