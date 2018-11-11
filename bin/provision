@@ -9,7 +9,7 @@ BECOME_ASK_PASS=''
 SYSTEM="$(uname)"
 case "$SYSTEM" in
   Linux)
-    SYSTEM="$SYSTEM:$(cat /etc/lsb-release | grep DISTRIB_ID | cut -d= -f2)"
+    SYSTEM="$SYSTEM:$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)"
 esac
 
 # Detect privileges

@@ -19,24 +19,24 @@ report_and_exit () {
 if command -v ansible >/dev/null; then
   echo "--- Ansible found: $(ansible --version | head -n1 | cut -d\  -f2) in $(command -v ansible)"
 else
-  echo "/!\ Ansible not found" >&2
-  PROBLEMS=$((PROBLEMS + 1))
+  echo '/!\ Ansible not found' >&2
+  PROBLEMS="$((PROBLEMS + 1))"
 fi
 
 # Check Git is installed
 if command -v git >/dev/null; then
   echo "--- Git found: $(git --version | cut -d\  -f3) in $(command -v git)"
 else
-  echo "/!\ Git not found" >&2
-  PROBLEMS=$((PROBLEMS + 1))
+  echo '/!\ Git not found' >&2
+  PROBLEMS="$((PROBLEMS + 1))"
 fi
 
 # Check repository is present
-if [ -d "$DOTFILES_PATH" -a -d "$DOTFILES_PATH/.git" ]; then
+if [ -d "$DOTFILES_PATH" ] && [ -d "$DOTFILES_PATH/.git" ]; then
   echo "--- Repository found in $DOTFILES_PATH"
 else
-  echo "/!\ Repository not found in $DOTFILES_PATH" >&2
-  PROBLEMS=$((PROBLEMS + 1))
+  echo "/!\\ Repository not found in $DOTFILES_PATH" >&2
+  PROBLEMS="$((PROBLEMS + 1))"
   report_and_exit
 fi
 
@@ -52,8 +52,8 @@ else
   [ "$GIT_BEHIND_COUNT" -eq 1 ] &&
     echo '/!\ Repository is 1 commit behind origin' >&2
   [ "$GIT_BEHIND_COUNT" -gt 1 ] &&
-    echo "/!\ Repository is $GIT_BEHIND_COUNT commits behind origin" >&2
-  PROBLEMS=$((PROBLEMS + 1))
+    echo "/!\\ Repository is $GIT_BEHIND_COUNT commits behind origin" >&2
+  PROBLEMS="$((PROBLEMS + 1))"
 fi
 
 report_and_exit
