@@ -23,10 +23,21 @@ while getopts 'b:' option; do
     b)
       BRANCH="$OPTARG"
       ;;
-    ?)
+    \?)
       echo "Unknown option $option" >&2
+      exit 1
   esac
 done
+
+# Ensuring system is supported
+case "$SYSTEM" in
+  Darwin|Linux:Ubuntu)
+    echo "--- Current system $SYSTEM is supported"
+    ;;
+  *)
+    echo "Current system '$SYSTEM' is not supported. Aborting" >&2
+    exit 2
+esac
 
 # Ensuring a package manager is available to install dependencies
 case "$SYSTEM" in
@@ -42,33 +53,42 @@ case "$SYSTEM" in
   Linux:Ubuntu)
     if command -v apt-get >/dev/null; then
       echo '==> Updating APT cache (sudo required)'
-      $SUDO apt-get update
+      $SUDO apt-get update -qq
     else
       echo 'Ubuntu system is expected to have the APT package manager. Aborting' >&2
       exit 3
     fi
-    ;;
-  *)
-    echo "Current system '$SYSTEM' is not supported. Aborting" >&2
-    exit 2
 esac
 
-# Ensure missing dependencies are installed in the system
-case "$SYSTEM" in
-  Darwin)
-    echo '==> Installing missing dependencies through HomeBrew'
-    brew install ansible git
-    echo "\\o/ dependencies installed"
-    ;;
-  Linux:Ubuntu)
-    echo '==> Installing missing dependencies through APT (sudo required)'
-    $SUDO apt-get install -y ansible git
-    echo "\\o/ dependencies installed"
-    ;;
-  *)
-    echo "Current system '$SYSTEM' is not supported. Aborting" >&2
-    exit 2
-esac
+# Ensuring Ansible is installed in the system
+if ! command -v ansible >/dev/null; then
+  echo '==> Installing Ansible'
+  case "$SYSTEM" in
+    Darwin)
+      brew install ansible
+      ;;
+    Linux:Ubuntu)
+      $SUDO apt-get install -y -qq ansible
+  esac
+  echo '\o/ Ansible installed'
+else
+  echo "--- Ansible $(ansible --version | head -n1 | cut -d\  -f2) installed in $(command -v ansible)"
+fi
+
+# Ensure Git is installed in the system
+if ! command -v git >/dev/null; then
+  echo '==> Installing Git'
+  case "$SYSTEM" in
+    Darwin)
+      brew install git
+      ;;
+    Linux:Ubuntu)
+      $SUDO apt-get install -y -qq git
+  esac
+  echo '\o/ Git installed'
+else
+  echo "--- Git $(git --version | cut -d\  -f3) installed in $(command -v git)"
+fi
 
 # Clone repository into the system.
 if ! [ -d "$CLONE_TO/.git" ]; then
