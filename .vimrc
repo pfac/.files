@@ -83,4 +83,4 @@ autocmd FileType gitcommit source ~/.vim/ftplugin/git.vim
 autocmd BufRead,BufNewFile *.md source ~/.vim/ftplugin/markdown.vim
 
 " Plugin manager
-source ~/.vim/plugins.vim
+so $HOME/.vim/plugins.vim

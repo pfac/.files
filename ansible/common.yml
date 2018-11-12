@@ -103,8 +103,8 @@
     - name: Check whether .vimrc is set up
       lineinfile:
         path: "{{ lookup('env', 'HOME') }}/.vimrc"
-        regexp: 'so "\$HOME/Developer/pfac/\.files/\.vimrc"'
-        line: '  so "$HOME/Developer/pfac/.files/.vimrc"'
+        regexp: 'so \$HOME/Developer/pfac/\.files/\.vimrc'
+        line: '  so $HOME/Developer/pfac/.files/.vimrc'
       check_mode: yes
       register: vimrc
 
@@ -154,7 +154,7 @@
         marker: '" {mark} pfac/.files managed block "'
         block: |
           " Load base configurations "
-          if filereadable("$HOME/Developer/pfac/.files/.vimrc")
-            so "$HOME/Developer/pfac/.files/.vimrc"
+          if filereadable($HOME . '/Developer/pfac/.files/.vimrc')
+            so $HOME/Developer/pfac/.files/.vimrc
           endif
       when: vimrc is changed
