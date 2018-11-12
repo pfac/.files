@@ -97,7 +97,7 @@ if filereadable($HOME . '/.vim/plugged/ale/autoload/ale.vim') && filereadable($H
 endif
 
 " Load junegunn/fzf configurations, if installed and autoloaded
-if filereadable($HOME . '/.vim/plugged/fzf/autoload/fzf/vim.vim') && filereadable($HOME . '/Developer/pfac/.files/.vim/plugins/fzf.vim')
+if filereadable($HOME . '/.vim/plugged/fzf.vim/autoload/fzf/vim.vim') && filereadable($HOME . '/Developer/pfac/.files/.vim/plugins/fzf.vim')
   so $HOME/Developer/pfac/.files/.vim/plugins/fzf.vim
 endif
 
