@@ -24,8 +24,3 @@ Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'rust-lang/rust.vim'
 
 call plug#end()
-
-source ~/.vim/ale.vim
-source ~/.vim/fzf.vim
-source ~/.vim/hybrid.vim
-source ~/.vim/nerdtree.vim

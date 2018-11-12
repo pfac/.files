@@ -15,6 +15,7 @@
       apt:
         name:
           - bash
+          - curl
           - git
           - neovim
           - nodejs

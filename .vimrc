@@ -82,5 +82,33 @@ filetype plugin indent on " enable syntax specific preferences
 autocmd FileType gitcommit source ~/.vim/ftplugin/git.vim
 autocmd BufRead,BufNewFile *.md source ~/.vim/ftplugin/markdown.vim
 
-" Plugin manager
-so $HOME/.vim/plugins.vim
+"
+" Plugins
+"
+
+" Load junegunn/vim-plug configurations, if installed and autoloaded
+if filereadable($HOME . '/.vim/autoload/plug.vim') && filereadable($HOME . '/Developer/pfac/.files/.vim/plugged.vim')
+  so $HOME/Developer/pfac/.files/.vim/plugged.vim
+endif
+
+" Load w0rp/ale configurations, if installed and autoloaded
+if filereadable($HOME . '/.vim/plugged/ale/autoload/ale.vim') && filereadable($HOME . '/Developer/pfac/.files/.vim/plugins/ale.vim')
+  so $HOME/Developer/pfac/.files/.vim/plugins/ale.vim
+endif
+
+" Load junegunn/fzf configurations, if installed and autoloaded
+if filereadable($HOME . '/.vim/plugged/fzf/autoload/fzf/vim.vim') && filereadable($HOME . '/Developer/pfac/.files/.vim/plugins/fzf.vim')
+  so $HOME/Developer/pfac/.files/.vim/plugins/fzf.vim
+endif
+
+" Load w0ng/vim-hybrid configurations, if installed and autoloaded
+if filereadable($HOME . '/.vim/plugged/vim-hybrid/colors/hybrid.vim') && filereadable($HOME . '/Developer/pfac/.files/.vim/plugins/vim-hybrid.vim')
+  so $HOME/Developer/pfac/.files/.vim/plugins/vim-hybrid.vim
+
+  colorscheme hybrid
+endif
+
+" Load scrooloose/nerdtree configurations, if installed and autoloaded
+if filereadable($HOME . '/.vim/plugged/nerdtree/autoload/nerdtree.vim') && filereadable($HOME . '/Developer/pfac/.files/.vim/plugins/nerdtree.vim')
+  so $HOME/Developer/pfac/.files/.vim/plugins/nerdtree.vim
+endif

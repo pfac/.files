@@ -158,3 +158,29 @@
             so $HOME/Developer/pfac/.files/.vimrc
           endif
       when: vimrc is changed
+
+    #
+    # Configure Vim
+    #
+
+    - name: Ensure required directories for Vim are present
+      file:
+        path: "{{ lookup('env', 'HOME') }}/.vim/autoload"
+        state: directory
+
+    - name: Ensure vim-plug is installed for Vim
+      get_url:
+        url: 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        dest: "{{ lookup('env', 'HOME') }}/.vim/autoload/plug.vim"
+
+    - name: Ensure vim-plug is up-to-date and all plugins are installed for Vim
+      command: vim +PlugUpgrade +PlugInstall +PlugUpdate +qall
+
+    #
+    # Configure NeoVim
+    #
+
+    - name: Ensure vim-plug is installed for NeoVim
+      get_url:
+        url: 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/autoload/plug.vim"
