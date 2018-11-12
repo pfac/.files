@@ -79,8 +79,14 @@ autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " Syntax specific
 filetype plugin indent on " enable syntax specific preferences
-autocmd FileType gitcommit source ~/.vim/ftplugin/git.vim
-autocmd BufRead,BufNewFile *.md source ~/.vim/ftplugin/markdown.vim
+
+if filereadable($HOME . '/Developer/pfac/.files/.vim/ftplugin/git.vim')
+  autocmd FileType gitcommit so $HOME/Developer/pfac/.files/.vim/ftplugin/git.vim
+endif
+
+if filereadable($HOME . '/Developer/pfac/.files/.vim/ftplugin/markdown.vim')
+  autocmd BufRead,BufNewFile *.md so $HOME/Developer/pfac/.files/.vim/ftplugin/markdown.vim
+endif
 
 "
 " Plugins
