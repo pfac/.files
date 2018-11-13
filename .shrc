@@ -50,7 +50,7 @@ proxy () {
 
 # Add executables in user scope
 [ -d "$HOME/.local/bin" ] &&
-  ! in_path "$PATH" "$HOME/.local/bin"
+  ! in_path "$PATH" "$HOME/.local/bin" &&
   export PATH="${HOME}/.local/bin:$PATH"
 
 # Add libraries in user scope
@@ -64,12 +64,12 @@ if command -v brew >/dev/null && (brew --prefix asdf >/dev/null 2>&1); then
   [ -f "$(brew --prefix asdf)/asdf.sh" ] && . "$(brew --prefix asdf)/asdf.sh"
 else
   # Initialize ASDF VM (if installed in the home directory)
-  [ -f "${HOME}/.asdf/asdf.sh" ] && . $HOME/.asdf/asdf.sh
+  [ -f "${HOME}/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
 fi
 
 # Add Rust tools
 [ -d "$HOME/.cargo/bin" ] &&
-  ! in_path "$PATH" "$HOME/.cargo/bin"
+  ! in_path "$PATH" "$HOME/.cargo/bin" &&
   export PATH="$HOME/.cargo/bin:$PATH"
 
 # Add Heroku Toolbelt
