@@ -1,14 +1,20 @@
 language: generic
-os: osx
 
 script:
-  - bin/install -b "$TRAVIS_BRANCH"
-  - bin/check
+  - bin/install -b "$TRAVIS_BRANCH" && bin/check
 
 matrix:
   include:
-    - osx_image: xcode9.2
-    - osx_image: xcode9.3
-    - osx_image: xcode9.4.1
-    - osx_image: xcode10.0
-    - osx_image: xcode10.1
+    - os: osx
+      osx_image: xcode9.2
+    - os: osx
+      osx_image: xcode9.3
+    - os: osx
+      osx_image: xcode9.4.1
+    - os: osx
+      osx_image: xcode10.0
+    - os: osx
+      osx_image: xcode10.1
+    - os: linux
+      script:
+        - shellcheck bin/check bin/install bin/provision docker/bin/test
