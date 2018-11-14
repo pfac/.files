@@ -15,6 +15,11 @@ matrix:
       osx_image: xcode10.0
     - os: osx
       osx_image: xcode10.1
-    - os: linux
+    - name: Check linters
+      language: python
+      python: 3.6.7
+      install:
+        - pip install -r requirements.txt
       script:
-        - shellcheck bin/check bin/install bin/provision docker/bin/test
+        - shellcheck -Calways bin/check bin/install bin/provision docker/bin/test
+        - vint -c .vim/
