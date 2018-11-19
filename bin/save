@@ -1,0 +1,20 @@
+#!/bin/sh
+# Save the config for the target tool in a configuration file.
+#
+# Some tools, like Tilix for instance, will use a system like DConf to store
+# its configurations, making it hard to move between machines. This script
+# saves such configurations, where possible, into files that Ansible can then
+# load into the systems being provisioned.
+
+# Detect system
+SYSTEM="$(uname)"
+case "$SYSTEM" in
+  Linux)
+    SYSTEM="$SYSTEM:$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)"
+esac
+
+# Save configurations
+case "$SYSTEM" in
+  Linux:Ubuntu)
+    dconf dump /com/gexperts/Tilix/ > "$HOME/Developer/pfac/.files/tilix.dconf"
+esac
