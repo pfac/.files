@@ -21,10 +21,17 @@
           - nodejs
           - python
           - ruby
+          - tilix
           - tmux
           - vim
           - zsh
         force_apt_get: yes
+        update_cache: yes
+
+    - name: Ensure Tilix is the default terminal
+      alternatives:
+        name: x-terminal-emulator
+        path: /usr/bin/tilix.wrapper
 
 - hosts: localhost
   tasks:
