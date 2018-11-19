@@ -160,6 +160,18 @@
       when: vimrc is changed
 
     #
+    # Configure Git
+    #
+
+    - name: Ensure Git is set up
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/Developer/pfac/.files/{{ item }}"
+        dest: "{{ lookup('env', 'HOME') }}/{{ item }}"
+      with_items:
+        - .gitconfig
+        - .gitignore_global
+
+    #
     # Configure Vim
     #
 
