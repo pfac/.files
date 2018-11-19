@@ -41,4 +41,7 @@
         dest: "{{ lookup('env', 'HOME') }}/.asdf"
         version: v0.6.0
 
+    - name: Load Tilix configurations
+      shell: "dconf load /com/gexperts/Tilix/ < '{{ lookup('env', 'HOME') }}/Developer/pfac/.files/tilix.dconf'"
+
 - import_playbook: common.yml
