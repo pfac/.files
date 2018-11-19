@@ -41,6 +41,7 @@
         dest: "{{ lookup('env', 'HOME') }}/.asdf"
         version: v0.6.0
 
+    # https://github.com/gnunn1/tilix/issues/571
     - name: Load Tilix configurations
       shell: "dconf load /com/gexperts/Tilix/ < '{{ lookup('env', 'HOME') }}/Developer/pfac/.files/tilix.dconf'"
 

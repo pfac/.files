@@ -5,6 +5,9 @@
 # its configurations, making it hard to move between machines. This script
 # saves such configurations, where possible, into files that Ansible can then
 # load into the systems being provisioned.
+#
+# Relevant documentation:
+# - Tilix: https://github.com/gnunn1/tilix/issues/571
 
 # Detect system
 SYSTEM="$(uname)"
