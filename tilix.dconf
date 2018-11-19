@@ -1,0 +1,18 @@
+[/]
+terminal-title-style='none'
+theme-variant='dark'
+window-style='borderless'
+
+[profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
+foreground-color='#829395'
+visible-name='Default'
+login-shell=true
+palette=['#063541', '#DB312E', '#849900', '#B48800', '#258AD1', '#D23581', '#29A097', '#EDE7D4', '#002A35', '#CA4A15', '#576D74', '#647A82', '#829395', '#6B70C3', '#92A0A0', '#FCF5E2']
+badge-color-set=false
+cursor-colors-set=false
+highlight-colors-set=false
+use-theme-colors=false
+bold-color-set=false
+terminal-title='${id}: ${title}'
+background-color='#002A35'
+scrollback-lines=16384
