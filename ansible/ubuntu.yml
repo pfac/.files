@@ -26,6 +26,8 @@
           - zsh
         force_apt_get: yes
 
+- hosts: localhost
+  tasks:
     - name: Ensure ASDF is installed
       git:
         repo: https://github.com/asdf-vm/asdf.git
