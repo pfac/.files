@@ -17,6 +17,7 @@
           - bash
           - curl
           - git
+          - gnome-tweak-tool
           - neovim
           - nodejs
           - python
