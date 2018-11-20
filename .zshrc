@@ -56,3 +56,10 @@ export HISTSIZE=10000000
 
 # Set the size of the history saved to file (in number of lines)
 export SAVEHIST="$HISTSIZE"
+
+#
+# direnv
+#
+
+# Load direnv shell hooks for ZSH
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"

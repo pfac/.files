@@ -24,3 +24,10 @@ export HISTFILESIZE="$HISTSIZE"
 # Enable timestamps to be added to each command in the history file,
 # and set their output format for the `history` command
 export HISTTIMEFORMAT='%F %H:%M:%S'
+
+#
+# direnv
+#
+
+# Load direnv shell hooks for Bash
+command -v direnv >/dev/null && eval "$(direnv hook bash)"
