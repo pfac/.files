@@ -243,3 +243,35 @@
 
     - name: Ensure vim-plug is up-to-date and all plugins are installed for NeoVim
       shell: nvim +PlugUpgrade +PlugInstall +PlugUpdate +qall
+
+    #
+    # Configure TMUX
+    #
+
+    - name: Check whether .tmux.conf exists
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.tmux.conf"
+      register: tmux_conf
+
+    - name: Create .tmux.conf from template
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/Developer/pfac/.files/templates/.tmux.conf"
+        dest: "{{ lookup('env', 'HOME') }}/.tmux.conf"
+      when: not tmux_conf.stat.exists
+
+    - name: Check whether .tmux.conf is set up
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.tmux.conf"
+        regexp: 'so \$HOME/Developer/pfac/\.files/tmux/\.tmux.conf'
+        line: '  so $HOME/Developer/pfac/.files/tmux/.tmux.conf'
+      check_mode: yes
+      register: tmux_conf
+
+    - name: Set up .tmux.conf
+      blockinfile:
+        path: "{{ lookup('env', 'HOME') }}/.tmux.conf"
+        marker: '# {mark} pfac/.files managed block "'
+        block: |
+          # Load base configurations
+          source-file "$HOME/Developer/pfac/.files/tmux/.tmux.conf"
+      when: tmux_conf is changed
