@@ -10,6 +10,7 @@
         autoremove: yes
         force_apt_get: yes
         update_cache: yes
+      register: system_packages
 
     - name: Ensure APT packages are installed
       apt:
@@ -29,6 +30,15 @@
           - zsh
         force_apt_get: yes
         update_cache: yes
+
+    - name: Ensure Keybase is installed
+      apt:
+        deb: https://prerelease.keybase.io/keybase_amd64.deb
+      register: keybase
+
+    - name: Ensure Keybase is running
+      shell: run_keybase
+      when: system_packages.changed or keybase.changed
 
     - name: Ensure Tilix is the default terminal
       alternatives:
