@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
   become: yes
+  vars:
+    google_chrome_apt_file_path: /etc/apt/sources.list.d/google-chrome.list
   tasks:
     - name: Ensure APT is up-to-date
       apt:
@@ -12,6 +14,31 @@
         update_cache: yes
       register: system_packages
 
+    #
+    # Preparation for Google Chrome
+    #
+
+    - name: Check whether Google Chrome APT source is present
+      stat:
+        path: "{{ google_chrome_apt_file_path }}"
+      register: google_chrome_apt_file
+
+    - name: Ensure Google Chrome APT key is present
+      apt_key:
+        url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+      when: not google_chrome_apt_file.stat.exists
+
+    - name: Ensure Google Chrome APT repository is present
+      copy:
+        dest: "{{ google_chrome_apt_file_path }}"
+        mode: 0644
+        content: |
+          deb http://dl.google.com/linux/chrome/deb/ stable main
+
+    #
+    # Install packages
+    #
+
     - name: Ensure APT packages are installed
       apt:
         name:
@@ -19,6 +46,7 @@
           - curl
           - git
           - gnome-tweak-tool
+          - google-chrome-stable
           - neovim
           - nodejs
           - pass
