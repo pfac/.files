@@ -75,7 +75,15 @@
         path: /usr/bin/tilix.wrapper
 
 - hosts: localhost
+  vars:
+    terraform_version: '0.11.10'
   tasks:
+    - name: Ensure .local/bin directory exists
+      file:
+        path: "{{ lookup('env', 'HOME') }}/.local/bin"
+        state: directory
+        mode: 0755
+
     - name: Ensure ASDF is installed
       git:
         repo: https://github.com/asdf-vm/asdf.git
@@ -111,5 +119,17 @@
     - name: Refresh fonts cache
       shell: "fc-cache -f '{{ lookup('env', 'HOME') }}/.local/share/fonts'"
       when: extra_fonts.changed
+
+    #
+    # Terraform
+    #
+
+    - name: Ensure Terraform is installed
+      unarchive:
+        remote_src: yes
+        src: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
+        dest: "{{ lookup('env', 'HOME') }}/.local/bin"
+        mode: 0755
+
 
 - import_playbook: common.yml
