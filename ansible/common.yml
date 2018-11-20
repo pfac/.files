@@ -192,7 +192,7 @@
         dest: "{{ lookup('env', 'HOME') }}/.vim/autoload/plug.vim"
 
     - name: Ensure vim-plug is up-to-date and all plugins are installed for Vim
-      command: vim +PlugUpgrade +PlugInstall +PlugUpdate +qall
+      shell: vim +PlugUpgrade +PlugInstall +PlugUpdate +qall
 
     #
     # Configure NeoVim
@@ -200,10 +200,46 @@
 
     - name: Ensure required directories for NeoVim are present
       file:
-        path: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/autoload"
+        path: "{{ item }}"
         state: directory
+      with_items:
+        - "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/autoload"
+        - "{{ lookup('env', 'HOME') }}/.config/nvim"
 
     - name: Ensure vim-plug is installed for NeoVim
       get_url:
         url: 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
         dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/autoload/plug.vim"
+
+    - name: Check whether .config/nvim/init.vim exists
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.config/nvim/init.vim"
+      register: neovim_init
+
+    - name: Create .config/nvim/init.vim from template
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/Developer/pfac/.files/templates/.config/nvim/init.vim"
+        dest: "{{ lookup('env', 'HOME') }}/.config/nvim/init.vim"
+      when: not neovim_init.stat.exists
+
+    - name: Check whether .config/nvim/init.vim is set up
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.config/nvim/init.vim"
+        regexp: 'so \$HOME/Developer/pfac/\.files/\.config/nvim/init.vim'
+        line: '  so $HOME/Developer/pfac/.files/.config/nvim/init.vim'
+      check_mode: yes
+      register: neovim_init
+
+    - name: Set up .config/nvim/init.vim
+      blockinfile:
+        path: "{{ lookup('env', 'HOME') }}/.config/nvim/init.vim"
+        marker: '" {mark} pfac/.files managed block "'
+        block: |
+          " Load base configurations "
+          if filereadable($HOME . '/Developer/pfac/.files/.config/nvim/init.vim')
+            so $HOME/Developer/pfac/.files/.config/nvim/init.vim
+          endif
+      when: neovim_init is changed
+
+    - name: Ensure vim-plug is up-to-date and all plugins are installed for NeoVim
+      shell: nvim +PlugUpgrade +PlugInstall +PlugUpdate +qall
