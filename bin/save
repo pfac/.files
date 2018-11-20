@@ -21,4 +21,5 @@ case "$SYSTEM" in
   Linux:Ubuntu)
     dconf dump /com/gexperts/Tilix/ > "$HOME/Developer/pfac/.files/dconf/com.gexperts.Tilix"
     dconf dump /org/gnome/desktop/input-sources/ > "$HOME/Developer/pfac/.files/dconf/org.gnome.desktop.input-sources"
+    dconf dump /org/gnome/desktop/wm/keybindings/ > "$HOME/Developer/pfac/.files/dconf/org.gnome.desktop.wm.keybindings"
 esac

@@ -1,0 +1,3 @@
+[/]
+maximize=['<Super>Up']
+switch-to-workspace-up=@as []

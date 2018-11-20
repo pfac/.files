@@ -46,5 +46,6 @@
       with_items:
         - com.gexperts.Tilix
         - org.gnome.desktop.input-sources
+        - org.gnome.desktop.wm.keybindings
 
 - import_playbook: common.yml
