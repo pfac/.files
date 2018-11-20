@@ -43,6 +43,6 @@
 
     # https://github.com/gnunn1/tilix/issues/571
     - name: Load Tilix configurations
-      shell: "dconf load /com/gexperts/Tilix/ < '{{ lookup('env', 'HOME') }}/Developer/pfac/.files/tilix.dconf'"
+      shell: "dconf load /com/gexperts/Tilix/ < '{{ lookup('env', 'HOME') }}/Developer/pfac/.files/dconf/com.gexperts.Tilix'"
 
 - import_playbook: common.yml
