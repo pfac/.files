@@ -50,4 +50,27 @@
         - org.gnome.desktop.input-sources
         - org.gnome.desktop.wm.keybindings
 
+    - name: Install extra fonts
+      get_url:
+        url: "{{ item.url }}"
+        dest: "{{ lookup('env', 'HOME') }}/.local/share/fonts/{{ item.name }}"
+      with_items:
+        - name: FiraMono-Regular.otf
+          url: https://github.com/mozilla/Fira/raw/master/otf/FiraMono-Regular.otf
+        - name: FiraMono-Medium.otf
+          url: https://github.com/mozilla/Fira/raw/master/otf/FiraMono-Medium.otf
+        - name: FiraMono-Bold.otf
+          url: https://github.com/mozilla/Fira/raw/master/otf/FiraMono-Bold.otf
+        - name: Inconsolata.otf
+          url: https://www.levien.com/type/myfonts/Inconsolata.otf
+        - name: SourceCodeVariable-Roman.otf
+          url: https://github.com/adobe-fonts/source-code-pro/releases/download/variable-fonts/SourceCodeVariable-Roman.otf
+        - name: SourceCodeVariable-Italic.otf
+          url: https://github.com/adobe-fonts/source-code-pro/releases/download/variable-fonts/SourceCodeVariable-Italic.otf
+      register: extra_fonts
+
+    - name: Refresh fonts cache
+      shell: "fc-cache -f '{{ lookup('env', 'HOME') }}/.local/share/fonts'"
+      when: extra_fonts.changed
+
 - import_playbook: common.yml
