@@ -275,3 +275,15 @@
           # Load base configurations
           source-file "$HOME/Developer/pfac/.files/tmux/.tmux.conf"
       when: tmux_conf is changed
+
+    - name: Ensure TMUX Plugin Manager is installed and up-to-date
+      git:
+        repo: https://github.com/tmux-plugins/tpm
+        dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
+      register: tpm
+
+    - name: Ensure TMUX plugins are installed
+      shell: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm/bin/install_plugins"
+
+    - name: Ensure TMUX plugins are up-to-date
+      shell: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm/bin/update_plugins all"
