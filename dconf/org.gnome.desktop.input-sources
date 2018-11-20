@@ -1,0 +1,5 @@
+[/]
+xkb-options=['caps:ctrl_modifier']
+current=uint32 0
+mru-sources=[('xkb', 'us'), ('xkb', 'pt')]
+sources=[('xkb', 'pt'), ('xkb', 'us')]
