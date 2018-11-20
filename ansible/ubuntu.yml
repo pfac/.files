@@ -20,6 +20,7 @@
           - gnome-tweak-tool
           - neovim
           - nodejs
+          - pass
           - python
           - ruby
           - tilix
