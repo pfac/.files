@@ -76,6 +76,7 @@
 
 - hosts: localhost
   vars:
+    github_hub_version: '2.6.0'
     terraform_version: '0.11.10'
   tasks:
     - name: Ensure .local/bin directory exists
@@ -119,6 +120,36 @@
     - name: Refresh fonts cache
       shell: "fc-cache -f '{{ lookup('env', 'HOME') }}/.local/share/fonts'"
       when: extra_fonts.changed
+
+    #
+    # GitHub Hub
+    #
+
+    - name: Check whether GitHub Hub is installed
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.local/bin/hub"
+      register: github_hub
+
+    - name: Create temporary directory to install GitHub Hub
+      tempfile:
+        state: directory
+        suffix: github_hub
+      register: github_hub_tmp
+      when: not github_hub.stat.exists
+
+    - name: Download and expand GitHub Hub
+      unarchive:
+        remote_src: yes
+        src: "https://github.com/github/hub/releases/download/v{{ github_hub_version }}/hub-linux-amd64-{{ github_hub_version }}.tgz"
+        dest: "{{ github_hub_tmp.path }}"
+      register: github_hub_files
+      when: github_hub_tmp is changed
+
+    - name: Install GitHub Hub
+      shell: "PREFIX='{{ lookup('env', 'HOME') }}/.local' ./install"
+      args:
+        chdir: "{{ github_hub_tmp.path }}/hub-linux-amd64-{{ github_hub_version }}"
+      when: github_hub_files is changed
 
     #
     # Terraform
