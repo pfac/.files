@@ -65,6 +65,7 @@
           - nodejs
           - pass
           - python
+          - ripgrep
           - ruby
           - tilix
           - tk-dev
