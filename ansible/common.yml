@@ -439,6 +439,22 @@
       when: not asdf_global_versions.stat.exists or asdf_global_rust_version is changed
 
     #
+    # Python-based tools
+    #
+
+    - name: Ensure Python-based tools are installed
+      shell: "pip install {{ item }} --upgrade"
+      args:
+        chdir: "{{ lookup('env', 'HOME') }}"
+      with_items:
+        - awscli
+
+    - name: Regenerate ASDF VM Python shims
+      shell: 'asdf reshim python'
+      args:
+        chdir: "{{ lookup('env', 'HOME') }}"
+
+    #
     # Configure pfac/my-git-prompt
     #
 
