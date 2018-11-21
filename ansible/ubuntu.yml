@@ -3,6 +3,7 @@
   become: yes
   vars:
     google_chrome_apt_file_path: /etc/apt/sources.list.d/google-chrome.list
+    slack_version: 3.3.3
   tasks:
     - name: Ensure APT is up-to-date
       apt:
@@ -70,6 +71,14 @@
       apt:
         deb: https://prerelease.keybase.io/keybase_amd64.deb
       register: keybase
+
+    #
+    # Slack
+    #
+
+    - name: Ensure Slack is installed
+      apt:
+        deb: "https://downloads.slack-edge.com/linux_releases/slack-desktop-{{ slack_version }}-amd64.deb"
 
     #
     # System customisations
