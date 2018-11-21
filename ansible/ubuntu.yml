@@ -97,7 +97,7 @@
   tasks:
     - name: Ensure Keybase is running
       shell: run_keybase
-      when: system_packages.changed or keybase.changed
+      when: ansible_user_id != 'root' and (system_packages.changed or keybase.changed)
       retries: 3
       delay: 5
 
