@@ -3,6 +3,7 @@
   vars:
     elixir_version: '1.7.4'
     erlang_version: '21.1.2'
+    nodejs_version: '11.2.0'
     python_version: '3.7.1'
     rust_version: '1.30.1'
   tasks:
@@ -367,6 +368,41 @@
     - name: "Set Elixir {{ elixir_version }} as the default version"
       shell: "asdf global elixir {{ elixir_version }}"
       when: not asdf_global_versions.stat.exists or asdf_global_elixir_version is changed
+
+    #
+    # Configure Node JS
+    #
+
+    - name: Check whether ASDF VM Node JS plugin is installed
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.asdf/plugins/nodejs"
+      register: asdf_nodejs
+
+    - name: Install ASDF VM Node JS plugin
+      shell: asdf plugin-add nodejs
+      when: not asdf_nodejs.stat.exists
+
+    - name: "Check whether Node JS {{ nodejs_version }} is installed"
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.asdf/installs/nodejs/{{ nodejs_version }}"
+      register: asdf_nodejs_version
+
+    - name: "Install Node JS {{ nodejs_version }}"
+      shell: "asdf install nodejs {{ nodejs_version }}"
+      when: not asdf_nodejs_version.stat.exists
+
+    - name: "Check Node JS {{ nodejs_version }} is the default version"
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.tool-versions"
+        regexp: '^nodejs \d+(\.\d)*'
+        line: "rust {{ nodejs_version }}"
+      check_mode: yes
+      when: asdf_global_versions.stat.exists
+      register: asdf_global_nodejs_version
+
+    - name: "Set Node JS {{ nodejs_version }} as the default version"
+      shell: "asdf global nodejs {{ nodejs_version }}"
+      when: not asdf_global_versions.stat.exists or asdf_global_nodejs_version is changed
 
     #
     # Configure Python lang
