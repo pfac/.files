@@ -72,6 +72,7 @@
         deb: https://prerelease.keybase.io/keybase_amd64.deb
       register: keybase
 
+
     #
     # Slack
     #
@@ -97,6 +98,8 @@
     - name: Ensure Keybase is running
       shell: run_keybase
       when: system_packages.changed or keybase.changed
+      retries: 3
+      delay: 5
 
     - name: Ensure .local/bin directory exists
       file:
