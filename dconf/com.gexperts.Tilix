@@ -1,3 +1,6 @@
+[keybindings]
+terminal-find='disabled'
+
 [/]
 terminal-title-style='none'
 theme-variant='dark'
