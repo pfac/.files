@@ -329,3 +329,22 @@
     - name: "Set Rust {{ rust_version }} as the default version"
       shell: "asdf global rust {{ rust_version }}"
       when: not asdf_global_versions.stat.exists or asdf_global_rust_version is changed
+
+    #
+    # Configure pfac/my-git-prompt
+    #
+
+    - name: Ensure pfac/my-git-prompt repository is present
+      git:
+        repo: https://github.com/pfac/my-git-prompt.git
+        dest: "{{ lookup('env', 'HOME') }}/Developer/pfac/my-git-prompt"
+
+    - name: Build pfac/my-git-prompt
+      shell: cargo build --release
+      args:
+        chdir: "{{ lookup('env', 'HOME') }}/Developer/pfac/my-git-prompt"
+
+    - name: Install pfac/my-git-prompt
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/Developer/pfac/my-git-prompt/target/release/my-git-prompt"
+        dest: "{{ lookup('env', 'HOME') }}/.local/bin"

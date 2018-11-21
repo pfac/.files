@@ -51,6 +51,7 @@
           - git
           - gnome-tweak-tool
           - google-chrome-stable
+          - libssl-dev
           - neovim
           - nodejs
           - pass
