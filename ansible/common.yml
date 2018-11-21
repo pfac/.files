@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
   vars:
+    elixir_version: '1.7.4'
+    erlang_version: '21.1.2'
     rust_version: '1.30.1'
   tasks:
     - name: Ensure current user has a 4096-bit SSH key
@@ -294,6 +296,76 @@
 
     - name: Ensure TMUX plugins are up-to-date
       shell: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm/bin/update_plugins all"
+
+    #
+    # Configure Erlang lang
+    #
+
+    - name: Check whether ASDF VM Erlang plugin is installed
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.asdf/plugins/erlang"
+      register: asdf_erlang
+
+    - name: Install ASDF VM Erlang plugin
+      shell: asdf plugin-add erlang
+      when: not asdf_erlang.stat.exists
+
+    - name: "Check whether Erlang {{ erlang_version }} is installed"
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.asdf/installs/erlang/{{ erlang_version }}"
+      register: asdf_erlang_version
+
+    - name: "Install Erlang {{ erlang_version }}"
+      shell: "asdf install erlang {{ erlang_version }}"
+      when: not asdf_erlang_version.stat.exists
+
+    - name: "Check Erlang {{ erlang_version }} is the default version"
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.tool-versions"
+        regexp: '^erlang \d+(\.\d)*'
+        line: "rust {{ erlang_version }}"
+      check_mode: yes
+      when: asdf_global_versions.stat.exists
+      register: asdf_global_erlang_version
+
+    - name: "Set Erlang {{ erlang_version }} as the default version"
+      shell: "asdf global erlang {{ erlang_version }}"
+      when: not asdf_global_versions.stat.exists or asdf_global_erlang_version is changed
+
+    #
+    # Configure Elixir lang
+    #
+
+    - name: Check whether ASDF VM Elixir plugin is installed
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.asdf/plugins/elixir"
+      register: asdf_elixir
+
+    - name: Install ASDF VM Elixir plugin
+      shell: asdf plugin-add elixir
+      when: not asdf_elixir.stat.exists
+
+    - name: "Check whether Elixir {{ elixir_version }} is installed"
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.asdf/installs/elixir/{{ elixir_version }}"
+      register: asdf_elixir_version
+
+    - name: "Install Elixir {{ elixir_version }}"
+      shell: "asdf install elixir {{ elixir_version }}"
+      when: not asdf_elixir_version.stat.exists
+
+    - name: "Check Elixir {{ elixir_version }} is the default version"
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.tool-versions"
+        regexp: '^elixir \d+(\.\d)*'
+        line: "rust {{ elixir_version }}"
+      check_mode: yes
+      when: asdf_global_versions.stat.exists
+      register: asdf_global_elixir_version
+
+    - name: "Set Elixir {{ elixir_version }} as the default version"
+      shell: "asdf global elixir {{ elixir_version }}"
+      when: not asdf_global_versions.stat.exists or asdf_global_elixir_version is changed
 
     #
     # Configure Rust lang

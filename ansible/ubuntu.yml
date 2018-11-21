@@ -45,12 +45,14 @@
     - name: Ensure APT packages are installed
       apt:
         name:
+          - autoconf
           - bash
           - curl
           - direnv
           - git
           - gnome-tweak-tool
           - google-chrome-stable
+          - libncurses5-dev
           - libssl-dev
           - neovim
           - nodejs
