@@ -61,6 +61,8 @@
           - libxml2-dev
           - libxmlsec1-dev
           - make
+          - postgresql-10
+          - python-psycopg2
           - neovim
           - nodejs
           - pass
@@ -76,6 +78,17 @@
           - xz-utils
         force_apt_get: yes
         update_cache: yes
+
+    #
+    # PostgreSQL
+    #
+
+    - name: Ensure current user exists in PostgreSQL
+      postgresql_user:
+        name: "{{ ansible_user_id }}"
+        role_attr_flags: CREATEDB,NOSUPERUSER
+      become: yes
+      become_user: postgres
 
     #
     # Keybase
