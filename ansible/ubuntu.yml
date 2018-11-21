@@ -62,14 +62,18 @@
         force_apt_get: yes
         update_cache: yes
 
+    #
+    # Keybase
+    #
+
     - name: Ensure Keybase is installed
       apt:
         deb: https://prerelease.keybase.io/keybase_amd64.deb
       register: keybase
 
-    - name: Ensure Keybase is running
-      shell: run_keybase
-      when: system_packages.changed or keybase.changed
+    #
+    # System customisations
+    #
 
     - name: Ensure Tilix is the default terminal
       alternatives:
@@ -81,6 +85,10 @@
     github_hub_version: '2.6.0'
     terraform_version: '0.11.10'
   tasks:
+    - name: Ensure Keybase is running
+      shell: run_keybase
+      when: system_packages.changed or keybase.changed
+
     - name: Ensure .local/bin directory exists
       file:
         path: "{{ lookup('env', 'HOME') }}/.local/bin"
