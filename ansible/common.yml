@@ -1,9 +1,9 @@
 ---
 - hosts: localhost
   tasks:
-    - name: Ensure pfac user has a 4096-bit SSH key
+    - name: Ensure current user has a 4096-bit SSH key
       user:
-        name: pfac
+        name: "{{ ansible_user_id }}"
         generate_ssh_key: yes
         ssh_key_bits: 4096
 
