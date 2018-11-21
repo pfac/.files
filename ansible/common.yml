@@ -3,6 +3,7 @@
   vars:
     elixir_version: '1.7.4'
     erlang_version: '21.1.2'
+    python_version: '3.7.1'
     rust_version: '1.30.1'
   tasks:
     - name: Ensure current user has a 4096-bit SSH key
@@ -366,6 +367,41 @@
     - name: "Set Elixir {{ elixir_version }} as the default version"
       shell: "asdf global elixir {{ elixir_version }}"
       when: not asdf_global_versions.stat.exists or asdf_global_elixir_version is changed
+
+    #
+    # Configure Python lang
+    #
+
+    - name: 'Check whether ASDF VM Python plugin is installed'
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.asdf/plugins/python"
+      register: asdf_python
+
+    - name: 'Install ASDF VM Python plugin'
+      shell: asdf plugin-add python
+      when: not asdf_python.stat.exists
+
+    - name: "Check whether Python {{ python_version }} is installed"
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.asdf/installs/python/{{ python_version }}"
+      register: asdf_python_version
+
+    - name: "Install Python {{ python_version }}"
+      shell: "asdf install python {{ python_version }}"
+      when: not asdf_python_version.stat.exists
+
+    - name: "Check Python {{ python_version }} is the default version"
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.tool-versions"
+        regexp: '^python \d+(\.\d)*'
+        line: "python {{ python_version }}"
+      check_mode: yes
+      when: asdf_global_versions.stat.exists
+      register: asdf_global_python_version
+
+    - name: "Set Python {{ python_version }} as the default version"
+      shell: "asdf global python {{ python_version }}"
+      when: not asdf_global_versions.stat.exists or asdf_global_python_version is changed
 
     #
     # Configure Rust lang

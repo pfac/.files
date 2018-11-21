@@ -47,22 +47,32 @@
         name:
           - autoconf
           - bash
+          - build-essential
           - curl
           - direnv
           - git
           - gnome-tweak-tool
           - google-chrome-stable
+          - libbz2-dev
+          - libffi-dev
           - libncurses5-dev
+          - libreadline-dev
           - libssl-dev
+          - libxml2-dev
+          - libxmlsec1-dev
+          - make
           - neovim
           - nodejs
           - pass
           - python
           - ruby
           - tilix
+          - tk-dev
           - tmux
           - vim
+          - zlib1g-dev
           - zsh
+          - xz-utils
         force_apt_get: yes
         update_cache: yes
 
