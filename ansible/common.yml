@@ -471,4 +471,5 @@
     - name: Install pfac/my-git-prompt
       copy:
         src: "{{ lookup('env', 'HOME') }}/Developer/pfac/my-git-prompt/target/release/my-git-prompt"
-        dest: "{{ lookup('env', 'HOME') }}/.local/bin"
+        dest: "{{ lookup('env', 'HOME') }}/.local/bin/git-prompt"
+        mode: 0755
