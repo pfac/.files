@@ -1,5 +1,0 @@
-[[default]]
-  use_theme_colors = False
-    background_color = "#0d1926"
-	  foreground_color = "#d9e6f2"
-	    palette = "#000000:#e74c4c:#4ce74c:#e7e74c:#4c4ce7:#e74ce7:#4ce7e7:#b1b1b1:#303030:#f08d8d:#8df08d:#f0f08d:#8d8df0:#f08df0:#8df0f0:#ffffff"
