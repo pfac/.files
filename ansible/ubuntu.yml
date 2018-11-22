@@ -3,6 +3,7 @@
   become: yes
   vars:
     google_chrome_apt_file_path: /etc/apt/sources.list.d/google-chrome.list
+    insomnia_apt_file_path: /etc/apt/sources.list.d/insomnia.list
     slack_version: 3.3.3
   tasks:
     - name: Ensure APT is up-to-date
@@ -39,6 +40,27 @@
           deb http://dl.google.com/linux/chrome/deb/ stable main
 
     #
+    # Preparation for Insomnia
+    #
+
+    - name: Check whether Insomnia APT source is present
+      stat:
+        path: "{{ insomnia_apt_file_path }}"
+      register: insomnia_apt_file
+
+    - name: Ensure Insomnia APT key is present
+      apt_key:
+        url: https://insomnia.rest/keys/debian-public.key.asc
+      when: not insomnia_apt_file.stat.exists
+
+    - name: Ensure Insomnia APT source is present
+      copy:
+        dest: "{{ insomnia_apt_file_path }}"
+        mode: 0644
+        content: |
+          deb https://dl.bintray.com/getinsomnia/Insomnia /
+
+    #
     # Install packages
     #
 
@@ -53,6 +75,7 @@
           - git
           - gnome-tweak-tool
           - google-chrome-stable
+          - insomnia
           - libbz2-dev
           - libffi-dev
           - libncurses5-dev
