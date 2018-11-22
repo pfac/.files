@@ -1,3 +1,6 @@
 [/]
+switch-to-workspace-up=['<Primary><Alt>Up']
 maximize=['<Super>Up']
-switch-to-workspace-up=@as []
+switch-to-workspace-down=['<Primary><Alt>Down']
+move-to-workspace-down=['<Primary><Shift><Alt>Down']
+move-to-workspace-up=['<Primary><Shift><Alt>Up']
