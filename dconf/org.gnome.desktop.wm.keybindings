@@ -1,6 +1,8 @@
 [/]
 switch-to-workspace-up=['<Primary><Alt>Up']
+switch-input-source-backward=['<Primary><Alt>space']
 maximize=['<Super>Up']
+switch-input-source=['<Primary><Shift><Alt>space']
 switch-to-workspace-down=['<Primary><Alt>Down']
 move-to-workspace-down=['<Primary><Shift><Alt>Down']
 move-to-workspace-up=['<Primary><Shift><Alt>Up']
