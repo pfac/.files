@@ -109,9 +109,9 @@ endif
 
 " Load w0ng/vim-hybrid configurations, if installed and autoloaded
 if filereadable($HOME . '/.vim/plugged/vim-hybrid/colors/hybrid.vim') && filereadable($HOME . '/Developer/pfac/.files/.vim/plugins/vim-hybrid.vim')
-  so $HOME/Developer/pfac/.files/.vim/plugins/vim-hybrid.vim
-
   colorscheme hybrid
+
+  so $HOME/Developer/pfac/.files/.vim/plugins/vim-hybrid.vim
 endif
 
 " Load scrooloose/nerdtree configurations, if installed and autoloaded
