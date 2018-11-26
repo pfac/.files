@@ -1,0 +1,17 @@
+#!/bin/sh
+# Setup system for development on this project.
+
+# Check ASDF VM is installed
+! command -v asdf >/dev/null && cat >&2 <<EOS
+ASDF not found. It might not be installed, or might not be loaded into the environment correctly.
+
+This project requires the ASDF version manager for development. Please install it, load it, and then re-run this script.
+
+ASDF VM website: https://github.com/asdf-vm/asdf
+EOS
+
+# Install ASDF Python Plugin, if not present
+(asdf plugin-list | grep python >/dev/null) || (asdf plugin-add python && asdf reshim python)
+
+# Install correct Python version and its dependencies
+asdf install && asdf reshim python
