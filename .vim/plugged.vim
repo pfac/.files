@@ -1,6 +1,7 @@
 call plug#begin()
 
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'hashivim/vim-terraform'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'keith/tmux.vim'
