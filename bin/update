@@ -1,0 +1,30 @@
+#!/bin/sh
+# Update the current system's packages
+set -e
+
+# Detect system
+SYSTEM="$(uname)"
+case "$SYSTEM" in
+  Linux)
+    SYSTEM="$SYSTEM:$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)"
+esac
+
+# Check if ansible is available
+if ! command -v ansible >/dev/null; then
+  echo "Current system '$SYSTEM' is not supported. Aborting" >&2
+  exit 3
+fi
+
+# Hand-over updating task to Ansible
+case "$SYSTEM" in
+  Darwin)
+    ansible-playbook 'ansible/macos/update.yml'
+    ;;
+  Linux:Ubuntu)
+    ansible-playbook -K 'ansible/ubuntu/update.yml'
+    ;;
+  *)
+    echo "Current system '$SYSTEM' is not supported. Aborting" >&2
+    exit 2
+esac
+

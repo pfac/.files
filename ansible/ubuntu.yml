@@ -1,4 +1,6 @@
 ---
+- import_playbook: ubuntu/update.yml
+
 - hosts: localhost
   become: yes
   vars:
@@ -7,18 +9,6 @@
     spotify_apt_file_path: /etc/apt/sources.list.d/spotify.list
     slack_version: 3.3.3
   tasks:
-    - name: Ensure APT is up-to-date
-      apt:
-        name: "*"
-        state: latest
-        autoclean: yes
-        autoremove: yes
-        force_apt_get: yes
-        update_cache: yes
-      retries: 3
-      delay: 5
-      register: system_packages
-
     #
     # Preparation for Google Chrome
     #

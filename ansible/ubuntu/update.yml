@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Ensure APT packages are up-to-date
+      apt:
+        name: "*"
+        state: latest
+        autoclean: yes
+        autoremove: yes
+        force_apt_get: yes
+        update_cache: yes
+      retries: 3
+      delay: 5
+      register: system_packages
+
