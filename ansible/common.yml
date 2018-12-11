@@ -5,6 +5,7 @@
     erlang_version: '21.1.2'
     nodejs_version: '11.2.0'
     python_version: '3.7.1'
+    ruby_version: '2.5.3'
     rust_version: '1.30.1'
   tasks:
     - name: Ensure current user has a 4096-bit SSH key
@@ -438,6 +439,41 @@
     - name: "Set Python {{ python_version }} as the default version"
       shell: "asdf global python {{ python_version }}"
       when: not asdf_global_versions.stat.exists or asdf_global_python_version is changed
+
+    #
+    # Configure Ruby lang
+    #
+
+    - name: Check whether ASDF VM Ruby plugin is installed
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.asdf/plugins/ruby"
+      register: asdf_ruby
+
+    - name: Install ASDF VM Ruby plugin
+      shell: asdf plugin-add ruby
+      when: not asdf_ruby.stat.exists
+
+    - name: "Check whether Ruby {{ ruby_version }} is installed"
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/.asdf/installs/ruby/{{ ruby_version }}"
+      register: asdf_ruby_version
+
+    - name: "Install Ruby {{ ruby_version }}"
+      shell: "asdf install ruby {{ ruby_version }}"
+      when: not asdf_ruby_version.stat.exists
+
+    - name: "Check Ruby {{ ruby_version }} is the default version"
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.tool-versions"
+        regexp: '^ruby \d+(\.\d)*'
+        line: "ruby {{ ruby_version }}"
+      check_mode: yes
+      when: asdf_global_versions.stat.exists
+      register: asdf_global_ruby_version
+
+    - name: "Set Ruby {{ ruby_version }} as the default version"
+      shell: "asdf global ruby {{ ruby_version }}"
+      when: not asdf_global_versions.stat.exists or asdf_global_ruby_version is changed
 
     #
     # Configure Rust lang
