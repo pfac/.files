@@ -106,6 +106,7 @@
           - ripgrep
           - ruby
           - spotify-client
+          - tig
           - tilix
           - tk-dev
           - tmux
