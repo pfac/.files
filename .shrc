@@ -61,7 +61,9 @@ proxy () {
 # Initialize ASDF (through Homebrew or installation in HOME)
 if command -v brew >/dev/null && (brew --prefix asdf >/dev/null 2>&1); then
   # Initialize ASDF VM (if installed through Homebrew)
-  [ -f "$(brew --prefix asdf)/asdf.sh" ] && . "$(brew --prefix asdf)/asdf.sh"
+  ! [ "$ASDF_DIR" ] &&
+    [ -f "$(brew --prefix asdf)/asdf.sh" ] &&
+    . "$(brew --prefix asdf)/asdf.sh"
 else
   # Initialize ASDF VM (if installed in the home directory)
   [ -f "${HOME}/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
