@@ -1,6 +1,5 @@
 ---
 - import_playbook: ubuntu/update.yml
-- import_playbook: ubuntu/grub-customizer.yml
 
 - hosts: localhost
   become: yes
@@ -107,6 +106,7 @@
           - ripgrep
           - ruby
           - spotify-client
+          - snapd
           - tig
           - tilix
           - tk-dev
