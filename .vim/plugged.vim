@@ -24,4 +24,7 @@ Plug 'slim-template/vim-slim', { 'for': 'slim' }
 " Rust
 Plug 'rust-lang/rust.vim'
 
+" TOML
+Plug 'cespare/vim-toml'
+
 call plug#end()
