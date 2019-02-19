@@ -21,7 +21,7 @@ case "$SYSTEM" in
     ansible-playbook 'ansible/macos/update.yml'
     ;;
   Linux:Ubuntu)
-    ansible-playbook -K 'ansible/ubuntu/update.yml'
+    sudo apt update && sudo apt upgrade -y
     ;;
   *)
     echo "Current system '$SYSTEM' is not supported. Aborting" >&2
