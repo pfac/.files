@@ -1,0 +1,21 @@
+#!/bin/sh
+# Cleanup the current system's old unnecessary packages
+set -e
+
+# Detect system
+SYSTEM="$(uname)"
+case "$SYSTEM" in
+  Linux)
+    SYSTEM="$SYSTEM:$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)"
+esac
+
+# Hand-over updating task to Ansible
+case "$SYSTEM" in
+  Linux:Ubuntu)
+    sudo apt autoremove
+    ;;
+  *)
+    echo "Current system '$SYSTEM' is not supported. Aborting" >&2
+    exit 1
+esac
+
