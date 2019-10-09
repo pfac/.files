@@ -1,0 +1,9 @@
+---
+- name: Ensure fonts packages are installed
+  pacman:
+    name:
+      - otf-fira-code
+      - otf-fira-mono
+      - ttf-fira-code
+      - ttf-fira-mono
+  become: yes

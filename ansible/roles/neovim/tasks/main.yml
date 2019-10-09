@@ -1,0 +1,36 @@
+---
+- import_tasks: archlinux.yml
+  when: ansible_facts["os_family"] | lower == "archlinux"
+
+- name: Ensure ~/.config/nvim exists
+  file:
+    state: directory
+    path: "{{ lookup('env', 'HOME') }}/.config/nvim"
+
+- name: Ensure init.vim exists and is up-to-date
+  copy:
+    src: "init.vim"
+    dest: "{{ lookup('env', 'HOME') }}/.config/nvim/init.vim"
+
+- name: Ensure required directories exist"
+  file:
+    state: directory
+    path: "{{ lookup('env', 'HOME') }}/.config/nvim/{{ item }}"
+  with_items:
+    - autoload
+    - colors
+    - ftplugin
+    - plugin
+
+- name: Ensure sub-configs from Vim are up-to-date
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/.vim/{{ item }}/"
+    dest: "{{ lookup('env', 'HOME') }}/.config/nvim/{{ item }}"
+  with_items:
+    - autoload
+    - colors
+    - ftplugin
+    - plugin
+
+- name: Ensure vim-plug and all plugins are up-to-date
+  command: nvim +PlugUpgrade +PlugInstall +PlugUpdate +qall

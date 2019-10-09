@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  tasks:
+    - import_role:
+        name: awesome
+    - import_role:
+        name: firefox
+    - import_role:
+        name: fonts
+    - import_role:
+        name: gnupg
+    - import_role:
+        name: hub
+    - import_role:
+        name: keybase
+    - import_role:
+        name: neovim
+    - import_role:
+        name: ssh
+    - import_role:
+        name: tilix
+    - import_role:
+        name: tmux
+    - import_role:
+        name: xclip
+    - import_role:
+        name: randr
+    - import_role:
+        name: yay

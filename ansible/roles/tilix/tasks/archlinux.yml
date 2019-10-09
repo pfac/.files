@@ -1,0 +1,4 @@
+---
+- name: Ensure Tilix is installed
+  pacman:
+    name: tilix

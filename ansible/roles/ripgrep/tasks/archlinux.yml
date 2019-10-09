@@ -1,0 +1,5 @@
+---
+- name: Ensure Ripgrep is installed
+  pacman:
+    name: ripgrep
+  become: yes

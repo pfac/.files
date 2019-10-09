@@ -1,0 +1,4 @@
+---
+- name: Ensure Firefox is installed
+  pacman:
+    name: firefox

@@ -1,0 +1,5 @@
+---
+- name: Ensure GnuPG is installed
+  pacman:
+    name: gnupg
+  become: yes

@@ -1,0 +1,5 @@
+---
+- name: Ensure Hub (GitHub CLI) is installed
+  pacman:
+    name: hub
+  become: yes

@@ -1,0 +1,5 @@
+---
+- name: Ensure TMUX is installed
+  pacman:
+    name: tmux
+  become: yes

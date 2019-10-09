@@ -1,0 +1,4 @@
+---
+- name: Ensure Rofi is installed
+  pacman:
+    name: rofi

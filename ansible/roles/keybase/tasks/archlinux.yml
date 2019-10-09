@@ -1,0 +1,5 @@
+---
+- name: Ensure Keybase with GUI is installed
+  pacman:
+    name: keybase-gui
+  become: yes

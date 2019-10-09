@@ -1,0 +1,5 @@
+---
+- name: Ensure SSH client is installed
+  pacman:
+    name: openssh
+  become: yes

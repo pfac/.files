@@ -1,0 +1,5 @@
+- name: Sync .vimrc
+  copy:
+    src: "../.vimrc"
+    dest: "{{ lookup('env', 'HOME') }}/.vimrc"
+
