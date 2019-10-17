@@ -13,7 +13,8 @@ use.
 Here's a quick gist of what you should find in this repository:
 
 - A couple of (probably) useful tools to be placed in `~/.local`;
-- Generic shell, [Bash][bash] and [Zsh][zsh] configurations (I tend to prefer the latter);
+- Generic shell, [Bash][bash] and [Zsh][zsh] configurations (I tend to prefer
+  the latter for now);
 - Terminal emulators configurations and color schemes;
 - [Git][git] configurations;
 - [Tmux][tmux] configurations;
@@ -37,18 +38,20 @@ Or, if you already cloned the repository, just run:
 
     bin/install
 
-Here's what this idempotent script will do:
+Here's what this (supposedly) idempotent script will do:
 
-1. Checks the system for a package manager, and installs one if not found;
-2. Checks the system for installations of [Ansible][ansible] and [Git][git], and uses the package manager to install them if not found;
-3. Clones the repository into `~/Developer/pfac/.files`;
-4. Runs `bin/provision`, which will use Ansible to provision the system.
+1. Check the system for a package manager, and installs one if not found;
+2. Check the system for installations of [Ansible][ansible] and [Git][git], and
+   use the package manager to install them if not found;
+3. Clone the repository into `~/Developer/pfac/.files`;
+4. Run `bin/provision`, which will use Ansible to provision the system.
 
 
 ### How do I know that script is safe?
 
 It is [open-source](https://github.com/pfac/.files/blob/master/bin/install),
-which means you can actually see what it does. It should be fairly readable.
+which means you can actually see what it does. It should be fairly readable
+despite my tendency to over-complicate simple things.
 
 
 ## Provisioning
@@ -66,10 +69,48 @@ these preferences. Check the builds on [Travis CI][travis-build] and
 [Semaphore CI][semaphore-build] for the supported macOS and Linux systems
 (respectively).
 
-Here's what Ansible will do to the system:
+Depending on the system this will actually cause very distinct behaviours.
+Currently moving most things to reusable Ansible roles to support both Ubuntu
+and ArchLinux.
 
-1. Update the package manager cache, and upgrade all installed packages;
-2. That's it! :tada: More coming soon.
+:shopping_cart: ArchLinux:
+
+- [ ] Custom keymap
+  - [ ] Make Caps-Lock a RCtrl;
+- [ ] Tilix
+  - [ ] Create custom Ansible module to use DConf load;
+  - [ ] Update Tilix config from my preferences;
+  - [ ] Configure Tilix from DConf file;
+- [ ] Location
+  - [ ] Detect current location (via geolocation);
+- [ ] Time
+  - [ ] Synchronize system time via NTP;
+  - [ ] Change timezone to match location;
+  - [ ] Synchronize system time and hardware clock;
+- [ ] Redshift (blue light filter)
+  - [ ] Install it;
+  - [ ] Enable the user service and start it;
+  - [ ] Synchronize with current location;
+- [ ] PostgreSQL
+  - [ ] Install it;
+  - [ ] Initialize its directories
+    ```
+    $ sudo -u postgres initdb --locale <VALID_LOCALE> -D /var/lib/postgres/data
+    ```
+  - [ ] Create role for current user;
+- [ ] asdf-vm
+  - [ ] Install it'
+  - [ ] Install plugins:
+    - Erlang
+    - Elixir
+    - NodeJS
+    - Python
+    - Ruby
+    - Rust
+- [ ] Git prompt
+  - [ ] Install it from my repo;
+  - [ ] (Re-)Build it;
+  - [ ] Install it to `~/.local`;
 
 
 ## License
