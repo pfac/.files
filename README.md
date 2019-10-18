@@ -77,10 +77,16 @@ and ArchLinux.
 
 - [ ] Custom keymap
   - [ ] Make Caps-Lock a RCtrl;
+  - [ ] OSX-like international dead keys
 - [ ] Tilix
   - [ ] Create custom Ansible module to use DConf load;
   - [ ] Update Tilix config from my preferences;
   - [ ] Configure Tilix from DConf file;
+- [ ] Displays
+  - [ ] Install arandr;
+  - [ ] Install autorandr;
+  - [ ] Load display profiles?
+  - [ ] Enable and start autorandr;
 - [ ] Location
   - [ ] Detect current location (via geolocation);
 - [ ] Time
@@ -111,6 +117,13 @@ and ArchLinux.
   - [ ] Install it from my repo;
   - [ ] (Re-)Build it;
   - [ ] Install it to `~/.local`;
+- [ ] Terraform
+  - [ ] Install it;
+- [ ] Discord
+  - [ ] Install it;
+- [ ] VSCodium
+  - [ ] Install it;
+  - [ ] Copy my configs;
 
 
 ## License
