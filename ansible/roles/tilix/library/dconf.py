@@ -138,9 +138,7 @@ EXAMPLES = """
 """
 
 
-from io import StringIO
 import os
-import sys
 import traceback
 
 PSUTIL_IMP_ERR = None
