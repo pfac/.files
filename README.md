@@ -75,6 +75,8 @@ and ArchLinux.
 
 :shopping_cart: ArchLinux:
 
+- [ ] Awesome
+  - [ ] Disable shutdown on power button;
 - [ ] Custom keymap
   - [ ] Make Caps-Lock a RCtrl;
   - [ ] OSX-like international dead keys
