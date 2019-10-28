@@ -6,11 +6,19 @@ set -e
 SYSTEM="$(uname)"
 case "$SYSTEM" in
   Linux)
-    SYSTEM="$SYSTEM:$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)"
+    if [ -f /etc/os-release ]; then
+      SYSTEM="$SYSTEM:$(grep '^NAME=' /etc/os-release | cut -d= -f2 | sed 's/"//g' | awk -c '{ print $1 }')"
+    fi
+    if [ -f /etc/lsb-release ]; then
+      SYSTEM="$SYSTEM:$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)"
+    fi
 esac
 
-# Hand-over updating task to Ansible
+# Cleanup the system
 case "$SYSTEM" in
+  Linux:Arch)
+    paccache -r
+    ;;
   Linux:Ubuntu)
     sudo apt autoremove
     ;;

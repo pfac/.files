@@ -75,6 +75,7 @@ and ArchLinux.
 
 :shopping_cart: ArchLinux:
 
+- [ ] pacman-contrib
 - [ ] Awesome
   - [ ] Disable shutdown on power button;
 - [ ] Custom keymap
