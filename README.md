@@ -75,16 +75,23 @@ and ArchLinux.
 
 :shopping_cart: ArchLinux:
 
-- [ ] pacman-contrib
+- [ ] Perform proper system cleanup
+  - [ ] Install `pacman-contrib`
+  - [ ] Create hook to perform cleanup after each Pacman transaction (see the
+  [docs](https://wiki.archlinux.org/index.php/Pacman#Cleaning_the_package_cache)
+  for details.
 - [ ] Awesome
   - [ ] Disable shutdown on power button;
 - [ ] Custom keymap
   - [ ] Make Caps-Lock a RCtrl;
   - [ ] OSX-like international dead keys
+- [ ] Customize trackpad ([docs](https://wiki.archlinux.org/index.php/Libinput))
+  - [ ] Disable mid-click;
+  - [ ] Change right click to two-finger click;
 - [ ] Tilix
-  - [ ] Create custom Ansible module to use DConf load;
+  - [x] Create custom Ansible module to use DConf load;
+  - [x] Configure Tilix from DConf file;
   - [ ] Update Tilix config from my preferences;
-  - [ ] Configure Tilix from DConf file;
 - [ ] Displays
   - [ ] Install arandr;
   - [ ] Install autorandr;
@@ -127,6 +134,7 @@ and ArchLinux.
 - [ ] VSCodium
   - [ ] Install it;
   - [ ] Copy my configs;
+- Review system maintenance [docs](https://wiki.archlinux.org/index.php/System_maintenance).
 
 
 ## License
