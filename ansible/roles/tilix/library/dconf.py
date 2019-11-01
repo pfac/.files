@@ -69,6 +69,12 @@ options:
         GVariant format. Due to complexity of this format, it is best to have a
         look at existing values in the dconf database. Required for
         C(state=present) when C(key) ends with `/`.
+  src:
+    required: false
+    description:
+      - Path to a file from where to load the content. Ignored if C(content) is
+        provided. Required for C(state=present) when C(content) is not
+        provided.
   state:
     required: false
     default: present
@@ -135,6 +141,11 @@ EXAMPLES = """
     content: |
       [/]
       quake-specific-monitor=0
+
+- name: Load multiple configs from file under a specific dconf key
+  dconf:
+    key: "/com/gexperts/Tilix/"
+    src: /path/to/file.dconf
 """
 
 
@@ -223,7 +234,7 @@ class DBusWrapper(object):
 
         return None
 
-    def run_command(self, command):
+    def run_command(self, command, data=None):
         """
         Runs the specified command within a functional D-Bus session. Command is
         effectively passed-on to AnsibleModule.run_command() method, with
@@ -238,13 +249,13 @@ class DBusWrapper(object):
         if self.dbus_session_bus_address is None:
             self.module.debug("Using dbus-run-session wrapper for running commands.")
             command = ['dbus-run-session'] + command
-            rc, out, err = self.module.run_command(command)
+            rc, out, err = self.module.run_command(command, data=data)
 
             if self.dbus_session_bus_address is None and rc == 127:
                 self.module.fail_json(msg="Failed to run passed-in command, dbus-run-session faced an internal error: %s" % err)
         else:
             extra_environment = {'DBUS_SESSION_BUS_ADDRESS': self.dbus_session_bus_address}
-            rc, out, err = self.module.run_command(command, environ_update=extra_environment)
+            rc, out, err = self.module.run_command(command, data=data, environ_update=extra_environment)
 
         return rc, out, err
 
@@ -264,11 +275,11 @@ class DconfPreference(object):
 
         self.module = module
         self.check_mode = check_mode
-    
+
     def normalize_value(self, value):
         if value == '':
             return None
-        
+
         return value.rstrip('\n')
 
     def read(self, key, include_defaults=False):
@@ -392,7 +403,7 @@ class DconfPreference(object):
 
         # Set up command to run
         command = ["dconf", "reset"]
-        
+
         if is_directory:
             command.append("-f")
 
@@ -435,22 +446,49 @@ class DconfPreference(object):
         # Exit early if no change is needed
         if current_values == self.normalize_value(content):
             return False
-        
+
         # If in check mode, just notify user a change will be performed
         if self.check_mode:
             return True
-        
+
         # First reset the key to assume defaults for unspecified sub-keys
         if current_values:
           self.reset(key)
 
-        # Run the dconf command
+        # Set up the command to run
         command = ["dconf", "load", "-f", key]
-        rc, out, err = self.module.run_command(command, data=content)
+
+        # Run the command wrapped in dbus-launch
+        dbus_wrapper = DBusWrapper(self.module)
+        rc, out, err = dbus_wrapper.run_command(command, data=content)
 
         # Handle command failure
         if rc != 0:
-            self.module.fail_json(msg='dconf failed while dumping values with error: %s' % err)
+            fail_msg_lines = []
+            fail_msg_lines.append('dconf failed to load values under %(key)s with error: %(error)s' % {"key": key, "error": err})
+
+            # Attempt to restore old values
+            rc, _, err = dbus_wrapper.run_command(command, data=current_values)
+
+            # Handle recovery failure
+            if rc != 0:
+                fail_msg_lines.append('dconf failed to restore values under %(key)s with error: %(error)s' % {"key": key, "error": err})
+
+                # Attempt to back up old values into a regular file
+                try:
+                    with open('recovery.dconf') as file:
+                        print(current_values, file=file)
+
+                    fail_msg_lines.append('saved previous values under %(key)s in file: %(path)s' % {"key": key, "path": os.path.realpath(file.name)})
+                except OSError:
+                    fail_msg_lines.append('dconf failed to restore values under %(key)s with error: %(error)s' % {"key": key, "error": err})
+                    fail_msg_lines.append('previous values under %(key)s:' % {"ley": key})
+                    fail_msg_lines.append(current_values)
+
+            # Print error messages
+            fail_msg = os.linesep.join(fail_msg_lines)
+            self.module.fail_json(msg=fail_msg)
+
             return None
 
         return True
@@ -463,6 +501,7 @@ def main():
             key=dict(required=True, type='str'),
             value=dict(required=False, default=None, type='str'),
             content=dict(required=False, default=None, type='str'),
+            src=dict(required=False, default=None, type='path', no_log=True),
         ),
         supports_check_mode=True
     )
