@@ -1,0 +1,5 @@
+---
+- name: Ensure PCManFM is installed
+  become: yes
+  pacman:
+    name: pcmanfm
