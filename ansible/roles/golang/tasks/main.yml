@@ -1,0 +1,9 @@
+---
+- import_tasks: archlinux.yml
+  when: ansible_facts["os_family"] | lower == "archlinux"
+
+- name: Set GOPATH in shell runtime configurations to ~/Developer
+  lineinfile:
+    path: "{{ lookup('env', 'HOME') }}/.shrc"
+    regexp: '^export GOPATH='
+    line: 'export GOPATH="$HOME/Developer"'
