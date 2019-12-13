@@ -1,0 +1,6 @@
+---
+- name: Ensure CUPS is installed
+  become: yes
+  pacman:
+    name: cups
+  register: cups_installation
