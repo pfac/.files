@@ -1,0 +1,5 @@
+---
+- name: Ensure system-config-printer is installed
+  become: yes
+  pacman:
+    name: system-config-printer
