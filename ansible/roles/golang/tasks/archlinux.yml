@@ -1,5 +1,0 @@
----
-- name: Ensure the Go compiler is installed
-  become: yes
-  pacman:
-    name: go
