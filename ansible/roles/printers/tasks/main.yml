@@ -1,0 +1,42 @@
+---
+- name: List services in the local network
+  command: "/usr/bin/lpinfo --include-schemes dnssd -v"
+  register: network_services
+
+- name: Find Subvisual's HP Officejet Pro 8620 in services
+  command:
+    cmd: "/usr/bin/grep 'HP%20Officejet%20Pro%208620%20%5B619DF4%5D'"
+    stdin: "{{ network_services.stdout }}"
+  register: find_hp8620_in_network_services
+
+- name: Extract Subvisual's HP Officejet Pro 8620 device URI
+  command:
+    cmd: "/usr/bin/cut -d' ' -f2"
+    stdin: "{{ find_hp8620_in_network_services.stdout }}"
+  register: hp8620_uri
+  when: find_hp8620_in_network_services.rc == 0
+
+- name: Ensure Subvisual's HP Officejet Pro 8620 is configured
+  command:
+    argv:
+      - "/usr/bin/lpadmin"
+      - "-p"
+      - "HP-Officejet-Pro-8620"
+      - "-E"
+      - "-D"
+      - "HP Officejet Pro 8620"
+      - "-L"
+      - "Subvisual Braga Office"
+      - "-m"
+      - "driverless:ipp://HP3464A9619DF4.local:631/ipp/print"
+      - "-v"
+      - "{{ hp8620_uri.stdout }}"
+  when: find_hp8620_in_network_services.rc == 0
+
+- name: Ensure Subvisual's HP Officejet Pro 8620 is the default system printer
+  command:
+    argv:
+      - "/usr/bin/lpadmin"
+      - "-d"
+      - "HP-Officejet-Pro-8620"
+
