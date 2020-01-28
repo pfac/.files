@@ -50,6 +50,7 @@ beautiful.init("/home/pfac/.config/awesome/theme.lua")
 -- This is used later as the default terminal and editor to run.
 local user = {
     browser = "firefox",
+    file_manager = "pcmanfm",
     editor = os.getenv("EDITOR") or "nvim",
     terminal = "tilix",
 }
@@ -82,6 +83,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "Firefox", user.browser },
                                     { "Search", "rofi -show combi" },
                                     { "Terminal", user.terminal },
+                                    { "Files", user.file_manager },
                                   }
                         })
 
@@ -264,8 +266,10 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(user.terminal) end,
-              {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey,           }, "e", function () awful.spawn(user.file_manager) end,
+              {description = "Open file manager", group = "launcher"}),
+    awful.key({ modkey,           }, "t", function () awful.spawn(user.terminal) end,
+              {description = "Open a terminal", group = "launcher"}),
     awful.key({ modkey,           }, " ", function () awful.spawn("rofi -show combi") end,
               {description = "Open Rofi", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
