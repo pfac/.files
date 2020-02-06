@@ -99,9 +99,12 @@ autocmd BufWritePre <buffer> :%s/\s\+$//e
 " enable syntax specific preferences
 filetype plugin indent on
 
-"
-" Plugins
-"
+"""
+"""
+"""   PLUGINS
+"""
+"""
+
 call plug#begin()
 
 Plug 'christoomey/vim-tmux-navigator'
@@ -131,3 +134,12 @@ Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 
 call plug#end()
+
+"""
+"""
+"""   POST PLUGINS
+"""
+"""
+
+" Set custom colorscheme
+color pfac-hybrid
