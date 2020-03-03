@@ -1,0 +1,75 @@
+#!/usr/bin/env sh
+# Generic shell configurations.
+
+# Check whether a path exists in a PATH like value (colon separated string).
+in_path () {
+  echo "$1" | awk -F: "{l=1;for(i=0;++i<=NF&&l;l=\$i!=\"$2\");exit l}"
+}
+
+# Load proxy configuration into the environment
+proxy () {
+  while getopts 'v' option; do
+    case "$option" in
+      v)
+        echo "HTTP:  ${HTTP_PROXY:(none)}"
+        echo "HTTPS: ${HTTPS_PROXY:(none)}"
+        echo "FTP:   ${FTP_PROXY:(none)}"
+        echo "SOCKS: ${SOCKS_PROXY:(none)}"
+        ;;
+      ?)
+        echo "Unknown option $option" >&2
+        exit 1;
+        ;;
+    esac;
+  done;
+  shift $((OPTIND - 1))
+
+  case "$1" in
+    di|di.uminho)
+      export HTTP_PROXY='http://proxy.di.uminho.pt:3128'
+      export HTTPS_PROXY='https://proxy.di.uminho.pt:3128'
+      export FTP_PROXY='ftp://proxy.di.uminho.pt:3128'
+      export SOCKS_PROXY='socks://socks.di.uminho.pt:1080'
+      ;;
+    uminho)
+      export HTTP_PROXY='http://proxy.uminho.pt:3128'
+      export HTTPS_PROXY='https://proxy.uminho.pt:3128'
+      export FTP_PROXY='ftp://proxy.uminho.pt:3128'
+      export SOCKS_PROXY='socks://socks.uminho.pt:1080'
+      ;;
+    none)
+      unset HTTP_PROXY;
+      unset HTTPS_PROXY;
+      unset FTP_PROXY;
+      unset SOCKS_PROXY;
+      ;;
+    *)
+      ;;
+  esac;
+}
+
+# Add executables in user scope
+[ -d "$HOME/.local/bin" ] &&
+  ! in_path "$PATH" "$HOME/.local/bin" &&
+  export PATH="${HOME}/.local/bin:$PATH"
+
+# Add libraries in user scope
+[ -d "$HOME/.local/lib" ] && 
+  ! in_path "$LD_LIBRARY_PATH" "$HOME/.local/lib" &&
+  export LD_LIBRARY_PATH="${HOME}/.local/lib:$LD_LIBRARY_PATH";
+
+# Initialize ASDF (through Homebrew or installation in HOME)
+[ -f "$HOME/.local/bin/asdf.sh" ]
+  . "$HOME/.local/bin/asdf.sh"
+
+# Add Rust tools
+[ -d "$HOME/.cargo/bin" ] &&
+  ! in_path "$PATH" "$HOME/.cargo/bin" &&
+  export PATH="$HOME/.cargo/bin:$PATH"
+
+# Add Heroku Toolbelt
+[ -d "/usr/local/heroku/bin" ] &&
+  ! in_path "$PATH" '/usr/local/heroku/bin' &&
+  export PATH="/usr/local/heroku/bin:$PATH"
+
+true

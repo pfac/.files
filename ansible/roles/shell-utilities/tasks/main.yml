@@ -1,0 +1,12 @@
+- name: Ensure ~/.local/bin/ exists
+  file:
+    state: directory
+    path: "{{ lookup('env', 'HOME') }}/.local/bin"
+    mode: 0755
+
+- name: Ensure utility scripts are up-to-date
+  copy:
+    src: "{{ item }}"
+    dest: "{{ lookup('env', 'HOME') }}/.local/bin/{{ item }}"
+  with_items:
+    - asdf.sh
