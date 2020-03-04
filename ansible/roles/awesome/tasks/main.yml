@@ -2,12 +2,24 @@
 - import_tasks: archlinux.yml
   when: ansible_facts["os_family"] | lower == "archlinux"
 
+- name: Ensure Awesome user config location exists
+  file:
+    state: directory
+    path: "{{ lookup('env', 'HOME') }}/.config/awesome"
+
 - name: Ensure Awesome user config is up-to-date
   copy:
     src: rc.lua
     dest: "{{ lookup('env', 'HOME') }}/.config/awesome/rc.lua"
   register: awesome_user_config
 
+- name: Ensure Awesome WM Widgets are present
+  git:
+    repo: https://github.com/streetturtle/awesome-wm-widgets
+    dest: "{{ lookup('env', 'HOME') }}/.config/awesome/awesome-wm-widgets"
+    version: master
+  register: awesome_widgets
+
 - debug:
-    msg: "Awesome config changed, you have to restart it manually in order to see the changes."
-  when: awesome_user_config.changed
+    msg: "Awesome config and/or widgets changed, you have to restart it manually in order to see the changes."
+  when: awesome_user_config.changed or awesome_widgets.changed
