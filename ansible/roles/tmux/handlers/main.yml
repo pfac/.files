@@ -1,0 +1,3 @@
+---
+- name: Source TMUX config
+  shell: tmux source ~/.tmux.conf

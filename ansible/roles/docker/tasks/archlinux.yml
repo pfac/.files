@@ -5,3 +5,9 @@
     name:
       - docker
   register: docker_installation
+
+- name: Ensure Docker Compose is installed
+  become: yes
+  pacman:
+    name:
+      - docker-compose

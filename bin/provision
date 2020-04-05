@@ -9,7 +9,12 @@ BECOME_ASK_PASS=''
 SYSTEM="$(uname)"
 case "$SYSTEM" in
   Linux)
-    SYSTEM="$SYSTEM:$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)"
+    if [ -f /etc/os-release ]; then
+      SYSTEM="$SYSTEM:$(grep '^NAME=' /etc/os-release | cut -d= -f2 | sed 's/"//g' | awk -c '{ print $1 }')"
+    fi
+    if [ -f /etc/lsb-release ]; then
+      SYSTEM="$SYSTEM:$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)"
+    fi
 esac
 
 # Detect privileges
@@ -32,6 +37,10 @@ case "$SYSTEM" in
   Darwin)
     echo '==> Provisioning macOS system with Ansible'
     ansible-playbook ansible/macos.yml
+    ;;
+  Linux:Arch)
+    echo '==> Provisioning Arch system with Ansible (sudo required)'
+    ansible-playbook $BECOME_ASK_PASS ansible/arch.yml
     ;;
   Linux:Ubuntu)
     echo '==> Provisioning Ubuntu system with Ansible (sudo required)'

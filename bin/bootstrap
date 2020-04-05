@@ -62,32 +62,11 @@ case "$SYSTEM" in
     fi
     ;;
   Linux:Ubuntu)
-    if command -v apt-get >/dev/null; then
-      echo '==> Updating APT cache (sudo required)'
-      $SUDO apt-get update -qq
-    else
+    if ! command -v apt-get >/dev/null; then
       echo 'Ubuntu system is expected to have the APT package manager. Aborting' >&2
       exit 3
     fi
 esac
-
-# Ensuring Ansible is installed in the system
-if ! command -v ansible >/dev/null; then
-  echo '==> Installing Ansible'
-  case "$SYSTEM" in
-    Darwin)
-      brew install ansible
-      ;;
-    Linux:Arch)
-      $SUDO pacman -Sy ansible
-      ;;
-    Linux:Ubuntu)
-      $SUDO apt-get install -y -qq ansible
-  esac
-  echo '\o/ Ansible installed'
-else
-  echo "--- Ansible $(ansible --version | head -n1 | cut -d\  -f2) installed in $(command -v ansible)"
-fi
 
 # Ensure Git is installed in the system
 if ! command -v git >/dev/null; then
@@ -108,13 +87,13 @@ else
 fi
 
 # Clone repository into the system.
-if ! [ -d "$CLONE_TO/.git" ]; then
-  echo "==> Cloning $BRANCH branch to $CLONE_TO"
-  git clone -b "$BRANCH" https://github.com/pfac/.files "$CLONE_TO"
-  echo '\o/ Repository cloned'
-else
+if [ -d "$CLONE_TO/.git" ]; then
   echo "--- Repository present in $CLONE_TO"
   cd "$CLONE_TO"
+  if ! [ "$(git diff-index --quiet HEAD)" ]; then
+    echo 'Repository contains uncommitted changes. Please commit your changes or remove them. Aborting' >&2
+    exit 4
+  fi
   if ! [ "$(git rev-parse --abbrev-ref HEAD)" = "$BRANCH" ]; then
     echo "==> Checking out $BRANCH branch"
     git checkout "$BRANCH"
@@ -123,16 +102,24 @@ else
     echo "--- Branch $BRANCH already checked out"
   fi
 fi
-
-# Hand-over installation to Ansible
-"$CLONE_TO/bin/provision" -d "$CLONE_TO"
+if [ -d "$CLONE_TO" ] && ! [ -d "$CLONE_TO/.git" ]; then
+  echo "Found a directory in '$CLONE_TO' but it is not a Git repository. Please fix it or remove it. Aborting" >&2
+  exit 4
+fi
+if ! [ -d "$CLONE_TO" ]; then
+  echo "==> Cloning $BRANCH branch to $CLONE_TO"
+  git clone -b "$BRANCH" https://github.com/pfac/.files "$CLONE_TO"
+  echo '\o/ Repository cloned'
+fi
 
 # Success
 cat <<EOS
 ================================================================================
 
-pfac's home installed successfully \\o/
+pfac's home bootstrapped successfully.
 
-To change something, simply edit the Ansible playbook for the current system and
-run $CLONE_TO/bin/provision again.
+This means Git was installed if it wasn't present already, and pfac's dotfiles
+were cloned to '$CLONE_TO'.
+
+To proceed with the installation run '$CLONE_TO/bin/provision'.
 EOS

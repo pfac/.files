@@ -1,29 +1,55 @@
 ---
 - hosts: localhost
   tasks:
+    # - import_role:
+    #     name: asdf
     - import_role:
         name: awesome
     - import_role:
-        name: firefox
+        name: bash
     - import_role:
-        name: fonts
+        name: bluetooth
     - import_role:
-        name: gnupg
+        name: docker
+    # - import_role:
+    #     name: firefox
+    # - import_role:
+    #     name: fonts
     - import_role:
-        name: hub
+        name: git
+    # - import_role:
+    #     name: gnupg
+    # - import_role:
+    #     name: heroku
+    # - import_role:
+    #     name: hub
+    # - import_role:
+    #     name: keybase
+    # - import_role:
+    #     name: neovim
     - import_role:
-        name: keybase
+        name: network_manager
     - import_role:
-        name: neovim
+        name: pcmanfm
     - import_role:
-        name: ssh
+        name: printers
+    # - import_role:
+    #     name: randr
+    # - import_role:
+    #     name: ssh
+    - import_role:
+        name: system-config-printer
     - import_role:
         name: tilix
+    # - import_role:
+    #     name: tmux
     - import_role:
-        name: tmux
+        name: vpn
+    # - import_role:
+    #     name: xclip
+    # - import_role:
+    #     name: xscreensaver
+    # - import_role:
+    #     name: yay
     - import_role:
-        name: xclip
-    - import_role:
-        name: randr
-    - import_role:
-        name: yay
+        name: zsh

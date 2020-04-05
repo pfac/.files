@@ -1,0 +1,5 @@
+---
+- name: Ensure asdf-vm is installed
+  aur:
+    name:
+      - asdf-vm

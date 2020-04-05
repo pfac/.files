@@ -1,0 +1,5 @@
+---
+- name: Ensure OpenVPN is installed
+  become: yes
+  pacman:
+    name: openvpn

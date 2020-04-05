@@ -12,13 +12,14 @@
     repo: "https://github.com/tmux-plugins/tpm"
     dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
     version: master
-
-- name: Ensure ~/.config/tmux exists
-  file:
-    state: directory
-    path: "{{ lookup('env', 'HOME') }}/.config/tmux"
+  notify:
+    - Source TMUX config
 
 - name: Ensure TMUX config is up-to-date
   copy:
     src: "tmux.conf"
-    dest: "{{ lookup('env', 'HOME') }}/.config/tmux/tmux.conf"
+    dest: "{{ lookup('env', 'HOME') }}/.tmux.conf"
+  notify:
+    - Source TMUX config
+
+

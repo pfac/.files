@@ -3,6 +3,10 @@ let mapleader = " "
 
 " Global
 set autoindent      " enable automatic indentation
+
+" Automatically read a file if changed elsewhere and not changed in buffer
+set autoread
+
 set backspace=2     " make backspace work like in modern editors
 set backupcopy=yes  " make sure the file is overwritten on save
 set background=dark " use dark background for color schemes

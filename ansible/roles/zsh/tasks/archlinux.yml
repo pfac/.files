@@ -1,0 +1,5 @@
+---
+- name: Ensure ZSH is installed
+  pacman:
+    name: zsh
+  become: yes

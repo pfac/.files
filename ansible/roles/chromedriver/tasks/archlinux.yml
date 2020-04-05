@@ -1,0 +1,6 @@
+---
+- name: Ensure ChromeDriver is installed
+  become: yes
+  aur:
+    name:
+      - chromedriver

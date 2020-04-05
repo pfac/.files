@@ -1,0 +1,5 @@
+---
+- name: Ensure Heroku is installed
+  snap:
+    name: heroku
+    classic: yes

@@ -1,4 +1,5 @@
 ---
 - name: Ensure NeoVim is installed
+  become: yes
   pacman:
     name: neovim

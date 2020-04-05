@@ -81,7 +81,14 @@ myawesomemenu = {
    { "quit", function() awesome.quit() end },
 }
 
+-- Settings menu
+settingsMenu = {
+   { "Bluetooth", "blueman-manager" },
+   { "Sound", "pavucontrol" },
+}
+
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    { "Settings", settingsMenu },
                                     { "Firefox", user.browser },
                                     { "Search", "rofi -show combi" },
                                     { "Terminal", user.terminal },
