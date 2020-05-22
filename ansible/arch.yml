@@ -25,8 +25,8 @@
     #     name: hub
     # - import_role:
     #     name: keybase
-    # - import_role:
-    #     name: neovim
+    - import_role:
+        name: neovim
     - import_role:
         name: network_manager
     - import_role:

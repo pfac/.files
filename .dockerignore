@@ -1,4 +1,8 @@
 # vi: syntax=conf
+#
+# This file is used in the CI, when testing the automatic configuration tools
+# in different environments in Docker containers.
+#
 
 # Git files
 .git/
