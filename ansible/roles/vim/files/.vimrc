@@ -137,6 +137,10 @@ Plug 'rust-lang/rust.vim'
 " TOML
 Plug 'cespare/vim-toml'
 
+" Typescript
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] }
+Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescriptreact'] }
+
 call plug#end()
 
 """

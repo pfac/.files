@@ -1,1 +1,0 @@
-" NeoVim base configuration file
