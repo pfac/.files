@@ -55,3 +55,7 @@ npm-debug.log.*
 # Safe guards #
 ###############
 !*.com/
+
+# Environment files #
+#####################
+.envrc
