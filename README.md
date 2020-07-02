@@ -94,9 +94,7 @@ and ArchLinux.
   - [ ] Update Tilix config from my preferences;
 - [ ] Displays
   - [ ] Install arandr;
-  - [ ] Install autorandr;
   - [ ] Load display profiles?
-  - [ ] Enable and start autorandr;
 - [ ] Location
   - [ ] Detect current location (via geolocation);
 - [ ] Time
