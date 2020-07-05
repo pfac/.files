@@ -1,5 +1,0 @@
----
-dependencies:
-  - role: avahi
-  - role: cups
-  - role: ghostscript
