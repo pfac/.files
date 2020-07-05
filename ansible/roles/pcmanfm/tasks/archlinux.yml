@@ -1,7 +1,0 @@
----
-- name: Ensure PCManFM is installed
-  become: yes
-  pacman:
-    name:
-      - file-roller
-      - pcmanfm

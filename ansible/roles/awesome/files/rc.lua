@@ -52,7 +52,7 @@ beautiful.init("/home/pfac/.config/awesome/theme.lua")
 -- This is used later as the default terminal and editor to run.
 local user = {
     browser = "firefox",
-    file_manager = "pcmanfm",
+    file_manager = "",
     editor = os.getenv("EDITOR") or "nvim",
     terminal = "tilix",
 }

@@ -28,10 +28,6 @@
     # - import_role:
     #     name: network_manager
     # - import_role:
-    #     name: pcmanfm
-    # - import_role:
-    #     name: printers
-    # - import_role:
     #     name: ssh
     # - import_role:
     #     name: system-config-printer
