@@ -83,7 +83,6 @@ myawesomemenu = {
 
 -- Settings menu
 settingsMenu = {
-   { "Sound", "pavucontrol" },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
