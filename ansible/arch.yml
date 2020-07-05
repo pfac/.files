@@ -3,12 +3,12 @@
   tasks:
     # - import_role:
     #     name: asdf
-    - import_role:
-        name: awesome
+    # - import_role:
+    #     name: awesome
     - import_role:
         name: bash
-    - import_role:
-        name: bluetooth
+    #- import_role:
+    #   name: bluetooth
     - import_role:
         name: docker
     # - import_role:
@@ -27,24 +27,22 @@
     #     name: keybase
     - import_role:
         name: neovim
-    - import_role:
-        name: network_manager
-    - import_role:
-        name: pcmanfm
-    - import_role:
-        name: printers
     # - import_role:
-    #     name: randr
+    #     name: network_manager
+    # - import_role:
+    #     name: pcmanfm
+    # - import_role:
+    #     name: printers
     # - import_role:
     #     name: ssh
-    - import_role:
-        name: system-config-printer
+    # - import_role:
+    #     name: system-config-printer
     - import_role:
         name: tilix
     # - import_role:
     #     name: tmux
-    - import_role:
-        name: vpn
+    # - import_role:
+    #     name: vpn
     # - import_role:
     #     name: xclip
     # - import_role:
