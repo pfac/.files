@@ -1,0 +1,5 @@
+---
+- name: Ensure the Gnome group is installed
+  become: yes
+  pacman:
+    name: gnome
