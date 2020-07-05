@@ -1,7 +1,0 @@
----
-- name: Ensure XRandR and ARandR are installed
-  pacman:
-    name:
-      - xorg-xrandr
-      - arandr
-  become: yes

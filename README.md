@@ -93,7 +93,6 @@ and ArchLinux.
   - [x] Configure Tilix from DConf file;
   - [ ] Update Tilix config from my preferences;
 - [ ] Displays
-  - [ ] Install arandr;
   - [ ] Load display profiles?
 - [ ] Location
   - [ ] Detect current location (via geolocation);
