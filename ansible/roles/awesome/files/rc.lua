@@ -83,7 +83,6 @@ myawesomemenu = {
 
 -- Settings menu
 settingsMenu = {
-   { "Bluetooth", "blueman-manager" },
    { "Sound", "pavucontrol" },
 }
 

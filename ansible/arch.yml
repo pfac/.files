@@ -7,8 +7,6 @@
     #     name: awesome
     - import_role:
         name: bash
-    #- import_role:
-    #   name: bluetooth
     - import_role:
         name: docker
     # - import_role:
