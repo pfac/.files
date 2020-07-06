@@ -1,5 +1,8 @@
 ---
-- name: Ensure the Gnome group is installed
+- name: Ensure the Gnome group and tools are installed
   become: yes
   pacman:
-    name: gnome
+    name:
+      - dconf-editor
+      - gnome
+      - gnome-tweaks
