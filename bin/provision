@@ -36,15 +36,15 @@ done
 case "$SYSTEM" in
   Darwin)
     echo '==> Provisioning macOS system with Ansible'
-    ansible-playbook ansible/macos.yml
+    ansible-playbook ansible/darwin.yml
     ;;
   Linux:Arch)
     echo '==> Provisioning Arch system with Ansible (sudo required)'
-    ansible-playbook $BECOME_ASK_PASS ansible/arch.yml
+    ansible-playbook $BECOME_ASK_PASS ansible/linux-arch.yml
     ;;
   Linux:Ubuntu)
     echo '==> Provisioning Ubuntu system with Ansible (sudo required)'
-    ansible-playbook $BECOME_ASK_PASS ansible/ubuntu.yml
+    ansible-playbook $BECOME_ASK_PASS ansible/linux-ubuntu.yml
     ;;
   *)
     echo "Current system '$SYSTEM' is not supported. Aborting" >&2

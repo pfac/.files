@@ -47,12 +47,12 @@ esac
 # Ensuring a package manager is available to install dependencies
 case "$SYSTEM" in
   Darwin)
-    if ! command -v brew >/dev/null; then
+    if command -v brew >/dev/null; then
+      echo '--- Homebrew already installed'
+    else
       echo '==> Installing HomeBrew'
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       echo '\o/ HomeBrew installed'
-    else
-      echo '--- Homebrew already installed'
     fi
     ;;
   Linux:Arch)
