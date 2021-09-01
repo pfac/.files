@@ -1,7 +1,0 @@
----
-- name: Ensure Avahi is installed
-  become: yes
-  pacman:
-    name:
-      - avahi
-  register: avahi_installation
