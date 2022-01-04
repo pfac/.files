@@ -13,8 +13,7 @@ case "$SYSTEM" in
   Linux)
     if [ -f /etc/os-release ]; then
       SYSTEM="$SYSTEM:$(sed -E '/^NAME=/!d;s/^NAME="([A-Za-z]*).*/\1/' /etc/os-release)"
-    fi
-    if [ -f /etc/lsb-release ]; then
+    elif [ -f /etc/lsb-release ]; then
       SYSTEM="$SYSTEM:$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)"
     fi
 esac
