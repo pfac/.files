@@ -28,7 +28,6 @@
 ######################
 *.log
 *.rdb
-*.sql
 *.sqlite
 *.rdb
 
@@ -46,6 +45,7 @@ Thumbs.db
 # Editor/IDE files #
 ####################
 .idea/
+.vscode/
 *.swp
 
 # debugging files #
