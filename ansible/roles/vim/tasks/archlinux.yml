@@ -1,5 +1,0 @@
----
-- name: Ensure Vim is installed
-  pacman:
-    name: vim
-  become: yes
