@@ -1,4 +1,0 @@
----
-- name: Ensure snapd is installed
-  aur:
-    name: snapd

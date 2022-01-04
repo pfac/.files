@@ -1,3 +1,0 @@
----
-- import_tasks: archlinux.yml
-  when: ansible_facts["os_family"] | lower == "archlinux"
