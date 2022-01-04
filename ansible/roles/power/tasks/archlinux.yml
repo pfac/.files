@@ -1,5 +1,0 @@
----
-- name: Ensure ACPI package is installed
-  become: yes
-  pacman:
-    name: acpi
