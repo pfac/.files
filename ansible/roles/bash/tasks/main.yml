@@ -1,6 +1,15 @@
 ---
-- import_tasks: archlinux.yml
+- name: Ensure Bash is installed (ArchLinux)
+  become: yes
+  pacman:
+    name: bash
   when: ansible_facts["os_family"] | lower == "archlinux"
+
+- name: Ensure Bash is installed (Debian)
+  become: yes
+  apt:
+    name: bash
+  when: ansible_facts["os_family"] | lower == "debian"
 
 - name: Ensure Bash user configs are up-to-date
   copy:

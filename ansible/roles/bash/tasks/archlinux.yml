@@ -1,5 +1,0 @@
----
-- name: Ensure Bash is installed
-  pacman:
-    name: bash
-  become: yes
