@@ -1,5 +1,0 @@
----
-- name: Ensure XScreensaver is installed
-  pacman:
-    name: xscreensaver
-  become: yes
