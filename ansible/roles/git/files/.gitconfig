@@ -1,11 +1,12 @@
 [user]
 	name = Pedro Costa
-	email = dev@iampfac.com
+	email = pfac@users.noreply.github.com
 [github]
 	user = pfac
 [core]
-	excludesfile = ~/.gitignore_global
 	autocrlf = input
+	editor = vim
+	excludesfile = ~/.gitignore_global
 [push]
 	default = current
 [alias]
@@ -21,7 +22,6 @@
 	pl = pull
 	rb = rebase
 	s  = status -s
-	pr = pull-request
 	root = !pwd
 
 [color]
