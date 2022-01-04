@@ -1,8 +1,0 @@
----
-- name: Ensure NetworkManager is installed
-  become: yes
-  pacman:
-    name:
-      - networkmanager
-      - networkmanager-openvpn
-      - nm-connection-editor
