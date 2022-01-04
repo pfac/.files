@@ -1,6 +1,0 @@
----
-dependencies:
-  # Need power utilities to be available for the battery widget
-  - role: power
-  # Need Rofi to set up the shortcuts that show it like macOS spotlight
-  - role: rofi

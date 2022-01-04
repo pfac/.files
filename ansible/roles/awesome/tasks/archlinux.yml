@@ -1,4 +1,0 @@
----
-- name: Ensure Awesome is installed
-  pacman:
-    name: awesome
