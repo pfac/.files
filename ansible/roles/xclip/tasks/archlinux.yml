@@ -1,5 +1,0 @@
----
-- name: Ensure xclip is installed
-  pacman:
-    name: xclip
-  become: yes
