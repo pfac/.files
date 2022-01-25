@@ -1,0 +1,12 @@
+---
+- name: Ensure xclip is installed (ArchLinux)
+  become: yes
+  pacman:
+    name: xclip
+  when: ansible_facts["os_family"] | lower == "archlinux"
+
+- name: Ensure xclip is installed (Debian)
+  become: yes
+  apt:
+    name: xclip
+  when: ansible_facts["os_family"] | lower == "debian"
