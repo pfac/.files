@@ -73,66 +73,6 @@ Depending on the system this will actually cause very distinct behaviours.
 Currently moving most things to reusable Ansible roles to support both Ubuntu
 and ArchLinux.
 
-:shopping_cart: ArchLinux:
-
-- [ ] Perform proper system cleanup
-  - [ ] Install `pacman-contrib`
-  - [ ] Create hook to perform cleanup after each Pacman transaction (see the
-  [docs](https://wiki.archlinux.org/index.php/Pacman#Cleaning_the_package_cache)
-  for details.
-- [ ] Awesome
-  - [ ] Disable shutdown on power button;
-- [ ] Custom keymap
-  - [ ] Make Caps-Lock a RCtrl;
-  - [ ] OSX-like international dead keys
-- [ ] Customize trackpad ([docs](https://wiki.archlinux.org/index.php/Libinput))
-  - [ ] Disable mid-click;
-  - [ ] Change right click to two-finger click;
-- [ ] Tilix
-  - [x] Create custom Ansible module to use DConf load;
-  - [x] Configure Tilix from DConf file;
-  - [ ] Update Tilix config from my preferences;
-- [ ] Displays
-  - [ ] Load display profiles?
-- [ ] Location
-  - [ ] Detect current location (via geolocation);
-- [ ] Time
-  - [ ] Synchronize system time via NTP;
-  - [ ] Change timezone to match location;
-  - [ ] Synchronize system time and hardware clock;
-- [ ] Redshift (blue light filter)
-  - [ ] Install it;
-  - [ ] Enable the user service and start it;
-  - [ ] Synchronize with current location;
-- [ ] PostgreSQL
-  - [ ] Install it;
-  - [ ] Initialize its directories
-    ```
-    $ sudo -u postgres initdb --locale <VALID_LOCALE> -D /var/lib/postgres/data
-    ```
-  - [ ] Create role for current user;
-- [ ] asdf-vm
-  - [ ] Install it'
-  - [ ] Install plugins:
-    - Erlang
-    - Elixir
-    - NodeJS
-    - Python
-    - Ruby
-    - Rust
-- [ ] Git prompt
-  - [ ] Install it from my repo;
-  - [ ] (Re-)Build it;
-  - [ ] Install it to `~/.local`;
-- [ ] Terraform
-  - [ ] Install it;
-- [ ] Discord
-  - [ ] Install it;
-- [ ] VSCodium
-  - [ ] Install it;
-  - [ ] Copy my configs;
-- Review system maintenance [docs](https://wiki.archlinux.org/index.php/System_maintenance).
-
 
 ## License
 

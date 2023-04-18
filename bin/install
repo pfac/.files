@@ -35,7 +35,7 @@ done
 
 # Ensuring system is supported
 case "$SYSTEM" in
-  Darwin|Linux:Arch|Linux:Ubuntu)
+  Darwin|Linux:Ubuntu)
     echo "--- Current system $SYSTEM is supported"
     ;;
   *)
@@ -52,12 +52,6 @@ case "$SYSTEM" in
       echo '==> Installing HomeBrew'
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       echo '\o/ HomeBrew installed'
-    fi
-    ;;
-  Linux:Arch)
-    if ! command -v pacman >/dev/null; then
-      echo 'Arch system is expected to have the pacman package manager. Aborting' >&2
-      exit 3
     fi
     ;;
   Linux:Ubuntu)
@@ -77,9 +71,6 @@ if ! command -v ansible >/dev/null; then
     Darwin)
       brew install ansible
       ;;
-    Linux:Arch)
-      $SUDO pacman -Sy ansible
-      ;;
     Linux:Ubuntu)
       $SUDO apt-get install -y -qq ansible
   esac
@@ -94,9 +85,6 @@ if ! command -v git >/dev/null; then
   case "$SYSTEM" in
     Darwin)
       brew install git
-      ;;
-    Linux:Arch)
-      $SUDO pacman -Sy git
       ;;
     Linux:Ubuntu)
       $SUDO apt-get install -y -qq git

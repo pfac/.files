@@ -16,9 +16,6 @@ esac
 
 # Cleanup the system
 case "$SYSTEM" in
-  Linux:Arch)
-    paccache -r
-    ;;
   Linux:Ubuntu)
     sudo apt autoremove
     ;;
