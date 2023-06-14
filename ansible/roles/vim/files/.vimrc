@@ -1,153 +1,217 @@
-" Leader
+" Use <Space> as leader
 let mapleader = " "
 
-" Global
-set autoindent      " enable automatic indentation
+" Disable Vi compatibility and make Vim a lot more useful.
+set nocompatible
 
-" Automatically read a file if changed elsewhere and not changed in buffer
+" Copy the indentation of the current line when starting a new one. If nothing
+" is typed, the indentation is removed.
+set autoindent
+
+" Automatically read changes made to the current file when it was changed
+" outside of Vim and was not changed inside of Vim (i.e. it does not overwrite
+" local changes made to the file.
 set autoread
 
-set backspace=2     " make backspace work like in modern editors
-set backupcopy=yes  " make sure the file is overwritten on save
-set background=dark " use dark background for color schemes
-set colorcolumn=80  " show the 80 column mark with a different color
-set expandtab       " expand tabs into spaces
-set foldmethod=syntax " enable folding, to be able to collapse blocks of code
-set foldlevel=10
-set hlsearch        " highlight search results
-set linebreak       " break line if a wrapping column is set
+" Allow <Backspace>, <Del>, Ctrl+W, and Ctrl+U, in INSERT mode.
+" - `indent` allows backspacing over autoindent
+" - `eol` allows backspacing over line breaks
+" - `start` allows backspacing over the star of INSERT.
+set backspace=eol,start,indent
+
+" Highlight the column #80, useful to know where to wrap comments.
+set colorcolumn=80
+
+" Highlight the current line.
+" set cursorline
+
+" Use Unicode to display text.
+set encoding=utf8
+
+" Use spaces instead of tabs by default. This may be overwritten by the file
+" type plugin.
+set expandtab
+
+" Use 'encoding' when writing new files, otherwise does not convert the
+" encoding the file already had.
+set fileencoding=""
+
+" Only fold automatically beyond the 100th level. This will essentially
+" prevent folding from happening automatically.
+set foldlevel=100
+"
+" Enable folding (collapsing sections of code) based on the syntax.
+set foldmethod=syntax
+
+" Highlight matches when searching.
+set hlsearch
+
+" Ignore case when searching. Use `\C` in the pattern to disable it
+" temporarily.
+set ignorecase
+
+" Show where the pattern will first match incrementally as it is typed.
+set incsearch
+
+" Use english for menus, regardless of what $LANG is set to.
+set langmenu=none
+
+" Always show the status line.
+set laststatus=2
+
+" Make white-space characters visible.
+set list
 set listchars=eol:¬,tab:⊢-,trail:·,extends:>,precedes:<,trail:·
-set list            " make white-space characters visible
-set modeline        " enable modelines (file specific editor settings)
-set modelines=5     " set the number of lines to search for modelines (from the
-                    " top)
-set mouse=a         " enable mouse
-set nocompatible    " remove Vi compatibility mode
-set ruler           " show cursor position
-set shiftwidth=2    " set indentation width (in spaces)
-set smartindent     " smarter automatic indentation
-set splitbelow      " when opening horizontal splits, place the cursor below
-set splitright      " when opening vertical splits, place the cursor on the
-                    " right
-set tabstop=2       " set tab width (in spaces)
-set wrap            " enable line wrapping
 
-"
-" Line numbering
-"
+" Turn magic on for regular expressions, which makes them work more like
+" proper modern regex.
+set magic
 
-" Enable line numbering
+" Highlight matching brackets for 0.2s
+set matchtime=2
+
+" Enable modelines (file specific editor configs).
+set modeline
+set modelines=5
+
+" Don't make a backup before overwriting a file. Git is usually enough to
+" prevent any problems.
+set nobackup
+
+" No bell sound on error.
+set noerrorbells
+
+" No visual bell on error
+set novisualbell
+
+" Don't make a backup before overwriting a file. Git is usually enough to
+" prevent any problems.
+set nowritebackup
+
+" Show line numbers.
 set number
+
+" Set the regular expression engine automatically. Vim will use a less
+" sophisticated but faster one when the regex is more demanding.
+set regexpengine=0
+
+" Show coordinates of the cursor position.
+set ruler
+
+" Highlight matching brackets when typing.
+set showmatch
+
+" Keep 10 lines visible above and below the cursor when scrolling.
+set scrolloff=10
+
+" Use 2-space indentation by default. This can be overwritten by the file type
+" plugin.
+set shiftwidth=2
+
+" Override `ignorecase` if the pattern contains upper case characters.
+set smartcase
+
+" Try to figure out the indentation for the file type.
+set smartindent
+
+" Make tabs insert the expected indentation at the end of the line.
+set smarttab
+
+" Enable spell checking. On code it only checks comments.
+set spell
+
+" If I'm using Vim, I'm probably writing in English.
+set spelllang=en
+
+" When splitting vertically, put the new window below the current one.
+set splitbelow
+
+" When splitting horizontally, put the new window on the right.
+set splitright
+
+" Use a swap file. 99% of the time this is useless when using Git, but with
+" really big files not using a swap file means everything will be kept in
+" memory.
+set swapfile
+
+" Use 2-space tabs by default. This may be overwritten by the file type
+" plugin.
+set tabstop=2
+
+" Allow <Backspace> and <Space> to move into other lines.
+set whichwrap=b,s
+
+" Enable file type detection, plugins and indent files.
+filetype plugin on
+filetype indent on
+
+" Use a nicer builtin color scheme than the default.
+color slate
+
+" Enable syntax highlight
+syntax on
+
+" Check whether the current file was changed when entering the buffer or
+" coming back to Vim.
+autocmd FocusGained,BufEnter * checktime
+
+" Highlight cursor line but only in the active window.
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+
+" Remove trailing white spaces on save.
+autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " Toggle hybrid numbering depending on context.
 "
-" On the current buffer, in normal mode, use hybrid numbering.
-"
-" On other buffers, or insert mode, use absolute numbering.
+" In the current buffer, in normal mode, use hybrid numbering. In other
+" buffers, or insert mode, use absolute numbering.
 "
 " Source:
 " - https://jeffkreeftmeijer.com/vim-number/
 " - Adapted for WinEnter/WinLeave
 "
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,WinEnter,FocusGained,InsertLeave * set relativenumber
-:  autocmd BufLeave,WinLeave,FocusLost,InsertEnter * set norelativenumber
+augroup ToggleHybridNumbering
+  autocmd!
+  autocmd BufEnter,WinEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,WinLeave,FocusLost,InsertEnter * set norelativenumber
 augroup END
 
-"
-" Color
-"
+" :W saves the file as sudo (useful for dealing with permission errors)
+command! W execute 'w !sudo tee % >/dev/null' <bar> edit!
 
-" Enable syntax highlight
-syntax enable
+" [NORMAL|INSERT] Ctrl+S saves the file (as any normal editor)
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <C-o>:w<CR>
 
-" Set color default scheme (ships with standard Vim)
-color desert
+" [NORMAL|INSERT] Alt+Up/Down moves the current line up/down
+nnoremap <M-Down> mz:m+<cr>`z
+nnoremap <M-Up> mz:m-2<cr>`z
+vnoremap <M-Down> :m'>+<cr>`<my`>mzgv`yo`z
+vnoremap <M-Up> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" Set custom color scheme (depends on plugin)
-silent! color pfac-hybrid
+" [VISUAL] * searches for the current selection
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 
-"
-" Key bindings
-"
-
-"   LeftArrow: go left, considering wrapping
-nnoremap <Left> gh
-"   DownArrow: go down, considering wrapping
-nnoremap <Down> gj
-"   UpArrow: go up, considering wrapping
-nnoremap <Up> gk
-"   RightArrow: go right, considering wrapping
-nnoremap <Right> gl
-"   Ctrl-H: go to window on the left
-nnoremap <C-h> <C-w><C-h>
-"   Ctrl-J: go to window below
-nnoremap <C-j> <C-w><C-j>
-"   Ctrl-K: go to window above
-nnoremap <C-k> <C-w><C-k>
-"   Ctrl-L: go to window on the right
-nnoremap <C-l> <C-w><C-l>
-
-"
-" Hooks
-"
-
-" -> Automatically remove all trailing whitespace on save
-autocmd BufWritePre <buffer> :%s/\s\+$//e
-
-"
-" Filetype plugins
-"
-
-" enable syntax specific preferences
-filetype plugin indent on
-
-"""
-"""
-"""   PLUGINS
-"""
-"""
-
+" Plugins
 call plug#begin()
 
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'hashivim/vim-terraform'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Use fzf for fuzzy search in predefined lists (files for instance)
+"
+" Ctrl+Shift+F  Search in all files (using ripgrep)
+" Ctrl+P        Search and open file.
+"
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'keith/tmux.vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-endwise'
-Plug 'w0ng/vim-hybrid'
-Plug 'w0rp/ale'
+
+nnoremap <C-p> :Files
 
 " Elixir
-Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'eelixir'] }
-Plug 'slashmili/alchemist.vim', { 'for': ['elixir', 'eelixir'] }
+"
+" Includes language support and automatic format on save.
+Plug 'elixir-editors/vim-elixir'
+Plug 'mhinz/vim-mix-format'
 
-" Rails, Middleman, web stuff
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
-
-" Rust
-Plug 'rust-lang/rust.vim'
-
-" TOML
-Plug 'cespare/vim-toml'
-
-" Typescript
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] }
-Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescriptreact'] }
+let g:mix_format_on_save = 1
 
 call plug#end()
-
-"""
-"""
-"""   POST PLUGINS
-"""
-"""
-
-" Set custom colorscheme
-color pfac-hybrid
