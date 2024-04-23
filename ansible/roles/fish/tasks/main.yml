@@ -1,0 +1,23 @@
+---
+- name: Ensure Fish is a valid user shell
+  become: yes
+  lineinfile:
+    path: /etc/shells
+    line: /opt/homebrew/bin/fish
+    state: present
+
+- name: Set Fish as the default user shell
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /opt/homebrew/bin/fish
+
+- name: Ensure Fish config directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config/fish"
+    state: directory
+
+- name: Ensure Fish config is up-to-date
+  copy:
+    src: config.fish
+    dest: "{{ lookup('env', 'HOME') }}/.config/fish/config.fish"

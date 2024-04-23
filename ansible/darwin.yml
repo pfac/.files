@@ -28,4 +28,5 @@
 
 - hosts: localhost
   roles:
+    - fish
     - mise
