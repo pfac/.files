@@ -19,5 +19,8 @@
 
 - name: Ensure Fish config is up-to-date
   copy:
-    src: config.fish
-    dest: "{{ lookup('env', 'HOME') }}/.config/fish/config.fish"
+    src: "{{ item }}"
+    dest: "{{ lookup('env', 'HOME') }}/.config/fish/"
+  with_items:
+    - config.fish
+    - functions
