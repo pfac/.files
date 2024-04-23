@@ -1,20 +1,10 @@
 ---
-- name: Ensure Git is installed (ArchLinux)
-  become: yes
-  pacman:
-    name: git
-  when: ansible_facts["os_family"] | lower == "archlinux"
-
-- name: Ensure Git is installed (Debian)
-  become: yes
-  apt:
-    name: git
-  when: ansible_facts["os_family"] | lower == "debian"
+- name: Ensure Git config directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config/git"
+    state: directory
 
 - name: Ensure Git config is up-to-date
   copy:
-    src: "{{ item }}"
-    dest: "{{ lookup('env', 'HOME') }}/{{ item }}"
-  with_items:
-    - .gitconfig
-    - .gitignore_global
+    src: ./
+    dest: "{{ lookup('env', 'HOME') }}/.config/git/"

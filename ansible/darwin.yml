@@ -30,4 +30,5 @@
 - hosts: localhost
   roles:
     - fish
+    - git
     - mise

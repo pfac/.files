@@ -6,7 +6,7 @@
 [core]
 	autocrlf = input
 	editor = vim
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/ignore
 [push]
 	default = current
 [alias]
