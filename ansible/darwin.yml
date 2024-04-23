@@ -18,6 +18,7 @@
         name:
           - ansible
           - bash
+          - bat
           - fish
           - git
           - gnupg
