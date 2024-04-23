@@ -1,7 +1,10 @@
+# Start ssh-agent
+eval (ssh-agent -c)
+
 # Load Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Load asdf/rtx
+# Load mise
 eval "$(mise activate fish)"
 
 if status is-interactive
