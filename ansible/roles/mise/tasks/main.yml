@@ -1,0 +1,5 @@
+---
+- name: Ensure global versions file is up-to-date
+  copy:
+    src: .tool-versions
+    dest: "{{ lookup('env', 'HOME') }}/.tool-versions"

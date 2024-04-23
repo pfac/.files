@@ -1,6 +1,12 @@
 ---
 - hosts: localhost
   tasks:
+    - name: Ensure current user has an SSH key
+      user:
+        name: "{{ ansible_user_id }}"
+        generate_ssh_key: yes
+        ssh_key_type: ed25519
+
     - name: Ensure Homebrew is up-to-date
       homebrew:
         update_homebrew: yes
@@ -19,3 +25,7 @@
           - tmux
           - vim
           - zsh
+
+- hosts: localhost
+  roles:
+    - mise
