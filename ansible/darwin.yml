@@ -10,15 +10,12 @@
     - name: Ensure Homebrew packages are installed
       homebrew:
         name:
-          - asdf
+          - ansible
           - bash
+          - fish
           - git
-          - neovim
-          - node
-          - python
-          - ruby
+          - gnupg
+          - mise
           - tmux
           - vim
           - zsh
-
-- import_playbook: common.yml
