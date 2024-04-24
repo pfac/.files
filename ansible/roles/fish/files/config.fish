@@ -1,6 +1,3 @@
-# Start ssh-agent
-eval (ssh-agent -c)
-
 # Load Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
