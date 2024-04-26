@@ -1,25 +1,17 @@
 ---
-- name: Ensure TMUX is installed (ArchLinux)
-  become: yes
-  pacman:
+- name: Ensure TMUX is installed
+  homebrew:
     name: tmux
-  when: ansible_facts["os_family"] | lower == "archlinux"
 
-- name: Ensure TMUX is installed (Debian)
-  become: yes
-  apt:
-    name: tmux
-  when: ansible_facts["os_family"] | lower == "debian"
-
-- name: Ensure ~/.tmux/plugins exists
+- name: Ensure ~/.config/tmux/plugins exists
   file:
     state: directory
-    path: "{{ lookup('env', 'HOME') }}/.tmux/plugins"
+    path: "{{ lookup('env', 'HOME') }}/.config/tmux/plugins"
 
 - name: Ensure TMUX Plugin Manager is up-to-date
   git:
     repo: "https://github.com/tmux-plugins/tpm"
-    dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
+    dest: "{{ lookup('env', 'HOME') }}/.config/tmux/plugins/tpm"
     version: master
   notify:
     - Source TMUX config
@@ -27,6 +19,6 @@
 - name: Ensure TMUX config is up-to-date
   copy:
     src: "tmux.conf"
-    dest: "{{ lookup('env', 'HOME') }}/.tmux.conf"
+    dest: "{{ lookup('env', 'HOME') }}/.config/tmux/tmux.conf"
   notify:
     - Source TMUX config

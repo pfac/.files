@@ -18,7 +18,6 @@
           - git
           - gnupg
           - mise
-          - tmux
           - vim
           - zsh
 
@@ -28,3 +27,4 @@
     - git
     - mise
     - ssh
+    - tmux

@@ -1,2 +1,2 @@
 - name: Source TMUX config
-  shell: if tmux info &>/dev/null; then tmux source ~/.tmux.conf; else true; fi
+  shell: if tmux info &>/dev/null; then tmux source ~/.config/tmux/tmux.conf; else true; fi
