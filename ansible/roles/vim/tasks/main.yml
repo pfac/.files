@@ -1,15 +1,7 @@
 ---
-- name: Ensure Vim is installed (ArchLinux)
-  become: yes
-  pacman:
+- name: Ensure Vim is installed
+  homebrew:
     name: vim
-  when: ansible_facts["os_family"] | lower == "archlinux"
-
-- name: Ensure Vim is installed (Debian)
-  become: yes
-  apt:
-    name: vim
-  when: ansible_facts["os_family"] | lower == "debian"
 
 - name: Ensure ~/.vim exists
   file:
