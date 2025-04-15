@@ -1,5 +1,5 @@
 [user]
-	name = Pedro Costa
+	name = @pfac
 	email = pfac@users.noreply.github.com
 [github]
 	user = pfac
@@ -29,6 +29,12 @@
 [branch]
 	autosetuprebase = always
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process
+
+[rebase]
+        autoSquash = true
+        autoStash = true
+        updateRefs = true
