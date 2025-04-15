@@ -1,9 +1,6 @@
 # Load Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Load mise
-eval "$(mise activate fish)"
-
 # Check if we're running in an interactive session
 if status is-interactive
     function fish_prompt
